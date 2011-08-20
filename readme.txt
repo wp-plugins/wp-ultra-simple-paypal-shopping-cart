@@ -12,7 +12,7 @@ Very easy to use Ultra Simple WordPress Paypal Shopping Cart Plugin. Great for s
 
 WordPress Ultra Simple Paypal Shopping Cart allows you to add an 'Add to Cart' button on any posts or pages. It also allows you to add/display the shopping cart on any post or page or sidebar easily.
 The shopping cart shows the user what they currently have in the cart and allows them to remove the items.
-WP Ultra simple Paypal Cart Plugin,  use PayPal API (you need to create a PayPal account : https://www.paypal.com/fr/mrb/pal=DKBDRZGU62JYC ).
+WP Ultra simple Paypal Cart Plugin,  use PayPal API (you need to create a PayPal account : https://www.paypal.com/ ).
 Added different features like PayPal sandbox test, Price Variations, interface text's personalization, CSS call for button and many other improvements and bug correction too.
 This plug-in is based on the based on Ruhul Amin's "Simple Paypal Shopping Cart" v3.2.3 http://www.tipsandtricks-hq.com/?p=768) 
 
@@ -67,6 +67,11 @@ Keyword list :
 == Screenshots ==
 * Visit the plugin site at http://www.ultra-prod.com/?p=86 for screenshots.
 * Support [Ultra Prod forum link](http://www.ultra-prod.com/developpement-support/wp-ultra-simple-paypal-shopping-cart-group3.0/ "Ulra Prod").
+* screenshot-1.png 
+* screenshot-2.png
+* screenshot-3.png
+* screenshot-4.png
+* screenshot-5.png
 
 == Changelog ==
 = 4.0.0 =
