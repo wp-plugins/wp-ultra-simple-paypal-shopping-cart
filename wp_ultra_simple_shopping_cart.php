@@ -197,10 +197,15 @@ else if ($_POST['delcart'])
 }
 
 function get_the_price( $pricestr ){
-	$pricearray = explode(",", $pricestr );
-	$price = $pricearray[1]; 
-	return $price;
-} 
+        $pos = stripos($pricestr, ",");
+        if ( $pos !== false ) {
+                $pricearray = explode(",", $pricestr );
+                $price = $pricearray[1];
+        } else { 
+                $price = $pricestr; 
+        }
+        return $price;
+}
 
 function get_the_name( $namestr ){
 
