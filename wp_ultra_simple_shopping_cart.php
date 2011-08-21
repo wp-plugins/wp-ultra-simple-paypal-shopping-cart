@@ -1131,7 +1131,7 @@ echo '
     </div>						
  </form>
  ';
-    echo (__("Like the WP Ultra Simple Paypal Shopping Cart Plugin?", "WUSPSC")).' <a href="http://wordpress.org/extend/plugins/wordpress-ultra-simple-paypal-shopping-cart" target="_blank">'.(__("Give it a good rating", "WUSPSC")).'</a>'; 
+    echo (__("Like the WP Ultra Simple Paypal Shopping Cart Plugin?", "WUSPSC")).' <a href="http://wordpress.org/extend/plugins/wp-ultra-simple-paypal-shopping-cart/" target="_blank">'.(__("Give it a good rating", "WUSPSC")).'</a>'; 
 }
 
 function wp_cart_options()
