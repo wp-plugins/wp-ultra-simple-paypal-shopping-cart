@@ -1,13 +1,13 @@
 <?php
 /*
 Plugin Name: WP Ultra simple Paypal Cart
-Version: v4.0.1
+Version: v4.1.0
 Plugin URI: http://www.ultra-prod.com/?p=86
 Author: Mike Castro Demaria
 Author URI: http://www.ultra-prod.com
 Description: WP Ultra simple Paypal Cart Plugin,  use PayPal API to easely add Shopping Cart in your post or your page (you need to <a href="https://www.paypal.com/fr/mrb/pal=DKBDRZGU62JYC">create a PayPal account</a>).
-Added differents features like PayPal sandbox test, Price Variations, interface text's personalization, CSS call for button and many other improvements and bugs corrections too.
-This plug-in is based on the based on Ruhul Amin's "Simple Paypal Shopping Cart" v3.2.3 http://www.tipsandtricks-hq.com/?p=768) .
+Different features are available like PayPal sandbox test, price Variations, shipping Variations, unlimited extra variations label, interface text's personalization, CSS call for button and many other improvements and bugs corrections too.
+This plug-in is based on the based on Ruhul Amin's "Simple Paypal Shopping Cart".
 */
 /*
     This program is free software; you can redistribute it
@@ -208,10 +208,19 @@ function get_the_price( $pricestr ){
 }
 
 function get_the_name( $namestr ){
-
-	if(preg_match("/\(([^\)]*)\).*/", $namestr, $matched)) {     
+	// clean the name of the idem to have a better display
+	if(preg_match("/\(([^\)]*)\).*/", $namestr, $matched)) { 
     	$namearray = explode(",", $matched[1] );
     	$name = str_ireplace ( $matched[1] , $namearray[0], $namestr );
+    	
+    	$nameVariationArray = explode(")(", $name );
+		
+		foreach ($nameVariationArray as $item) {
+			$nameSmallArray = explode(",", $item );
+    		//$name = str_ireplace ( $matched[1] , $namearray[0], $nameSmallArray );
+		}
+
+    	$name = str_ireplace ( ")(", " - ", $name );
 	} else {
 		$name = $namestr ;
 	}
@@ -312,7 +321,7 @@ function print_wp_shopping_cart()
 	    foreach ($_SESSION['ultraSimpleCart'] as $item)
 	    {
 	        $total += get_the_price($item['price']) * $item['quantity'];
-	        $item_total_shipping += $item['shipping'] * $item['quantity'];
+	        $item_total_shipping += get_the_price($item['shipping']) * $item['quantity'];
 	        $total_items +=  $item['quantity'];
 	    }
 		
@@ -388,6 +397,8 @@ function print_wp_shopping_cart()
        		<tr><td colspan='2' style='font-weight: bold; text-align: right;'>".get_option('total_text').": </td><td style='text-align: center'>".print_payment_currency(($total+$postage_cost), $paypal_symbol, $decimal, get_option('cart_currency_symbol_order'))."</td><td></td></tr>
        		<tr><td colspan='4'>";
        		
+       			// https://www.sandbox.paypal.com/cgi-bin/webscr (paypal testing site)
+				// https://www.paypal.com/us/cgi-bin/webscr (paypal live site )
        			if (get_option('is_sandbox') == "1") { $is_sandbox = "sandbox."; } else { $is_sandbox = ""; }
        
               	$output .= "<form action=\"https://www.".$is_sandbox."paypal.com/cgi-bin/webscr\" method=\"post\">$form";
@@ -414,8 +425,6 @@ function print_wp_shopping_cart()
     
     return $output;
 }
-// https://www.sandbox.paypal.com/cgi-bin/webscr (paypal testing site)
-// https://www.paypal.com/us/cgi-bin/webscr (paypal live site )
 
 function wp_cart_add_custom_field()
 {
@@ -436,8 +445,8 @@ function wp_cart_add_custom_field()
 
 function print_wp_cart_action($content)
 {
-	//wp_cart_add_read_form_javascript();
-        
+		//wp_cart_add_read_form_javascript();
+		
         $addcart = get_option('addToCartButtonName');    
         if (!$addcart || ($addcart == '') )
             $addcart = __("Add to Cart", "WUSPSC");
@@ -447,166 +456,48 @@ function print_wp_cart_action($content)
 
         foreach ($matches[0] as $match)
         {   
+        	
         	$var_output = '';
             $pos = strpos($match,":var1");
-			if ($pos)
-			{				
-				$match_tmp = $match;
-				// Variation control is used
-				$pos2 = strpos($match,":var2");
-				if ($pos2)
-				{
-					//echo '<br />'.$match_tmp.'<br />';
-					$pattern = '#var2\[.*]:#';
-				    preg_match_all ($pattern, $match_tmp, $matches3);
-				    $match3 = $matches3[0][0];
-				    //echo '<br />'.$match3.'<br />';
-				    $match_tmp = str_replace ($match3, '', $match_tmp);
-				    
-				    $pattern = 'var2[';
-				    $m3 = str_replace ($pattern, '', $match3);
-				    $pattern = ']:';
-				    $m3 = str_replace ($pattern, '', $m3);  
-				    $pieces3 = explode('|',$m3);
-			
-				    $variation2_name = $pieces3[0];
-				    $var_output .= $variation2_name." : ";
-				    $var_output .= '<select name="variation2" onchange="ReadForm (this.form, false);">';
-				    for ($i=1;$i<sizeof($pieces3); $i++)
-				    {
-				    	$var_output .= '<option value="'.$pieces3[$i].'">'.$pieces3[$i].'</option>';
-				    }
-				    $var_output .= '</select><br />';				    
-				}				
-			    
-			    $pattern = '#var1\[.*]:#';
-			    preg_match_all ($pattern, $match_tmp, $matches2);
-			    $match2 = $matches2[0][0];
-
-			    $match_tmp = str_replace ($match2, '', $match_tmp);
-
-				    $pattern = 'var1[';
-				    $m2 = str_replace ($pattern, '', $match2);
-				    $pattern = ']:';
-				    $m2 = str_replace ($pattern, '', $m2);  
-				    $pieces2 = explode('|',$m2);
-			
-				    $variation_name = $pieces2[0];
-				    $var_output .= $variation_name." : ";
-				    $var_output .= '<select name="variation1" onchange="ReadForm (this.form, false);">';
-				    for ($i=1;$i<sizeof($pieces2); $i++)
-				    {
-				    	$var_output .= '<option value="'.$pieces2[$i].'">'.$pieces2[$i].'</option>';
-				    }
-				    $var_output .= '</select><br />';				
-
-			}
-
-            $pattern = '[wp_cart:';
-            $m = str_replace ($pattern, '', $match);
             
-            $pattern = 'price:';
-            $m = str_replace ($pattern, '', $m);
-            $pattern = 'shipping:';
-            $m = str_replace ($pattern, '', $m);
-            $pattern = ':end]';
-            $m = str_replace ($pattern, '', $m);
-
-            $pieces = explode(':',$m);
             /*
-            echo("<pre>");
-            var_dump ( $pieces );
-    		echo("</pre>");
-    		*/
-    		/*
-    		echo("<pre>");
-            var_dump ( $_SESSION['ultraSimpleCart'] );
-    		echo("</pre>");
-    		*/
-                $replacement = '<object>';
-                $replacement .= '<form method="post" class="wp-cart-button-form" action="" style="display:inline" onsubmit="return ReadForm(this, true);">';             
-                if (!empty($var_output))
-                {
-                	$replacement .= $var_output;
-                }
-
-                $replacement .= '<input type="hidden" name="product" value="'.$pieces['0'].'" />';
-				
-				// test if the price is unique or have variation
-				/*
-				echo("<pre>");
-				preg_match('/\[(?P<label>\w+)/', $pieces['1'], $matches);
-				print_r($matches);
-				print_r($pieces['1']);
-    			echo("</pre>");
-				*/
-				// price variation combo
-                if ( preg_match('/\[(?P<label>\w+)/', $pieces['1']) ) {
-                	
-                	$priceVariation = str_replace('[','', $pieces['1']);
-                	$priceVariation = str_replace(']','', $priceVariation);
-                	$priceVariationArray = explode('|', $priceVariation);
-                	$variation_name = $priceVariationArray [0];
-                	
-                	$replacement .= $variation_name." : ".'<select class="price" name="price">';
-                	for ($i=1;$i<sizeof($priceVariationArray); $i++)
-				    {
-				    	$priceDigitAndWordArray = explode(',' , $priceVariationArray[$i]);
-				    	$replacement .= '<option value="'.$priceDigitAndWordArray[0].','.$priceDigitAndWordArray[1].'">'.$priceDigitAndWordArray[0].'</option>';
-				    }
-                	$replacement .= '</select>';
-                	
-                } 
-                elseif ($pieces['1'] != "" ) { 
-                	$replacement .= '<input type="hidden" name="price" value="'.$pieces['1'].'" />'; 
-                }
-                else { echo( _("Error: no price configured") ); }                
-                
-                $replacement .= '<input type="hidden" name="product_tmp" value="'.$pieces['0'].'" />';
-                if (sizeof($pieces) >2 )
-                {
-                	//we have shipping
-                	$replacement .= '<input type="hidden" name="shipping" value="'.$pieces['2'].'" />';
-                }
-                $replacement .= '<input type="hidden" name="cartLink" value="'.cart_current_page_url().'" />';
-                $replacement .= '<input type="hidden" name="addcart" value="1" />';
-
-				if (preg_match("/http/", $addcart)) // Use the image as the 'add to cart' button
-				{
-				    $replacement .= '<input class="image" type="image" src="'.$addcart.'" class="wp_cart_button" alt="'.(__("Add to Cart", "WUSPSC")).'"/>';
-				} 
-				else 
-				{
-				    $replacement .= '<input class="submit" type="submit" value="'.$addcart.'" />';
-				} 
-				
-				$replacement .= '</form>';
-				
-                $replacement .= '</object>';
-                $content = str_replace ($match, $replacement, $content);                
-        }
-        return $content;	
-}
-
-function print_wp_cart_button_new($content)
-{
-	//wp_cart_add_read_form_javascript();
-        
-        $addcart = get_option('addToCartButtonName');    
-        if (!$addcart || ($addcart == '') )
-            $addcart = __("Add to Cart", "WUSPSC");
+			/ free variation combo
+			*/
+            $isVariation = strpos($match,":var");
+            if($isVariation > 0){
+            	$match_tmp = $match;
             	
-        $pattern = '#\[wp_cart:.+:price:.+:end]#';
-        preg_match_all ($pattern, $content, $matches);
+            	$pattern = '#var.*\[.*]:#';
+				preg_match_all ($pattern, $match_tmp, $matchesVar);
 
-        foreach ($matches[0] as $match)
-        {   
-        	$var_output = '';
-            $pos = strpos($match,":var1");
+				$allVariationArray = explode(":", $matchesVar[0][0]);
+				
+				for ($i=0; $i<sizeof($allVariationArray) - 1; $i++)
+				{		
+
+					preg_match('/(?P<vname>\w+)\[([^\)]*)\].*/', $allVariationArray[$i], $variationMatches);
+					
+					$allVariationLabelArray = explode("|", $variationMatches[2]);
+					$variation_name = $allVariationLabelArray[0];
+					
+					$var_output .= $variation_name." : ";
+					$variationNameValue = $i + 1;
+					
+					$var_output .= '<select name="variation'.$variationNameValue.'" onchange="ReadForm (this.form, false);">';
+					for ($v=1; $v<sizeof( $allVariationLabelArray ); $v++)
+					{
+						$var_output .= '<option value="'.$allVariationLabelArray[$v].'">'.$allVariationLabelArray[$v].'</option>';
+					}
+					$var_output .= '</select><br />';
+				}
+            }
+            
+            /*
 			if ($pos)
 			{				
 				$match_tmp = $match;
 				// Variation control is used
+
 				$pos2 = strpos($match,":var2");
 				if ($pos2)
 				{
@@ -632,7 +523,7 @@ function print_wp_cart_button_new($content)
 				    }
 				    $var_output .= '</select><br />';				    
 				}				
-			    
+
 			    $pattern = '#var1\[.*]:#';
 			    preg_match_all ($pattern, $match_tmp, $matches2);
 			    $match2 = $matches2[0][0];
@@ -655,10 +546,10 @@ function print_wp_cart_button_new($content)
 				    $var_output .= '</select><br />';				
 
 			}
-
+			*/
+			
             $pattern = '[wp_cart:';
             $m = str_replace ($pattern, '', $match);
-            
             $pattern = 'price:';
             $m = str_replace ($pattern, '', $m);
             $pattern = 'shipping:';
@@ -667,35 +558,88 @@ function print_wp_cart_button_new($content)
             $m = str_replace ($pattern, '', $m);
 
             $pieces = explode(':',$m);
-    
-                $replacement = '<object>';
-                $replacement .= '<form method="post" class="wp-cart-button-form" action="" style="display:inline" onsubmit="return ReadForm(this, true);">';             
-                if (!empty($var_output))
-                {
-                	$replacement .= $var_output;
-                } 
-				                
-				if (preg_match("/http/", $addcart)) // Use the image as the 'add to cart' button
-				{
-				    $replacement .= '<input type="image" src="'.$addcart.'" class="wp_cart_button" alt="'.(__("Add to Cart", "WUSPSC")).'"/>';
-				} 
-				else 
-				{
-				    $replacement .= '<input type="submit" value="'.$addcart.'" />';
-				} 
+    		
+			$replacement = '<object>';
+			$replacement .= '<form method="post" class="wp-cart-button-form" action="" style="display:inline" onsubmit="return ReadForm(this, true);">';  
+			
+			if (!empty($var_output)){ $replacement .= $var_output; }
 
-                $replacement .= '<input type="hidden" name="product" value="'.$pieces['0'].'" />';
-                $replacement .= '<input type="hidden" name="price" value="'.$pieces['1'].'" />';
-                $replacement .= '<input type="hidden" name="product_tmp" value="'.$pieces['0'].'" />';
-                if (sizeof($pieces) >2 )
-                {
-                	//we have shipping
-                	$replacement .= '<input type="hidden" name="shipping" value="'.$pieces['2'].'" />';
-                }
-                $replacement .= '<input type="hidden" name="cartLink" value="'.cart_current_page_url().'" />';
-                $replacement .= '<input type="hidden" name="addcart" value="1" /></form>';
-                $replacement .= '</object>';
-                $content = str_replace ($match, $replacement, $content);                
+			$replacement .= '<input type="hidden" name="product" value="'.$pieces['0'].'" />';
+			
+			/*
+			/ price variation combo
+			/ test if the price is unique or have variation
+			*/
+			if ( preg_match('/\[(?P<label>\w+)/', $pieces['1']) ) {
+				
+				$priceVariation = str_replace('[','', $pieces['1']);
+				$priceVariation = str_replace(']','', $priceVariation);
+				$priceVariationArray = explode('|', $priceVariation);
+				$variation_name = $priceVariationArray [0];
+				
+				$replacement .= $variation_name." : ".'<select class="price" name="price">';
+				for ($i=1;$i<sizeof($priceVariationArray); $i++)
+				{
+					$priceDigitAndWordArray = explode(',' , $priceVariationArray[$i]);
+					$replacement .= '<option value="'.$priceDigitAndWordArray[0].','.$priceDigitAndWordArray[1].'">'.$priceDigitAndWordArray[0].'</option>';
+				}
+				$replacement .= '</select><br />';
+				
+			} 
+			elseif ($pieces['1'] != "" ) { 
+				$replacement .= '<input type="hidden" name="price" value="'.$pieces['1'].'" />'; 
+			}
+			else { echo( _("Error: no price configured") ); }                
+			
+			/* 
+			/ shipping variation combo
+			*/
+			
+			if (strpos($match,":shipping") > 0){
+				if ( preg_match('/\[(?P<label>\w+)/', $pieces['2']) ) {
+					
+					$shippingVariation = str_replace('[','', $pieces['2']);
+					$shippingVariation = str_replace(']','', $shippingVariation);
+					$shippingVariationArray = explode('|', $shippingVariation);
+					$variation_name = $shippingVariationArray [0];
+					
+					$replacement .= $variation_name." : ".'<select class="shipping" name="shipping">';
+					for ($i=1;$i<sizeof($shippingVariationArray); $i++)
+					{
+						$shippingDigitAndWordArray = explode(',' , $shippingVariationArray[$i]);
+						$replacement .= '<option value="'
+						.$shippingDigitAndWordArray[0].','
+						.$shippingDigitAndWordArray[1].'">'
+						.$shippingDigitAndWordArray[0].'</option>';
+					}
+					$replacement .= '</select><br />';
+					
+				} 
+				elseif ($pieces['2'] != "" ) { 
+					$replacement .= '<input type="hidden" name="shipping" value="'.$pieces['2'].'" />';
+				}
+			}
+			
+			/*
+			/ all missing hidden fields
+			*/
+			$replacement .= '<input type="hidden" name="product_tmp" value="'.$pieces['0'].'" />';
+			$replacement .= '<input type="hidden" name="cartLink" value="'.cart_current_page_url().'" />';
+			$replacement .= '<input type="hidden" name="addcart" value="1" />';
+
+			if (preg_match("/http/", $addcart)) // Use the image as the 'add to cart' button
+			{
+				$replacement .= '<input class="image" type="image" src="'.$addcart.'" class="wp_cart_button" alt="'.(__("Add to Cart", "WUSPSC")).'"/>';
+			} 
+			else 
+			{
+				$replacement .= '<input class="submit" type="submit" value="'.$addcart.'" />';
+			} 
+			
+			$replacement .= '</form>';
+			
+			$replacement .= '</object>';
+			$content = str_replace ($match, $replacement, $content);                
         }
         return $content;	
 }
@@ -739,21 +683,96 @@ function print_wp_cart_button_for_product($name, $price, $shipping=0)
         $addcart = get_option('addToCartButtonName');
     
         if (!$addcart || ($addcart == '') )
-            $addcart = __("Add to Cart", "WUSPSC");
-                  
+            $addcart = __("Add to Cart", "WUSPSC");               
 
-        $replacement = '<object><form method="post" class="wp-cart-button-form" action="" style="display:inline">';
-		if (preg_match("/http:/", $addcart)) // Use the image as the 'add to cart' button
-		{
-			$replacement .= '<input type="image" src="'.$addcart.'" class="wp_cart_button" alt="'.(__("Add to Cart", "WUSPSC")).'"/>';
-		} 
-		else 
-		{
-		    $replacement .= '<input type="submit" value="'.$addcart.'" />';
-		}             	      
+		 		$replacement = '<object>';
+                $replacement .= '<form method="post" class="wp-cart-button-form" action="" style="display:inline" onsubmit="return ReadForm(this, true);">';             
+                if (!empty($var_output))
+                {
+                	$replacement .= $var_output;
+                }
 
-        $replacement .= '<input type="hidden" name="product" value="'.$name.'" /><input type="hidden" name="price" value="'.$price.'" /><input type="hidden" name="shipping" value="'.$shipping.'" /><input type="hidden" name="addcart" value="1" /><input type="hidden" name="cartLink" value="'.cart_current_page_url().'" /></form></object>';
+                $replacement .= '<input type="hidden" name="product" value="'.$name.'" />';
+				
+				// test if the price is unique or have variation
+				/*
+				echo("<pre>");
+				preg_match('/\[(?P<label>\w+)/', $pieces['1'], $matches);
+				print_r($matches);
+    			echo("</pre>");
+				*/
+				// price variation combo
+                if ( preg_match('/\[(?P<label>\w+)/', $price) ) {
+                	
+                	$priceVariation = str_replace('[','', $price);
+                	$priceVariation = str_replace(']','', $priceVariation);
+                	$priceVariationArray = explode('|', $priceVariation);
+                	$variation_name = $priceVariationArray [0];
+                	
+                	$replacement .= $variation_name." : ".'<select class="price" name="price">';
+                	for ($i=1;$i<sizeof($priceVariationArray); $i++)
+				    {
+				    	$priceDigitAndWordArray = explode(',' , $priceVariationArray[$i]);
+				    	$replacement .= '<option value="'
+				    	.$priceDigitAndWordArray[0].','
+				    	.$priceDigitAndWordArray[1].'">'
+				    	.$priceDigitAndWordArray[0]
+				    	.'</option>';
+				    }
+                	$replacement .= '</select>';
+                	
+                } 
+                elseif ($pieces['1'] != "" ) { 
+                	$replacement .= '<input type="hidden" name="price" value="'.$price.'" />'; 
+                }
+                else { echo( _("Error: no price configured") ); }                
                 
+                if ($shipping != '' )
+                {
+                	/* 
+					/ shipping variation combo
+					*/
+					if ( preg_match('/\[(?P<label>\w+)/', $shipping) ) {
+						
+						$shippingVariation = str_replace('[','', $shipping);
+						$shippingVariation = str_replace(']','', $shippingVariation);
+						$shippingVariationArray = explode('|', $shippingVariation);
+						$variation_name = $shippingVariationArray [0];
+						
+						$replacement .= $variation_name." : ".'<select class="shipping" name="shipping">';
+						for ($i=1;$i<sizeof($shippingVariationArray); $i++)
+						{
+							$shippingDigitAndWordArray = explode(',' , $shippingVariationArray[$i]);
+							$replacement .= '<option value="'
+							.$shippingDigitAndWordArray[0].','
+							.$shippingDigitAndWordArray[1].'">'
+							.$shippingDigitAndWordArray[0].'</option>';
+						}
+						$replacement .= '</select>';
+					} 
+					elseif ( $shipping > 0 ) 
+					{ 
+						$replacement .= '<input type="hidden" name="shipping" value="'.$shipping.'" />';
+					}                	
+                }
+                
+                $replacement .= '<input type="hidden" name="product_tmp" value="'.$name.'" />';
+                $replacement .= '<input type="hidden" name="cartLink" value="'.cart_current_page_url().'" />';
+                $replacement .= '<input type="hidden" name="addcart" value="1" />';
+
+				if (preg_match("/http/", $addcart)) // Use the image as the 'add to cart' button
+				{
+				    $replacement .= '<input class="image" type="image" src="'.$addcart.'" class="wp_cart_button" alt="'.(__("Add to Cart", "WUSPSC")).'"/>';
+				} 
+				else 
+				{
+				    $replacement .= '<input class="submit" type="submit" value="'.$addcart.'" />';
+				} 
+				
+				$replacement .= '</form>';
+				
+                $replacement .= '</object>';   
+
         return $replacement;
 }
 
@@ -954,6 +973,12 @@ function show_wp_cart_options_page () {
 			<blockquote><?php _e("eg.", "WUSPSC"); ?> [wp_cart:<?php _e("Test Product", "WUSPSC"); ?>:price:[<?php _e("Size|Small,1.10|Medium,2.10|Large,3.10", "WUSPSC"); ?>]:end]</blockquote>
 		</ol>
 
+		<ol>
+			<?php _e("To use variation of the price and shipping use the following trigger text:", "WUSPSC"); ?><br />
+			<strong>[wp_cart:<?php _e("PRODUCT-NAME", "WUSPSC"); ?>:price:[<?php _e("VARIATION-NAME", "WUSPSC"); ?>|<?php _e("VARIATION-LABEL1", "WUSPSC"); ?>,<?php _e("VARIATION-PRICE1", "WUSPSC"); ?>|<?php _e("VARIATION-LABEL2", "WUSPSC"); ?>,<?php _e("VARIATION-PRICE2", "WUSPSC"); ?>]:shipping:[<?php _e("Shipping", "WUSPSC"); ?>|<?php _e("VARIATION-LABEL1", "WUSPSC"); ?>,<?php _e("VARIATION-PRICE1", "WUSPSC"); ?>]:end]</strong><br />
+			<blockquote><?php _e("eg.", "WUSPSC"); ?> [wp_cart:<?php _e("Test Product", "WUSPSC"); ?>:price:[<?php _e("Size|Small,1.10|Medium,2.10|Large,3.10", "WUSPSC"); ?>]:shipping:[<?php _e("Shipping|normal,6.50|fast,10.00", "WUSPSC"); ?>]:end]</blockquote>
+		</ol>
+
     	<ol>
     		<?php _e("To use variation control use the following trigger text:", "WUSPSC"); ?><br />
     		<strong>[wp_cart:<?php _e("PRODUCT-NAME", "WUSPSC"); ?>:price:<?php _e("PRODUCT-PRICE", "WUSPSC"); ?>:var1[<?php _e("VARIATION-NAME", "WUSPSC"); ?>|<?php _e("VARIATION1", "WUSPSC"); ?>|<?php _e("VARIATION2", "WUSPSC"); ?>|<?php _e("VARIATION3", "WUSPSC"); ?>]:end]</strong><br />
@@ -961,13 +986,13 @@ function show_wp_cart_options_page () {
     	</ol>
 
     	<ol>
-    		<?php _e("To use variation control with shipping use the following trigger text:", "WUSPSC"); ?><br />
+    		<?php _e("To use variation control with simple shipping use the following trigger text:", "WUSPSC"); ?><br />
     		<strong>[wp_cart:<?php _e("PRODUCT-NAME", "WUSPSC"); ?>:price:<?php _e("PRODUCT-PRICE", "WUSPSC"); ?>:shipping:<?php _e("SHIPPING-COST", "WUSPSC"); ?>:var1[<?php _e("VARIATION-NAME", "WUSPSC"); ?>|<?php _e("VARIATION1", "WUSPSC"); ?>|<?php _e("VARIATION2", "WUSPSC"); ?>|<?php _e("VARIATION3", "WUSPSC"); ?>]:end]</strong><br />
     		<blockquote><?php _e("eg.", "WUSPSC"); ?> [wp_cart:<?php _e("Test Product", "WUSPSC"); ?>:price:15:shipping:2:var1[<?php _e("Size|Small|Medium|Large", "WUSPSC"); ?>]:end]</blockquote>
     	</ol>
 
 		<ol>
-			<?php _e("To use multiple variation option use the following trigger text:", "WUSPSC"); ?><br />
+			<?php _e("To use multiple variation (unlimited variation) option use the following trigger text:", "WUSPSC"); ?><br />
 			<strong>[wp_cart:<?php _e("PRODUCT-NAME", "WUSPSC"); ?>:price:<?php _e("PRODUCT-PRICE", "WUSPSC"); ?>:var1[<?php _e("VARIATION-NAME", "WUSPSC"); ?>|<?php _e("VARIATION1", "WUSPSC"); ?>|<?php _e("VARIATION2", "WUSPSC"); ?>|<?php _e("VARIATION3", "WUSPSC"); ?>]:var2[<?php _e("VARIATION-NAME", "WUSPSC"); ?>|<?php _e("VARIATION1", "WUSPSC"); ?>|<?php _e("VARIATION2", "WUSPSC"); ?>]:end]</strong><br />
 			<blockquote><?php _e("eg.", "WUSPSC"); ?> [wp_cart:<?php _e("Test Product", "WUSPSC"); ?>:price:15:shipping:2:var1[<?php _e("Size|Small|Medium|Large", "WUSPSC"); ?>]:var2[<?php _e("Color|Red|Green", "WUSPSC"); ?>]:end]</blockquote>
 		</ol>
@@ -1201,7 +1226,6 @@ add_filter('plugin_action_links', 'wp_ultra_simple_cart_add_settings_link', 10, 
 add_action('admin_menu','wp_cart_options_page');
 add_action('init', 'widget_wp_paypal_shopping_cart_init');
 //add_filter('the_content', 'print_wp_cart_button',11);
-//add_filter('the_content', 'print_wp_cart_button_new',11);
 add_filter('the_content', 'print_wp_cart_action',11);
 
 add_filter('the_content', 'shopping_cart_show');
