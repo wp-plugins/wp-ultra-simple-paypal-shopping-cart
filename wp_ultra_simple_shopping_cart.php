@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Ultra simple Paypal Cart
-Version: v4.1.0
+Version: v4.1.1
 Plugin URI: http://www.ultra-prod.com/?p=86
 Author: Mike Castro Demaria
 Author URI: http://www.ultra-prod.com
@@ -58,6 +58,11 @@ function show_wp_shopping_cart_handler()
     {
        	$output = print_wp_shopping_cart();
     }
+    else 
+    {
+    	$output = get_the_empty_cart_content();
+    }
+    
     return $output;	
 }
 
@@ -173,13 +178,15 @@ else if ($_POST['cquantity'])
     $products = $_SESSION['ultraSimpleCart'];
     foreach ($products as $key => $item)
     {
-        if ((stripslashes($item['name']) == stripslashes($_POST['product'])) && $_POST['quantity'])
+        //if ((stripslashes($item['name']) == stripslashes($_POST['product'])) && $_POST['quantity'])
+        if ((get_the_name(stripslashes($item['name'])) == stripslashes($_POST['product'])) && $_POST['quantity'])
         {
             $item['quantity'] = $_POST['quantity'];
             unset($products[$key]);
             array_push($products, $item);
         }
-        else if (($item['name'] == stripslashes($_POST['product'])) && !$_POST['quantity'])
+        //else if (($item['name'] == stripslashes($_POST['product'])) && !$_POST['quantity'])
+        else if ((get_the_name(stripslashes($item['name'])) == stripslashes($_POST['product'])) && !$_POST['quantity'])
             unset($products[$key]);
     }
     sort($products);
@@ -228,30 +235,42 @@ function get_the_name( $namestr ){
 	return $name;
 } 
 
+function get_the_empty_cart_content()
+{
+
+	$wp_cart_visit_shop_text = get_option('wp_cart_visit_shop_text');
+	$empty_cart_text = get_option('wp_cart_empty_text');
+	    
+	if (!empty($empty_cart_text)) 
+	{
+	    if (preg_match("/http/", $empty_cart_text))
+	    {
+	    	$output .= '<img src="'.$empty_cart_text.'" alt="'.$empty_cart_text.'" />';
+	    }
+	    else
+	    {
+	    	$output .= $empty_cart_text;
+	    }			
+	}
+	
+	$cart_products_page_url = get_option('cart_products_page_url');
+	if (!empty($cart_products_page_url))
+	{
+	    $output .= '<br /><a rel="nofollow" href="'.$cart_products_page_url.'">'.$wp_cart_visit_shop_text.'</a>';
+	}		
+	
+	return $output;
+
+}
+
 function print_wp_shopping_cart()
 {
+
 	if (!cart_not_empty())
 	{
-	    $empty_cart_text = get_option('wp_cart_empty_text');
-	    $wp_cart_visit_shop_text = get_option('wp_cart_visit_shop_text');
-		if (!empty($empty_cart_text)) 
-		{
-			if (preg_match("/http/", $empty_cart_text))
-			{
-				$output .= '<img src="'.$empty_cart_text.'" alt="'.$empty_cart_text.'" />';
-			}
-			else
-			{
-				$output .= $empty_cart_text;
-			}			
-		}
-		$cart_products_page_url = get_option('cart_products_page_url');
-		if (!empty($cart_products_page_url))
-		{
-			$output .= '<br /><a rel="nofollow" href="'.$cart_products_page_url.'">'.$wp_cart_visit_shop_text.'</a>';
-		}		
-		return $output;
+	    $output = get_the_empty_cart_content();
 	}
+	
     $email = get_bloginfo('admin_email');
     $use_affiliate_platform = get_option('wp_use_aff_platform');   
     $defaultCurrency = get_option('cart_payment_currency');
@@ -348,25 +367,33 @@ function print_wp_shopping_cart()
 	    	$price = get_the_price( $item['price'] );
 	    	$name = get_the_name( $item['name'] );
 	    	
-	        $output .= "
-	        <tr><td style='overflow: hidden;'><a href='".$item['cartLink']."'>".$name."</a></td>
-	        <td style='text-align: center'><form method=\"post\"  action=\"\" name='pcquantity' style='display: inline'>
-                <input type=\"hidden\" name=\"product\" value=\"".$name."\" />
-
-	        <input type='hidden' name='cquantity' value='1' /><input type='text' name='quantity' value='".$item['quantity']."' size='1' onchange='document.pcquantity.submit();' onkeypress='document.getElementById(\"pinfo\").style.display = \"\";' /></form></td>
-	        <td style='text-align: center'>".print_payment_currency(($price * $item['quantity']), $paypal_symbol, $decimal, get_option('cart_currency_symbol_order'))."</td>
-	        <td><form method=\"post\"  action=\"\">
-	        <input type=\"hidden\" name=\"product\" value=\"".$item['name']."\" />
-	        <input type='hidden' name='delcart' value='1' />
-	        <input type='image' src='".WP_CART_URL."/images/Shoppingcart_delete.png' value='".get_option('remove_text')."' title='".get_option('remove_text')."' /></form></td></tr>
-	        ";
-	        
-	        $form .= "
-	            <input type=\"hidden\" name=\"item_name_$count\" value=\"".$name."\" />
-	            <input type=\"hidden\" name=\"amount_$count\" value='".$price."' />
-	            <input type=\"hidden\" name=\"quantity_$count\" value=\"".$item['quantity']."\" />
-	            <input type='hidden' name='item_number' value='".$item['item_number']."' />
-	        ";        
+			$output .= "
+			<tr>
+				<td style='overflow: hidden;'><a href='".$item['cartLink']."'>".$name."</a></td>
+				<td style='text-align: center'>
+					<form method=\"post\"  action=\"\" name='pcquantity' style='display: inline'>
+					<input type=\"hidden\" name=\"product\" value=\"".$name."\" />
+					<input type=\"hidden\" name=\"cquantity\" value=\"1\" />
+					<input type=\"text\" name=\"quantity\" value=\"".$item['quantity']."\" size=\"1\"  onchange=\"this.form.submit();\" onkeypress='document.getElementById(\"pinfo\").style.display = \"\";' />
+					</form>
+				</td>
+				<td style='text-align: center'>".print_payment_currency(($price * $item['quantity']), $paypal_symbol, $decimal, get_option('cart_currency_symbol_order'))."</td>
+				<td>
+					<form method=\"post\"  action=\"\">
+					<input type=\"hidden\" name=\"product\" value=\"".$item['name']."\" />
+					<input type='hidden' name='delcart' value='1' />
+					<input type='image' src='".WP_CART_URL."/images/Shoppingcart_delete.png' value='".get_option('remove_text')."' title='".get_option('remove_text')."' />
+					</form>
+				</td>
+			</tr>
+			";
+			
+			$form .= "
+				<input type=\"hidden\" name=\"item_name_$count\" value=\"".$name."\" />
+				<input type=\"hidden\" name=\"amount_$count\" value='".$price."' />
+				<input type=\"hidden\" name=\"quantity_$count\" value=\"".$item['quantity']."\" />
+				<input type='hidden' name='item_number' value='".$item['item_number']."' />
+			";     
 	        $count++;
 	    }
 	    if (!get_option('wp_shopping_cart_use_profile_shipping'))
@@ -491,62 +518,6 @@ function print_wp_cart_action($content)
 					$var_output .= '</select><br />';
 				}
             }
-            
-            /*
-			if ($pos)
-			{				
-				$match_tmp = $match;
-				// Variation control is used
-
-				$pos2 = strpos($match,":var2");
-				if ($pos2)
-				{
-					//echo '<br />'.$match_tmp.'<br />';
-					$pattern = '#var2\[.*]:#';
-				    preg_match_all ($pattern, $match_tmp, $matches3);
-				    $match3 = $matches3[0][0];
-				    //echo '<br />'.$match3.'<br />';
-				    $match_tmp = str_replace ($match3, '', $match_tmp);
-				    
-				    $pattern = 'var2[';
-				    $m3 = str_replace ($pattern, '', $match3);
-				    $pattern = ']:';
-				    $m3 = str_replace ($pattern, '', $m3);  
-				    $pieces3 = explode('|',$m3);
-			
-				    $variation2_name = $pieces3[0];
-				    $var_output .= $variation2_name." : ";
-				    $var_output .= '<select name="variation2" onchange="ReadForm (this.form, false);">';
-				    for ($i=1;$i<sizeof($pieces3); $i++)
-				    {
-				    	$var_output .= '<option value="'.$pieces3[$i].'">'.$pieces3[$i].'</option>';
-				    }
-				    $var_output .= '</select><br />';				    
-				}				
-
-			    $pattern = '#var1\[.*]:#';
-			    preg_match_all ($pattern, $match_tmp, $matches2);
-			    $match2 = $matches2[0][0];
-
-			    $match_tmp = str_replace ($match2, '', $match_tmp);
-
-				    $pattern = 'var1[';
-				    $m2 = str_replace ($pattern, '', $match2);
-				    $pattern = ']:';
-				    $m2 = str_replace ($pattern, '', $m2);  
-				    $pieces2 = explode('|',$m2);
-			
-				    $variation_name = $pieces2[0];
-				    $var_output .= $variation_name." : ";
-				    $var_output .= '<select name="variation1" onchange="ReadForm (this.form, false);">';
-				    for ($i=1;$i<sizeof($pieces2); $i++)
-				    {
-				    	$var_output .= '<option value="'.$pieces2[$i].'">'.$pieces2[$i].'</option>';
-				    }
-				    $var_output .= '</select><br />';				
-
-			}
-			*/
 			
             $pattern = '[wp_cart:';
             $m = str_replace ($pattern, '', $match);
@@ -623,6 +594,7 @@ function print_wp_cart_action($content)
 			/*
 			/ all missing hidden fields
 			*/
+			
 			$replacement .= '<input type="hidden" name="product_tmp" value="'.$pieces['0'].'" />';
 			$replacement .= '<input type="hidden" name="cartLink" value="'.cart_current_page_url().'" />';
 			$replacement .= '<input type="hidden" name="addcart" value="1" />';
@@ -678,6 +650,7 @@ function wp_cart_add_read_form_javascript()
 	//-->
 	</script>';	
 }
+
 function print_wp_cart_button_for_product($name, $price, $shipping=0)
 {
         $addcart = get_option('addToCartButtonName');
@@ -701,6 +674,7 @@ function print_wp_cart_button_for_product($name, $price, $shipping=0)
 				print_r($matches);
     			echo("</pre>");
 				*/
+				
 				// price variation combo
                 if ( preg_match('/\[(?P<label>\w+)/', $price) ) {
                 	
@@ -786,7 +760,9 @@ function cart_not_empty()
             return $count;
         }
         else
+        {
             return 0;
+        }
 }
 
 function print_payment_currency($price, $symbol, $decimal, $defaultSymbolOrder)
@@ -822,7 +798,7 @@ function cart_current_page_url() {
 }
 
 function show_wp_cart_options_page () {	
-	$wp_ultra_simple_paypal_shopping_cart_version = "4.0.0";
+	$wp_ultra_simple_paypal_shopping_cart_version = "4.1.1";
 	
     if (isset($_POST['info_update']))
     {
@@ -951,8 +927,28 @@ function show_wp_cart_options_page () {
         $wp_use_aff_platform = '';
                               
 	?>
- 	
- 	<h2><?php _e("WP Ultra Simple Shopping Cart Settings", "WUSPSC"); ?> v <?php echo $wp_ultra_simple_paypal_shopping_cart_version; ?></h2>
+	
+ 	<script type="text/javascript" charset="utf8" >
+	<!--
+	//
+	jQuery.noConflict();
+
+    jQuery(function($) {
+    	$(document).ready(function() {
+			$( "#tabs" ).tabs();
+		});
+    });
+   	//-->
+    </script>
+		
+	<div id="tabs">
+	<ul>
+		<li><a href="#tabs-1"><?php _e("Usage", "WUSPSC"); ?></a></li>
+		<li><a href="#tabs-2"><?php _e("Settings", "WUSPSC"); ?></a></li>
+	</ul>
+	
+	<div id="tabs-1">
+ 	<h2><div id="icon-edit-pages" class="icon32"></div><?php _e("WP Ultra Simple Shopping Cart Usage", "WUSPSC"); ?> v <?php echo $wp_ultra_simple_paypal_shopping_cart_version; ?></h2>
  	<p><?php _e("For information, updates and detailed documentation, please visit:", "WUSPSC"); ?> <a href="http://www.ultra-prod.com/?p=86">ultra-prod.com</a></p>
     <p><?php _e("For support, please use our dedicated forum:", "WUSPSC"); ?> <a href="http://www.ultra-prod.com/developpement-support/wp-ultra-simple-paypal-shopping-cart-group3.0/"><?php _e("WPUSPSC Support Forum", "WUSPSC"); ?></a></p>
 
@@ -1007,16 +1003,16 @@ function show_wp_cart_options_page () {
 	</p>
 	<p></p>
     </fieldset>
-
+    
+    </div>
+    
+	<div id="tabs-2">
+	<h2><div id="icon-options-general" class="icon32"></div><?php _e("WP Ultra Simple Shopping Cart Settings", "WUSPSC"); ?> v <?php echo $wp_ultra_simple_paypal_shopping_cart_version; ?></h2>
     <form method="post" action="<?php echo $_SERVER["REQUEST_URI"]; ?>">
     <input type="hidden" name="info_update" id="info_update" value="true" />    
- 	<?php
-echo '
-	<div class="postbox">
-	<h3><label for="title">'.(__("WP Ultra Simple Paypal Shopping Cart Settings", "WUSPSC")).'</label></h3>
-	<div class="inside">';
 
-echo '
+<?php echo '
+<div class="inside">
 <table class="form-table">
 <tr valign="top">
 <th scope="row">'.(__("Paypal Email Address", "WUSPSC")).'</th>
@@ -1024,7 +1020,7 @@ echo '
 </tr>
 <tr valign="top">
 <th scope="row">'.(__("Paypal Sandbox (cart is in test)", "WUSPSC")).'</th>
-<td>Test: <input type="radio" name="is_sandbox" value="1" '.$defaultSandboxChecked1.'/>&nbsp;Production: <input type="radio" name="is_sandbox" value="0" '.$defaultSandboxChecked2.'/><br /> You must open a free developer account to use sandbox for your tests before go live. Go to <a href="https://developer.paypal.com/">https://developer.paypal.com/</a>, register and connect.</td>
+<td>Test: <input type="radio" name="is_sandbox" value="1" '.$defaultSandboxChecked1.'/>&nbsp;Production: <input type="radio" name="is_sandbox" value="0" '.$defaultSandboxChecked2.'/><br /> You must open a free developer account to use sandbox for your tests before go live.<br /> Go to <a href="https://developer.paypal.com/">https://developer.paypal.com/</a>, register and connect.</td>
 </tr>
 <tr valign="top">
 <th scope="row">'.(__("Shopping Cart title", "WUSPSC")).'</th>
@@ -1133,30 +1129,27 @@ echo '
 <td><input type="checkbox" name="wp_shopping_cart_reset_after_redirection_to_return_page" value="1" '.$wp_shopping_cart_reset_after_redirection_to_return_page.' />
 <br />'.(__("If checked the shopping cart will be reset when the customer lands on the return URL (Thank You) page.", "WUSPSC")).'</td>
 </tr>
-</table>
 
-
-<table class="form-table">
 <tr valign="top">
 <th scope="row">'.(__("Hide Shopping Cart Image", "WUSPSC")).'</th>
 <td><input type="checkbox" name="wp_shopping_cart_image_hide" value="1" '.$wp_cart_image_hide.' /><br />'.(__("If ticked the shopping cart image will not be shown.", "WUSPSC")).'</td>
 </tr>
-</table>
 
-<table class="form-table">
 <tr valign="top">
 <th scope="row">'.(__("Use WP Affiliate Platform", "WUSPSC")).'</th>
 <td><input type="checkbox" name="wp_use_aff_platform" value="1" '.$wp_use_aff_platform.' />
 <br />'.(__("Check this if using with the", "WUSPSC")).' <a href="http://tipsandtricks-hq.com/?p=1474" target="_blank">Ruhul Amin WP Affiliate Platform plugin</a>. '.(__("This plugin lets you run your own affiliate campaign/program and allows you to reward (pay commission) your affiliates for referred sales", "WUSPSC")).'</td>
 </tr>
 </table>
-</div></div>
+</div>
     <div class="submit">
-        <input type="submit" name="info_update" value="'.(__("Update Options &raquo;", "WUSPSC")).'" />
+        <input type="submit" class="button-primary" name="info_update" value="'.(__("Update Options &raquo;", "WUSPSC")).'" />
     </div>						
  </form>
- ';
-    echo (__("Like the WP Ultra Simple Paypal Shopping Cart Plugin?", "WUSPSC")).' <a href="http://wordpress.org/extend/plugins/wp-ultra-simple-paypal-shopping-cart/" target="_blank">'.(__("Give it a good rating", "WUSPSC")).'</a>'; 
+ </div>
+</div>';
+ 
+  echo (__("Like the WP Ultra Simple Paypal Shopping Cart Plugin?", "WUSPSC")).' <a href="http://wordpress.org/extend/plugins/wp-ultra-simple-paypal-shopping-cart/" target="_blank">'.(__("Give it a good rating", "WUSPSC")).'</a>'; 
 }
 
 function wp_cart_options()
@@ -1206,11 +1199,6 @@ function widget_wp_paypal_shopping_cart_init()
     wp_register_widget_control('wp_paypal_shopping_cart_widgets', __("WP Ultra Simple Paypal Shopping Cart", "WUSPSC"), 'wp_paypal_shopping_cart_widget_control' );
 }
 
-function wp_cart_css()
-{
-    echo '<link type="text/css" rel="stylesheet" href="'.WP_CART_URL.'/wp_shopping_cart_style.css" />'."\n";
-}
-
 // Add the settings link
 function wp_ultra_simple_cart_add_settings_link($links, $file) 
 {
@@ -1231,9 +1219,41 @@ add_filter('the_content', 'print_wp_cart_action',11);
 add_filter('the_content', 'shopping_cart_show');
 
 add_shortcode('show_wp_shopping_cart', 'show_wp_shopping_cart_handler');
-
 add_shortcode('always_show_wp_shopping_cart', 'always_show_cart_handler');
 
-add_action('wp_head', 'wp_cart_css');
 add_action('wp_head', 'wp_cart_add_read_form_javascript');
+
+// add front-end CSS
+function wp_cart_css()
+{
+	$siteurl = get_option('siteurl');
+    $url = $siteurl . '/wp-content/plugins/' . basename(dirname(__FILE__)) . '/wp_ultra_simple_shopping_cart_style.css';
+    echo "<link rel='stylesheet' type='text/css' href='$url' />\n";
+}
+
+add_action('wp_head', 'wp_cart_css');
+
+// add admin CSS
+function admin_register_head_cart_css()
+{
+	$siteurl = get_option('siteurl');
+    $url = $siteurl . '/wp-content/plugins/' . basename(dirname(__FILE__)) . '/wp_ultra_simple_shopping_cart_admin_style.css';
+    echo "<link rel='stylesheet' type='text/css' href='{$url}' />\n";
+    
+    $ui_url = "http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.0/themes/smoothness/jquery-ui.css";
+    echo "<link rel='stylesheet' type='text/css' href='{$ui_url}' />\n";
+    
+    
+}
+
+add_action('admin_head', 'admin_register_head_cart_css');
+
+function load_scripts(){
+	wp_enqueue_script( 'jquery' );
+	wp_enqueue_script( 'jquery-ui-core' );
+	wp_enqueue_script( 'jquery-ui-tabs' );
+}
+
+add_action( 'admin_print_scripts', 'load_scripts' );
+
 ?>

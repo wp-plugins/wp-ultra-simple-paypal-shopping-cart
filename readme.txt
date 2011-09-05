@@ -4,7 +4,7 @@ Donate link: http://www.ultra-prod.com/?p=86
 Tags: WordPress shopping cart, PayPal API, Paypal shopping cart, online shop, shopping cart, wordpress ecommerce, sell digital products
 Requires at least: 2.6
 Tested up to: 3.2.1
-Stable tag:4.1.0
+Stable tag:4.1.1
 
 Very easy to use Ultra Simple WordPress Paypal Shopping Cart Plugin. Great for selling products or service online in one click with a simple shortcode in any post or page you like.
 
@@ -85,5 +85,8 @@ Keyword list :
 = 4.1.0 =
 * Add feature : Unlimited variations, shipping variation
 * Add translation : Spanish translated (automatic, please correcte it if you can).
+= 4.1.1 =
+* Bug correction : submit new Quantity dont work correctly when you use variation of the price (thanks polkan)
+* Bug correction : text "Your Cart is Empty" will display on the Checkout Page (thanks dannidar)
 
 
