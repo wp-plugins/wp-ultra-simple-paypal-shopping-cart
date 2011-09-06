@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: WP Ultra simple Paypal Cart
-Version: v4.1.1
+Version: v4.1.2
 Plugin URI: http://www.ultra-prod.com/?p=86
 Author: Mike Castro Demaria
 Author URI: http://www.ultra-prod.com
-Description: WP Ultra simple Paypal Cart Plugin,  use PayPal API to easely add Shopping Cart in your post or your page (you need to <a href="https://www.paypal.com/fr/mrb/pal=DKBDRZGU62JYC">create a PayPal account</a>).
+Description: WP Ultra simple Paypal Cart Plugin,  use PayPal API to easely add Shopping Cart in your post or your page (you need to <a href="https://www.paypal.com/fr/mrb/pal=CH4PZVAK2GJAJ">create a PayPal account</a>).
 Different features are available like PayPal sandbox test, price Variations, shipping Variations, unlimited extra variations label, interface text's personalization, CSS call for button and many other improvements and bugs corrections too.
 This plug-in is based on the based on Ruhul Amin's "Simple Paypal Shopping Cart".
 */
@@ -240,7 +240,9 @@ function get_the_empty_cart_content()
 
 	$wp_cart_visit_shop_text = get_option('wp_cart_visit_shop_text');
 	$empty_cart_text = get_option('wp_cart_empty_text');
-	    
+	
+	$output .= '<div id="empty-cart">';
+	
 	if (!empty($empty_cart_text)) 
 	{
 	    if (preg_match("/http/", $empty_cart_text))
@@ -249,15 +251,17 @@ function get_the_empty_cart_content()
 	    }
 	    else
 	    {
-	    	$output .= $empty_cart_text;
+	    	$output .= '<span class="empty-cart-text">'.$empty_cart_text.'</span>';
 	    }			
 	}
 	
 	$cart_products_page_url = get_option('cart_products_page_url');
 	if (!empty($cart_products_page_url))
 	{
-	    $output .= '<br /><a rel="nofollow" href="'.$cart_products_page_url.'">'.$wp_cart_visit_shop_text.'</a>';
+	    $output .= '<a rel="nofollow" href="'.$cart_products_page_url.'">'.$wp_cart_visit_shop_text.'</a>';
 	}		
+	
+	$output .= '</div>';
 	
 	return $output;
 
@@ -470,6 +474,25 @@ function wp_cart_add_custom_field()
 	}
 }
 
+function wuspc_strtolower_utf8($string){
+  $convert_to = array(
+    "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u",
+    "v", "w", "x", "y", "z", "à", "á", "â", "ã", "ä", "å", "æ", "ç", "è", "é", "ê", "ë", "ì", "í", "î", "ï",
+    "ð", "ñ", "ò", "ó", "ô", "õ", "ö", "ø", "ù", "ú", "û", "ü", "ý", "а", "б", "в", "г", "д", "е", "ё", "ж",
+    "з", "и", "й", "к", "л", "м", "н", "о", "п", "р", "с", "т", "у", "ф", "х", "ц", "ч", "ш", "щ", "ъ", "ы",
+    "ь", "э", "ю", "я"
+  );
+  $convert_from = array(
+    "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
+    "V", "W", "X", "Y", "Z", "À", "Á", "Â", "Ã", "Ä", "Å", "Æ", "Ç", "È", "É", "Ê", "Ë", "Ì", "Í", "Î", "Ï",
+    "Ð", "Ñ", "Ò", "Ó", "Ô", "Õ", "Ö", "Ø", "Ù", "Ú", "Û", "Ü", "Ý", "А", "Б", "В", "Г", "Д", "Е", "Ё", "Ж",
+    "З", "И", "Й", "К", "Л", "М", "Н", "О", "П", "Р", "С", "Т", "У", "Ф", "Х", "Ц", "Ч", "Ш", "Щ", "Ъ", "Ъ",
+    "Ь", "Э", "Ю", "Я"
+  );
+
+  return str_replace($convert_from, $convert_to, str_replace(" ","-",$string));
+} 
+
 function print_wp_cart_action($content)
 {
 		//wp_cart_add_read_form_javascript();
@@ -507,7 +530,7 @@ function print_wp_cart_action($content)
 					$allVariationLabelArray = explode("|", $variationMatches[2]);
 					$variation_name = $allVariationLabelArray[0];
 					
-					$var_output .= $variation_name." : ";
+					$var_output .= '<label class="'.wuspc_strtolower_utf8($variation_name).'">'.$variation_name.' :</label>';
 					$variationNameValue = $i + 1;
 					
 					$var_output .= '<select name="variation'.$variationNameValue.'" onchange="ReadForm (this.form, false);">';
@@ -531,7 +554,7 @@ function print_wp_cart_action($content)
             $pieces = explode(':',$m);
     		
 			$replacement = '<object>';
-			$replacement .= '<form method="post" class="wp-cart-button-form" action="" style="display:inline" onsubmit="return ReadForm(this, true);">';  
+			$replacement .= '<form method="post" id="wp-cart-button-form" class="wp-cart-button-form '.wuspc_strtolower_utf8($pieces['0']).'" action="" onsubmit="return ReadForm(this, true);">';  
 			
 			if (!empty($var_output)){ $replacement .= $var_output; }
 
@@ -548,7 +571,7 @@ function print_wp_cart_action($content)
 				$priceVariationArray = explode('|', $priceVariation);
 				$variation_name = $priceVariationArray [0];
 				
-				$replacement .= $variation_name." : ".'<select class="price" name="price">';
+				$replacement .= '<label class="'.wuspc_strtolower_utf8($variation_name).'">'.$variation_name.' :</label><select class="price" name="price">';
 				for ($i=1;$i<sizeof($priceVariationArray); $i++)
 				{
 					$priceDigitAndWordArray = explode(',' , $priceVariationArray[$i]);
@@ -574,7 +597,7 @@ function print_wp_cart_action($content)
 					$shippingVariationArray = explode('|', $shippingVariation);
 					$variation_name = $shippingVariationArray [0];
 					
-					$replacement .= $variation_name." : ".'<select class="shipping" name="shipping">';
+					$replacement .= '<label class="'.wuspc_strtolower_utf8($variation_name).'">'.$variation_name.' :</label><select class="shipping" name="shipping">';
 					for ($i=1;$i<sizeof($shippingVariationArray); $i++)
 					{
 						$shippingDigitAndWordArray = explode(',' , $shippingVariationArray[$i]);
@@ -659,7 +682,7 @@ function print_wp_cart_button_for_product($name, $price, $shipping=0)
             $addcart = __("Add to Cart", "WUSPSC");               
 
 		 		$replacement = '<object>';
-                $replacement .= '<form method="post" class="wp-cart-button-form" action="" style="display:inline" onsubmit="return ReadForm(this, true);">';             
+                $replacement .= '<form method="post" id="wp-cart-button-form" class="wp-cart-button-form '.wuspc_strtolower_utf8($name).'" action="" onsubmit="return ReadForm(this, true);">';             
                 if (!empty($var_output))
                 {
                 	$replacement .= $var_output;
@@ -683,7 +706,7 @@ function print_wp_cart_button_for_product($name, $price, $shipping=0)
                 	$priceVariationArray = explode('|', $priceVariation);
                 	$variation_name = $priceVariationArray [0];
                 	
-                	$replacement .= $variation_name." : ".'<select class="price" name="price">';
+                	$replacement .= '<label class="'.wuspc_strtolower_utf8($variation_name).'">'.$variation_name.' :</label><select class="price" name="price">';
                 	for ($i=1;$i<sizeof($priceVariationArray); $i++)
 				    {
 				    	$priceDigitAndWordArray = explode(',' , $priceVariationArray[$i]);
@@ -713,7 +736,7 @@ function print_wp_cart_button_for_product($name, $price, $shipping=0)
 						$shippingVariationArray = explode('|', $shippingVariation);
 						$variation_name = $shippingVariationArray [0];
 						
-						$replacement .= $variation_name." : ".'<select class="shipping" name="shipping">';
+						$replacement .= '<label class="'.wuspc_strtolower_utf8($variation_name).'">'.$variation_name.' :</label><select class="shipping" name="shipping">';
 						for ($i=1;$i<sizeof($shippingVariationArray); $i++)
 						{
 							$shippingDigitAndWordArray = explode(',' , $shippingVariationArray[$i]);
@@ -797,8 +820,20 @@ function cart_current_page_url() {
  return $pageURL;
 }
 
+function wuspc_detect_language() {
+    $langcode = explode(";", $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+    $langcode = explode(",", $langcode['0']);
+    
+    if ( $langcode['0'] != "en_US" || $langcode['0'] != "en_GB" || $langcode['0'] != "fr_FR" || $langcode['0'] != "de_DE" || $langcode['0'] != "es_ES" ) {
+    	return "en_US";
+    } else {
+    	return str_replace("-","_", $langcode['0']);
+    }
+
+}
+
 function show_wp_cart_options_page () {	
-	$wp_ultra_simple_paypal_shopping_cart_version = "4.1.1";
+	$wp_ultra_simple_paypal_shopping_cart_version = "4.1.2";
 	
     if (isset($_POST['info_update']))
     {
@@ -945,6 +980,7 @@ function show_wp_cart_options_page () {
 	<ul>
 		<li><a href="#tabs-1"><?php _e("Usage", "WUSPSC"); ?></a></li>
 		<li><a href="#tabs-2"><?php _e("Settings", "WUSPSC"); ?></a></li>
+		<li><a href="#tabs-3"><?php _e("About", "WUSPSC"); ?></a></li>
 	</ul>
 	
 	<div id="tabs-1">
@@ -953,7 +989,7 @@ function show_wp_cart_options_page () {
     <p><?php _e("For support, please use our dedicated forum:", "WUSPSC"); ?> <a href="http://www.ultra-prod.com/developpement-support/wp-ultra-simple-paypal-shopping-cart-group3.0/"><?php _e("WPUSPSC Support Forum", "WUSPSC"); ?></a></p>
 
     <fieldset class="options">
-		<p><h4><a href="https://www.paypal.com/fr/mrb/pal=DKBDRZGU62JYC"><?php _e("1. create a PayPal account (no cost for basic account)", "WUSPSC"); ?></a></h4>
+		<p><h4><a href="https://www.paypal.com/fr/mrb/pal=CH4PZVAK2GJAJ"><?php _e("1. create a PayPal account (no cost for basic account)", "WUSPSC"); ?></a></h4>
 			
         <p><h4><?php _e("2. Create post or page presenting the product or service and add caddy shortcode in the post. See example and possibilities following:", "WUSPSC"); ?></h4>
     <ul>
@@ -1005,7 +1041,36 @@ function show_wp_cart_options_page () {
     </fieldset>
     
     </div>
-    
+
+<?php
+
+$imagePath = WP_PLUGIN_URL."/wp-ultra-simple-paypal-shopping-cart/images/";
+$language = wuspc_detect_language();
+
+echo '<div id="tabs-3">
+<h2><div id="icon-users" class="icon32"></div>'.(__("Do you like WUSPSC ?", "WUSPSC")).'</h2>
+<p><a href="http://wordpress.org/extend/plugins/wp-ultra-simple-paypal-shopping-cart/" target="_blank">'.(__("If you like WUSPSC, give it a good rating", "WUSPSC")).'</a>'.(__(" and please consider to donate a few $, &#8364; or &pound; to help me to give time for user&#8217;s support, add new features and fast upgrades.", "WUSPSC")).'</p>
+<p>
+<form class="donate" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="AXQNVXNYWUEZ4">
+<input type="image" src="https://www.paypalobjects.com/'.$language.'/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif" width="1" height="1">
+</form>
+</p>
+<p>'.(__("Or if you like down-tempo / ambiant / electronic music, you can buy a few tracks from one of my CD on Amazon.", "WUSPSC")).'</p>
+<p>
+<ul>
+	<li><a href="http://www.amazon.com/s/ref=ntt_srch_drd_B001L5OJSM?ie=UTF8&search-type=ss&index=digital-music&field-keywords=Mike%20Castro%20de%20Maria" target="_blank">Amazon US</a><li>
+	<li><a href="http://www.amazon.co.uk/s/ref=ntt_srch_drd_B001L5OJSM?ie=UTF8&search-type=ss&index=digital-music&field-keywords=Mike%20Castro%20de%20Maria" target="_blank">Amazon UK</a><li>
+	<li><a href="http://www.amazon.de/s/ref=ntt_srch_drd_B001L5OJSM?ie=UTF8&search-type=ss&index=digital-music&field-keywords=Mike%20Castro%20de%20Maria" target="_blank">Amazon DE</a><li>
+	<li><a href="http://www.amazon.fr/s/ref=ntt_srch_drd_B001L5OJSM?ie=UTF8&search-type=ss&index=digital-music&field-keywords=Mike%20Castro%20de%20Maria" target="_blank">Amazon FR</a><li>
+</ul>
+<img src="'.$imagePath.'41dK4t7R6OL._SL500_SS110_.jpg" /><img src="'.$imagePath.'41RTkTKGzRL._SL500_SS110_.jpg" /><img src="'.$imagePath.'51oggSX6F0L._SL500_SS110_.jpg" /><img src="'.$imagePath.'51xQJmJpwuL._SL500_SS110_.jpg" />
+</p>
+<p>'.(__("Thanks a lot for your support !!!", "WUSPSC")).'<p>
+</div>';
+?>   
 	<div id="tabs-2">
 	<h2><div id="icon-options-general" class="icon32"></div><?php _e("WP Ultra Simple Shopping Cart Settings", "WUSPSC"); ?> v <?php echo $wp_ultra_simple_paypal_shopping_cart_version; ?></h2>
     <form method="post" action="<?php echo $_SERVER["REQUEST_URI"]; ?>">
@@ -1148,7 +1213,7 @@ function show_wp_cart_options_page () {
  </form>
  </div>
 </div>';
- 
+
   echo (__("Like the WP Ultra Simple Paypal Shopping Cart Plugin?", "WUSPSC")).' <a href="http://wordpress.org/extend/plugins/wp-ultra-simple-paypal-shopping-cart/" target="_blank">'.(__("Give it a good rating", "WUSPSC")).'</a>'; 
 }
 
@@ -1224,17 +1289,17 @@ add_shortcode('always_show_wp_shopping_cart', 'always_show_cart_handler');
 add_action('wp_head', 'wp_cart_add_read_form_javascript');
 
 // add front-end CSS
-function wp_cart_css()
+function wuspsc_cart_css()
 {
 	$siteurl = get_option('siteurl');
     $url = $siteurl . '/wp-content/plugins/' . basename(dirname(__FILE__)) . '/wp_ultra_simple_shopping_cart_style.css';
     echo "<link rel='stylesheet' type='text/css' href='$url' />\n";
 }
 
-add_action('wp_head', 'wp_cart_css');
+add_action('wp_head', 'wuspsc_cart_css');
 
 // add admin CSS
-function admin_register_head_cart_css()
+function wuspsc_admin_register_head_cart_css()
 {
 	$siteurl = get_option('siteurl');
     $url = $siteurl . '/wp-content/plugins/' . basename(dirname(__FILE__)) . '/wp_ultra_simple_shopping_cart_admin_style.css';
@@ -1246,14 +1311,14 @@ function admin_register_head_cart_css()
     
 }
 
-add_action('admin_head', 'admin_register_head_cart_css');
+add_action('admin_head', 'wuspsc_admin_register_head_cart_css');
 
-function load_scripts(){
+function wuspsc_load_scripts(){
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'jquery-ui-core' );
 	wp_enqueue_script( 'jquery-ui-tabs' );
 }
 
-add_action( 'admin_print_scripts', 'load_scripts' );
+add_action( 'admin_print_scripts', 'wuspsc_load_scripts' );
 
 ?>
