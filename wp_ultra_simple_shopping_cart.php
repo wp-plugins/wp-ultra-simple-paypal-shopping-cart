@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Ultra simple Paypal Cart
-Version: v4.1.2
+Version: v4.1.2.1
 Plugin URI: http://www.ultra-prod.com/?p=86
 Author: Mike Castro Demaria
 Author URI: http://www.ultra-prod.com
@@ -719,7 +719,7 @@ function print_wp_cart_button_for_product($name, $price, $shipping=0)
                 	$replacement .= '</select>';
                 	
                 } 
-                elseif ($pieces['1'] != "" ) { 
+                elseif ($price != "" ) { 
                 	$replacement .= '<input type="hidden" name="price" value="'.$price.'" />'; 
                 }
                 else { echo( _("Error: no price configured") ); }                
