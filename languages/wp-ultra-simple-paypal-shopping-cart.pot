@@ -1,0 +1,504 @@
+# Copyright (C) 2010 
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version:  \n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-ultra-simple-paypal-"
+"shopping-cart\n"
+"POT-Creation-Date: 2011-09-06 15:20:42+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: wp_ultra_simple_shopping_cart.php:33
+msgid "Your Shopping Cart"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:34
+msgid "Your cart is empty"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:36
+msgid "Visit The Shop"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:37
+msgid "Hit enter to submit new Quantity."
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:38
+msgid "Subtotal"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:39 wp_ultra_simple_shopping_cart.php:974
+msgid "Shipping"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:40
+msgid "Total"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:41
+msgid "Item Name"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:42
+msgid "Quantity"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:43
+msgid "Price"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:44
+msgid "Remove"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:166
+msgid ""
+"Shopping Cart Configuration Error! You must specify a value in the 'Checkout "
+"Page URL' field for the automatic redirection feature to work!"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:282 wp_ultra_simple_shopping_cart.php:849
+msgid "USD"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:286 wp_ultra_simple_shopping_cart.php:852
+msgid "$"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:315
+msgid "Cart"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:433
+msgid "paypal_checkout_EN.png"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:433
+msgid "Make payments with PayPal - it\\'s fast, free and secure!"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:479 wp_ultra_simple_shopping_cart.php:604
+#: wp_ultra_simple_shopping_cart.php:659 wp_ultra_simple_shopping_cart.php:739
+#: wp_ultra_simple_shopping_cart.php:873
+msgid "Add to Cart"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:563 wp_ultra_simple_shopping_cart.php:702
+msgid "Error: no price configured"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:845
+msgid "Options Updated!"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:946
+msgid "Usage"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:947
+#: wp_ultra_simple_shopping_cart.php:1206
+msgid "Settings"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:951
+msgid "WP Ultra Simple Shopping Cart Usage"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:952
+msgid "For information, updates and detailed documentation, please visit:"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:953
+msgid "For support, please use our dedicated forum:"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:953
+msgid "WPUSPSC Support Forum"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:956
+msgid "1. create a PayPal account (no cost for basic account)"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:958
+msgid ""
+"2. Create post or page presenting the product or service and add caddy "
+"shortcode in the post. See example and possibilities following:"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:961
+msgid ""
+"To add the 'Add to Cart' button simply add the trigger text to a post or "
+"page, next to the product. Replace PRODUCT-NAME and PRODUCT-PRICE with the "
+"actual name and price."
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:962 wp_ultra_simple_shopping_cart.php:968
+#: wp_ultra_simple_shopping_cart.php:974 wp_ultra_simple_shopping_cart.php:980
+#: wp_ultra_simple_shopping_cart.php:986 wp_ultra_simple_shopping_cart.php:992
+msgid "PRODUCT-NAME"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:962 wp_ultra_simple_shopping_cart.php:980
+#: wp_ultra_simple_shopping_cart.php:986 wp_ultra_simple_shopping_cart.php:992
+msgid "PRODUCT-PRICE"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:963 wp_ultra_simple_shopping_cart.php:969
+#: wp_ultra_simple_shopping_cart.php:975 wp_ultra_simple_shopping_cart.php:981
+#: wp_ultra_simple_shopping_cart.php:987 wp_ultra_simple_shopping_cart.php:993
+msgid "eg."
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:963 wp_ultra_simple_shopping_cart.php:969
+#: wp_ultra_simple_shopping_cart.php:975 wp_ultra_simple_shopping_cart.php:981
+#: wp_ultra_simple_shopping_cart.php:987 wp_ultra_simple_shopping_cart.php:993
+msgid "Test Product"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:967
+msgid "To use variation of the price use the following trigger text:"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:968 wp_ultra_simple_shopping_cart.php:974
+#: wp_ultra_simple_shopping_cart.php:980 wp_ultra_simple_shopping_cart.php:986
+#: wp_ultra_simple_shopping_cart.php:992
+msgid "VARIATION-NAME"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:968 wp_ultra_simple_shopping_cart.php:974
+msgid "VARIATION-LABEL1"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:968 wp_ultra_simple_shopping_cart.php:974
+msgid "VARIATION-PRICE1"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:968 wp_ultra_simple_shopping_cart.php:974
+msgid "VARIATION-LABEL2"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:968 wp_ultra_simple_shopping_cart.php:974
+msgid "VARIATION-PRICE2"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:969 wp_ultra_simple_shopping_cart.php:975
+msgid "Size|Small,1.10|Medium,2.10|Large,3.10"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:973
+msgid ""
+"To use variation of the price and shipping use the following trigger text:"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:975
+msgid "Shipping|normal,6.50|fast,10.00"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:979
+msgid "To use variation control use the following trigger text:"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:980 wp_ultra_simple_shopping_cart.php:986
+#: wp_ultra_simple_shopping_cart.php:992
+msgid "VARIATION1"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:980 wp_ultra_simple_shopping_cart.php:986
+#: wp_ultra_simple_shopping_cart.php:992
+msgid "VARIATION2"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:980 wp_ultra_simple_shopping_cart.php:986
+#: wp_ultra_simple_shopping_cart.php:992
+msgid "VARIATION3"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:985
+msgid ""
+"To use variation control with simple shipping use the following trigger text:"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:986
+msgid "SHIPPING-COST"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:987 wp_ultra_simple_shopping_cart.php:993
+msgid "Size|Small|Medium|Large"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:991
+msgid ""
+"To use multiple variation (unlimited variation) option use the following "
+"trigger text:"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:993
+msgid "Color|Red|Green"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:998
+msgid ""
+"3. To add the shopping cart to a post or page (eg. checkout page) simply add "
+"the shortcode"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1000
+msgid "To display checkout to a post or page, simply add the shortcode"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1001
+msgid "Or use the sidebar widget to add the shopping cart to the sidebar."
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1010
+msgid "WP Ultra Simple Shopping Cart Settings"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1018
+msgid "Paypal Email Address"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1022
+msgid "Paypal Sandbox (cart is in test)"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1026
+msgid "Shopping Cart title"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1030
+msgid "Text/Image to Show When Cart Empty"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1031
+msgid ""
+"You can either enter plain text or the URL of an image that you want to show "
+"when the shopping cart is empty"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1034
+msgid "Currency"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1035
+#: wp_ultra_simple_shopping_cart.php:1039
+#: wp_ultra_simple_shopping_cart.php:1070
+msgid "e.g."
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1038
+msgid "Currency Symbol"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1043
+msgid "Currency display"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1049
+msgid "Base Shipping Cost"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1050
+msgid ""
+"This is the base shipping cost that will be added to the total of individual "
+"products shipping cost. Put 0 if you do not want to charge shipping cost or "
+"use base shipping cost."
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1054
+msgid "Free Shipping for Orders Over"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1055
+msgid ""
+"When a customer orders more than this amount he/she will get free shipping. "
+"Leave empty if you do not want to use it."
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1059
+msgid "Must Collect Shipping Address on PayPal"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1060
+msgid ""
+"If checked the customer will be forced to enter a shipping address on PayPal "
+"when checking out."
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1064
+msgid "Use PayPal Profile Based Shipping"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1065
+msgid "Check this if you want to use"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1065
+msgid "PayPal profile based shipping"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1065
+msgid ""
+"Using this will ignore any other shipping options that you have specified in "
+"this plugin."
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1069
+msgid "Add to Cart button text or Image"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1070
+msgid ""
+"To use a customized image as the button simply enter the URL of the image "
+"file."
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1074
+msgid "Cart button class style"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1078
+msgid "Subtotal text"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1082
+msgid "Shipping text"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1086
+msgid "Total text"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1090
+msgid "Item name text"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1094
+msgid "Quantity text"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1098
+msgid "Price text"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1102
+msgid "Remove text"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1106
+msgid "Products page URL title"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1111
+msgid "Return URL"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1112
+msgid ""
+"This is the URL the customer will be redirected to after a successful payment"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1116
+msgid "Products Page URL"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1117
+msgid ""
+"This is the URL of your products page if you have any. If used, the shopping "
+"cart widget will display a link to this page when cart is empty"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1121
+msgid "Automatic redirection to checkout page"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1123
+msgid "Checkout Page URL"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1124
+msgid ""
+"If checked the visitor will be redirected to the Checkout page after a "
+"product is added to the cart. You must enter a URL in the Checkout Page URL "
+"field for this to work."
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1128
+msgid "Reset Cart After Redirection to Return Page"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1130
+msgid ""
+"If checked the shopping cart will be reset when the customer lands on the "
+"return URL (Thank You) page."
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1134
+msgid "Hide Shopping Cart Image"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1135
+msgid "If ticked the shopping cart image will not be shown."
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1139
+msgid "Use WP Affiliate Platform"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1141
+msgid "Check this if using with the"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1141
+msgid ""
+"This plugin lets you run your own affiliate campaign/program and allows you "
+"to reward (pay commission) your affiliates for referred sales"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1146
+msgid "Update Options &raquo;"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1152
+msgid "Like the WP Ultra Simple Paypal Shopping Cart Plugin?"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1152
+msgid "Give it a good rating"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1157
+msgid "WP Ultra simple Paypal Cart Options"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1167
+msgid "WP Ultra simple Paypal Cart"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1167
+msgid "Ultra simple Cart"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1178
+msgid "Shopping Cart"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1190
+msgid "Set the Plugin Settings from the Settings menu"
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1197
+msgid "Display WP Ultra Simple Paypal Shopping Cart."
+msgstr ""
+
+#: wp_ultra_simple_shopping_cart.php:1198
+#: wp_ultra_simple_shopping_cart.php:1199
+msgid "WP Ultra Simple Paypal Shopping Cart"
+msgstr ""

@@ -1,50 +1,55 @@
+# Copyright (C) 2010
+# This file is distributed under the same license as the  package.
 msgid ""
 msgstr ""
 "Project-Id-Version: WUSPSC v4.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-09-28 10:50+0100\n"
-"PO-Revision-Date: 2011-09-28 11:02+0100\n"
+"POT-Creation-Date: 2011-09-28 11:08+0100\n"
+"PO-Revision-Date: 2011-09-28 11:08+0100\n"
 "Last-Translator: Mike Castro Demaria <mcd@supersonique.net>\n"
-"Language-Team: \n"
+"Language-Team: Mike Castro Demaria <mcd@supersonique.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: _e;__\n"
 "X-Poedit-Basepath: .\n"
+"X-Poedit-Language: Spanish\n"
+"X-Poedit-Country: SPAIN\n"
+"X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../wp_ultra_simple_shopping_cart.php:33
 msgid "Your Shopping Cart"
-msgstr "Votre commande"
+msgstr "Tu cesta de compras"
 
 #: ../wp_ultra_simple_shopping_cart.php:34
 msgid "Your cart is empty"
-msgstr "Votre commande est vide"
+msgstr "Su cesta está vacía"
 
 #: ../wp_ultra_simple_shopping_cart.php:37
 msgid "Visit The Shop"
-msgstr "Visiter la boutique"
+msgstr "Visite la tienda"
 
 #: ../wp_ultra_simple_shopping_cart.php:38
 msgid "Hit enter to submit new Quantity."
-msgstr "Appuyez sur Entrée pour soumettre nouvelle quantité."
+msgstr "Pulsa Intro para presentar nueva cantidad."
 
 #: ../wp_ultra_simple_shopping_cart.php:41
 msgid "products in your cart"
-msgstr "produits commandé"
+msgstr "productos en su cesta"
 
 #: ../wp_ultra_simple_shopping_cart.php:42
 msgid "product in your cart"
-msgstr "produit commandé"
+msgstr "producto en su carrito"
 
 #: ../wp_ultra_simple_shopping_cart.php:44
 msgid "Subtotal"
-msgstr "Sous-total"
+msgstr "Total parcial"
 
 #: ../wp_ultra_simple_shopping_cart.php:45
 #: ../wp_ultra_simple_shopping_cart.php:1066
 msgid "Shipping"
-msgstr "Livraison"
+msgstr "Envío"
 
 #: ../wp_ultra_simple_shopping_cart.php:46
 msgid "Total"
@@ -52,23 +57,23 @@ msgstr "Total"
 
 #: ../wp_ultra_simple_shopping_cart.php:47
 msgid "Item Name"
-msgstr "Nom produit"
+msgstr "Nombre del elemento"
 
 #: ../wp_ultra_simple_shopping_cart.php:48
 msgid "Quantity"
-msgstr "Quantité"
+msgstr "Cantidad"
 
 #: ../wp_ultra_simple_shopping_cart.php:49
 msgid "Price"
-msgstr "Prix"
+msgstr "Precio"
 
 #: ../wp_ultra_simple_shopping_cart.php:50
 msgid "Remove"
-msgstr "Supprimer"
+msgstr "Eliminar"
 
 #: ../wp_ultra_simple_shopping_cart.php:172
 msgid "Shopping Cart Configuration Error! You must specify a value in the 'Checkout Page URL' field for the automatic redirection feature to work!"
-msgstr "Erreur de configuration! Vous devez spécifier une valeur dans le champ URL de la page 'Commander' pour que la fonction de redirection automatique fonctionne!"
+msgstr "Cesta de la compra de configuración de error! Usted debe especificar un valor en el campo &#39;URL Pedido de página \"para la función de redirección automática a la obra!"
 
 #: ../wp_ultra_simple_shopping_cart.php:303
 #: ../wp_ultra_simple_shopping_cart.php:923
@@ -82,15 +87,15 @@ msgstr "€"
 
 #: ../wp_ultra_simple_shopping_cart.php:336
 msgid "Cart"
-msgstr "Commande"
+msgstr "Carro"
 
 #: ../wp_ultra_simple_shopping_cart.php:467
 msgid "paypal_checkout_EN.png"
-msgstr "paypal_checkout_FR.png"
+msgstr "paypal_checkout_EN.png"
 
 #: ../wp_ultra_simple_shopping_cart.php:467
 msgid "Make payments with PayPal - it\\'s fast, free and secure!"
-msgstr "Effectuez vos paiements via PayPal - c'est simple, rapide, gratuit et sécurisé!"
+msgstr "Haga los pagos con PayPal - rápido, gratis y seguro!"
 
 #: ../wp_ultra_simple_shopping_cart.php:532
 #: ../wp_ultra_simple_shopping_cart.php:657
@@ -98,61 +103,61 @@ msgstr "Effectuez vos paiements via PayPal - c'est simple, rapide, gratuit et s�
 #: ../wp_ultra_simple_shopping_cart.php:792
 #: ../wp_ultra_simple_shopping_cart.php:947
 msgid "Add to Cart"
-msgstr "Ajouter à la commande"
+msgstr "Añadir a la Cesta"
 
 #: ../wp_ultra_simple_shopping_cart.php:616
 #: ../wp_ultra_simple_shopping_cart.php:755
 msgid "Error: no price configured"
-msgstr "ERROR: aucun prix configuré"
+msgstr "Error: no tiene precio configurado"
 
 #: ../wp_ultra_simple_shopping_cart.php:919
 msgid "Options Updated!"
-msgstr "Vos options ont été mises à jour!"
+msgstr "Opciones actualizadas!"
 
 #: ../wp_ultra_simple_shopping_cart.php:1036
 msgid "Usage"
-msgstr "Utilisation"
+msgstr "Uso"
 
 #: ../wp_ultra_simple_shopping_cart.php:1037
 #: ../wp_ultra_simple_shopping_cart.php:1363
 msgid "Settings"
-msgstr "Configuration"
+msgstr "Configuración"
 
 #: ../wp_ultra_simple_shopping_cart.php:1038
 msgid "Discount Code"
-msgstr "Code promo"
+msgstr "Código de Descuento"
 
 #: ../wp_ultra_simple_shopping_cart.php:1039
 msgid "About"
-msgstr "À propos"
+msgstr "Sobre"
 
 #: ../wp_ultra_simple_shopping_cart.php:1043
 msgid "WP Ultra Simple Shopping Cart Usage"
-msgstr "Configuration WP Ultra Simple Shopping Cart"
+msgstr "WP ultra simple configuración de Compras"
 
 #: ../wp_ultra_simple_shopping_cart.php:1044
 msgid "For information, updates and detailed documentation, please visit:"
-msgstr "Pour plus d'informations, les mises à jour ou la documentation détaillée, visitez le site s'il vous plaît :"
+msgstr "Para más información, actualizaciones y documentación detallada, por favor visite:"
 
 #: ../wp_ultra_simple_shopping_cart.php:1045
 msgid "For support, please use our dedicated forum:"
-msgstr "Pour le support, utilisez notre forum dédié s'il vous plaît :"
+msgstr "Para obtener asistencia, por favor utilice nuestro foro dedicado:"
 
 #: ../wp_ultra_simple_shopping_cart.php:1045
 msgid "WPUSPSC Support Forum"
-msgstr "Forum de support WUSPSC "
+msgstr "WPUSPSC foro de soporte de"
 
 #: ../wp_ultra_simple_shopping_cart.php:1048
 msgid "1. create a PayPal account (no cost for basic account)"
-msgstr "1. créer un compte PayPal (sans frais pour le compte de base)"
+msgstr "1. crear una cuenta de PayPal (sin costo alguno para la cuenta básica)"
 
 #: ../wp_ultra_simple_shopping_cart.php:1050
 msgid "2. Create post or page presenting the product or service and add caddy shortcode in the post. See example and possibilities following:"
-msgstr "2. Créer un article ou une page présentant le produit ou le service et ajouter le shortcode dedant. Voir es possibilités suivantes pour exemple :"
+msgstr "2. Crear mensaje o la página de presentación del producto o servicio y agregar caddy abreviado en el puesto. Véase el ejemplo y las siguientes posibilidades:"
 
 #: ../wp_ultra_simple_shopping_cart.php:1053
 msgid "To add the 'Add to Cart' button simply add the trigger text to a post or page, next to the product. Replace PRODUCT-NAME and PRODUCT-PRICE with the actual name and price."
-msgstr "Pour ajouter le bouton \"Ajouter au panier\", il vous suffit d'ajouter le shortcode pour un article ou une page présentant le produit. Remplacez nom du produit et le prix avec le nom réel et votre prix."
+msgstr "Para agregar el \"Añadir al carro\" botón de añadir el texto de disparo en un poste o en la página, al lado del producto. Vuelva a colocar nombre del producto, y Productos-con el nombre real y el precio."
 
 #: ../wp_ultra_simple_shopping_cart.php:1054
 #: ../wp_ultra_simple_shopping_cart.php:1060
@@ -161,14 +166,14 @@ msgstr "Pour ajouter le bouton \"Ajouter au panier\", il vous suffit d'ajouter l
 #: ../wp_ultra_simple_shopping_cart.php:1078
 #: ../wp_ultra_simple_shopping_cart.php:1084
 msgid "PRODUCT-NAME"
-msgstr "NOM-PRODUIT"
+msgstr "Nombre del producto,"
 
 #: ../wp_ultra_simple_shopping_cart.php:1054
 #: ../wp_ultra_simple_shopping_cart.php:1072
 #: ../wp_ultra_simple_shopping_cart.php:1078
 #: ../wp_ultra_simple_shopping_cart.php:1084
 msgid "PRODUCT-PRICE"
-msgstr "PRIX-PRODUIT"
+msgstr "PRODUCTO PRECIO"
 
 #: ../wp_ultra_simple_shopping_cart.php:1055
 #: ../wp_ultra_simple_shopping_cart.php:1061
@@ -177,7 +182,7 @@ msgstr "PRIX-PRODUIT"
 #: ../wp_ultra_simple_shopping_cart.php:1079
 #: ../wp_ultra_simple_shopping_cart.php:1085
 msgid "eg."
-msgstr "ex:"
+msgstr "por ejemplo."
 
 #: ../wp_ultra_simple_shopping_cart.php:1055
 #: ../wp_ultra_simple_shopping_cart.php:1061
@@ -186,11 +191,11 @@ msgstr "ex:"
 #: ../wp_ultra_simple_shopping_cart.php:1079
 #: ../wp_ultra_simple_shopping_cart.php:1085
 msgid "Test Product"
-msgstr "Produit de teste"
+msgstr "Prueba de Producto"
 
 #: ../wp_ultra_simple_shopping_cart.php:1059
 msgid "To use variation of the price use the following trigger text:"
-msgstr "Pour une variation du prix, utilisez l'exemple suivant:"
+msgstr "Para utilizar la variación del precio de utilizar el texto siguiente disparador:"
 
 #: ../wp_ultra_simple_shopping_cart.php:1060
 #: ../wp_ultra_simple_shopping_cart.php:1066
@@ -198,44 +203,44 @@ msgstr "Pour une variation du prix, utilisez l'exemple suivant:"
 #: ../wp_ultra_simple_shopping_cart.php:1078
 #: ../wp_ultra_simple_shopping_cart.php:1084
 msgid "VARIATION-NAME"
-msgstr "NOM-VARIATION"
+msgstr "VARIACIÓN-NAME"
 
 #: ../wp_ultra_simple_shopping_cart.php:1060
 #: ../wp_ultra_simple_shopping_cart.php:1066
 msgid "VARIATION-LABEL1"
-msgstr "LABEL-VARIATION1"
+msgstr "VARIACIÓN-LABEL1"
 
 #: ../wp_ultra_simple_shopping_cart.php:1060
 #: ../wp_ultra_simple_shopping_cart.php:1066
 msgid "VARIATION-PRICE1"
-msgstr "VARIATION-PRIX1"
+msgstr "VARIACIÓN-Precio1"
 
 #: ../wp_ultra_simple_shopping_cart.php:1060
 #: ../wp_ultra_simple_shopping_cart.php:1066
 msgid "VARIATION-LABEL2"
-msgstr "LABEL-VARIATION2"
+msgstr "VARIACIÓN-LABEL2"
 
 #: ../wp_ultra_simple_shopping_cart.php:1060
 #: ../wp_ultra_simple_shopping_cart.php:1066
 msgid "VARIATION-PRICE2"
-msgstr "VARIATION-PRIX2"
+msgstr "VARIACIÓN-PRICE2"
 
 #: ../wp_ultra_simple_shopping_cart.php:1061
 #: ../wp_ultra_simple_shopping_cart.php:1067
 msgid "Size|Small,1.10|Medium,2.10|Large,3.10"
-msgstr "Taille|S,1.10|M,2.10|L,3.10"
+msgstr "Tamaño | 1.10 Pequeño, | Medium, 2.10 | Grande, 3,10"
 
 #: ../wp_ultra_simple_shopping_cart.php:1065
 msgid "To use variation of the price and shipping use the following trigger text:"
-msgstr "Pour utiliser le contrôle de variation à l'expédition, utiliser le texte suivant:"
+msgstr "Para utilizar la variación del precio de utilizar el texto siguiente disparador:"
 
 #: ../wp_ultra_simple_shopping_cart.php:1067
 msgid "Shipping|normal,6.50|fast,10.00"
-msgstr "Shipping|normal,6.50|rapide,10.00"
+msgstr "Shipping|normal,6.50|rápido,10.00"
 
 #: ../wp_ultra_simple_shopping_cart.php:1071
 msgid "To use variation control use the following trigger text:"
-msgstr "Pour les variation de contrôle, utiliser le texte d'exemple suivant: "
+msgstr "Para utilizar el control de la variación utilizar el texto siguiente disparador:"
 
 #: ../wp_ultra_simple_shopping_cart.php:1072
 #: ../wp_ultra_simple_shopping_cart.php:1078
@@ -257,322 +262,319 @@ msgstr "VARIATION3"
 
 #: ../wp_ultra_simple_shopping_cart.php:1077
 msgid "To use variation control with simple shipping use the following trigger text:"
-msgstr "Pour utiliser le contrôle de variation à l'expédition, utiliser le texte suivant:"
+msgstr "Para utilizar el control de la variación con el envío utilizar el texto siguiente disparador:"
 
 #: ../wp_ultra_simple_shopping_cart.php:1078
 msgid "SHIPPING-COST"
-msgstr "PRIX-LIVRAISON"
+msgstr "ENVÍO DE GASTOS"
 
 #: ../wp_ultra_simple_shopping_cart.php:1079
 #: ../wp_ultra_simple_shopping_cart.php:1085
 msgid "Size|Small|Medium|Large"
-msgstr "Taille|S|M|L"
+msgstr "Tamaño | Medio | | Pequeño Grande"
 
 #: ../wp_ultra_simple_shopping_cart.php:1083
 msgid "To use multiple variation (unlimited variation) option use the following trigger text:"
-msgstr "Pour utiliser l'option de variation multiples utiliser le texte déclencheur suivant:"
+msgstr "Para utilizar la opción de variación de usos múltiples en el texto siguiente disparador:"
 
 #: ../wp_ultra_simple_shopping_cart.php:1085
 msgid "Color|Red|Green"
-msgstr "Couleur|Rouge|Vert"
+msgstr "Color | Rojo | Verde"
 
 #: ../wp_ultra_simple_shopping_cart.php:1090
 msgid "3. To add the shopping cart to a post or page (eg. checkout page) simply add the shortcode"
-msgstr "3. Pour ajouter votre récapitulatif de commande pour un article ou une page (par exemple une page de paiement) il suffit d'ajouter le shortcode"
+msgstr "3. Para agregar el carrito de compras para un puesto o una página (por ejemplo, página de pago) sólo tiene que añadir código abreviado"
 
 #: ../wp_ultra_simple_shopping_cart.php:1092
 msgid "To display checkout to a post or page, simply add the shortcode"
-msgstr "Pour afficher le récapitulatif de commande pour un article ou une page, il suffit d'ajouter le shortcode"
+msgstr "Para mostrar la caja para un puesto o una página, sólo tiene que añadir código abreviado"
 
 #: ../wp_ultra_simple_shopping_cart.php:1093
 msgid "Or use the sidebar widget to add the shopping cart to the sidebar."
-msgstr "Ou utiliser le widget pour ajouter le panier à la barre latérale."
+msgstr "O utilizar el widget de la barra lateral para agregar el carrito de compras para la barra lateral."
 
 #: ../wp_ultra_simple_shopping_cart.php:1107
 msgid "Do you like WUSPSC ?"
-msgstr "Appréciez-vous WUSPSC? "
+msgstr "¿Te gusta WUSPSC?"
 
 #: ../wp_ultra_simple_shopping_cart.php:1108
 msgid "If you like WUSPSC, give it a good rating"
-msgstr "Si vous appréciez WUSPSC, donnez-lui une bonne notation"
+msgstr "Si te gusta WUSPSC, le dan una buena calificación"
 
 #: ../wp_ultra_simple_shopping_cart.php:1108
 msgid " and please consider to donate a few $, &#8364; or &pound; to help me to give time for user&#8217;s support, add new features and fast upgrades."
-msgstr "et s'il vous plaît envisager de faire un don d'un peu d'$, &#8364; ou &pound;  pour m'aider à passer du temps pour le soutien des utilisateurs, ajouter de nouvelles fonctionnalités et des mise à jours rapides."
+msgstr " y por favor, considere donar un $ pocas, € o £ para que me ayude a dar tiempo para el apoyo de usuarios, añadir nuevas funciones y actualizaciones rápidas."
 
 #: ../wp_ultra_simple_shopping_cart.php:1117
 msgid "Or if you like down-tempo / ambiant / electronic music, you can buy a few tracks from one of my CD on Amazon."
-msgstr "Ou si vous appréciez le down-tempo / l'ambiante / la musique électronique, vous pouvez acheter quelques-uns des morceaux d'un de mes CD sur Amazon."
+msgstr "O si te gusta down-tempo / música Ambiant / electrónica, usted puede comprar un par de pistas de uno de mis CD en Amazon."
 
 #: ../wp_ultra_simple_shopping_cart.php:1127
 msgid "Thanks a lot for your support !!!"
-msgstr "Merci de vos encouragements et de votre support !!!"
+msgstr "Muchas gracias por tu apoyo! "
 
 #: ../wp_ultra_simple_shopping_cart.php:1131
 msgid "Coupon Code"
-msgstr "Code promo"
+msgstr "Código de Cupón"
 
 #: ../wp_ultra_simple_shopping_cart.php:1132
 msgid "Do you need discount Code feature?"
-msgstr "Voulez-vous une gestion des codes promo?"
+msgstr "¿Necesita función de código de descuento?"
 
 #: ../wp_ultra_simple_shopping_cart.php:1133
 msgid "If the answer is yes, please ask it on "
-msgstr "Si c'est le cas, n'hésitez pas a rajouter votre votre a cette demande "
+msgstr "Si la respuesta es sí, por favor pregunta en "
 
 #: ../wp_ultra_simple_shopping_cart.php:1133
 msgid "this Forum thread"
-msgstr "ce thread dans le forum de support"
+msgstr "este hilo del foro"
 
 #: ../wp_ultra_simple_shopping_cart.php:1139
 msgid "WP Ultra Simple Shopping Cart Settings"
-msgstr "Configuration WP Ultra Simple Shopping Cart"
+msgstr "WP ultra simple configuración de Compras"
 
 #: ../wp_ultra_simple_shopping_cart.php:1147
 msgid "Paypal Email Address"
-msgstr "Adresse électronique de votre compte marchant paypal:"
+msgstr "Dirección de correo electrónico de Paypal"
 
 #: ../wp_ultra_simple_shopping_cart.php:1151
 msgid "Paypal Sandbox (cart is in test)"
-msgstr "Paypal Sandbox (commande en teste)"
+msgstr "Paypal Sandbox (carro está en prueba)"
 
 #: ../wp_ultra_simple_shopping_cart.php:1156
 msgid "Shopping Cart title"
-msgstr "Titre du caddy"
+msgstr "Compras título"
 
 #: ../wp_ultra_simple_shopping_cart.php:1161
 msgid "Text/Image to Show When Cart Empty"
-msgstr "Texte / Image à afficher lorsque panier est vide"
+msgstr "Texto / imagen para mostrar cuando Cesta vacía"
 
 #: ../wp_ultra_simple_shopping_cart.php:1162
 msgid "You can either enter plain text or the URL of an image that you want to show when the shopping cart is empty"
-msgstr "Vous pouvez soit entrer texte ou l'URL d'une image que vous voulez afficher quand le panier est vide"
+msgstr "Puede introducir texto o la URL de una imagen que quieres mostrar cuando el carrito de la compra está vacía"
 
 #: ../wp_ultra_simple_shopping_cart.php:1166
 msgid "Hide \"Cart Empty\" message"
-msgstr "Cacher le message \"Commande vide\""
+msgstr "Ocultar mensaje \"Cesta vacía \""
 
 #: ../wp_ultra_simple_shopping_cart.php:1167
 msgid "If ticked, the shopping cart empty message on page/post or widget will not be display."
-msgstr "Si coché, le message de commande vide ne sera pas affiché."
+msgstr "Si se activa, el mensaje carro vacío en la página / post o widget no se muestra."
 
 #: ../wp_ultra_simple_shopping_cart.php:1171
 msgid "Singular \"product in your cart\" text"
-msgstr "Singulier texte \"produit commandé\""
+msgstr "Singular text \"producto en su carrito de \""
 
 #: ../wp_ultra_simple_shopping_cart.php:1175
 msgid "Plural \"products in your cart\" text"
-msgstr "Pluriel texte \"produits commandé\""
+msgstr "Plural text \"los productos en su carrito de \""
 
 #: ../wp_ultra_simple_shopping_cart.php:1180
 msgid "Hide items count display message"
-msgstr "Cacher le message de comptage des produits"
+msgstr "Ocultar contar artículos mensaje de la pantalla"
 
 #: ../wp_ultra_simple_shopping_cart.php:1181
 msgid "If ticked, the items in cart count message on page/post or widget will not be display."
-msgstr "Si coché, le message de comptage de produit dans la commande ne sera pas affiché."
+msgstr "Si se activa, los elementos de mensajes sin carro en la página / post o widget no se muestra."
 
 #: ../wp_ultra_simple_shopping_cart.php:1185
 msgid "Hide Shopping Cart Image"
-msgstr "Cacher l'image de commande"
+msgstr "Ocultar la imagen Compras"
 
 #: ../wp_ultra_simple_shopping_cart.php:1186
 msgid "If ticked the shopping cart image will not be shown."
-msgstr "Si coché l'image panier ne sera pas affiché."
+msgstr "Si se activa la imagen de carrito de la compra no se mostrará."
 
 #: ../wp_ultra_simple_shopping_cart.php:1190
 msgid "Currency"
-msgstr "Monnaie"
+msgstr "Moneda"
 
 #: ../wp_ultra_simple_shopping_cart.php:1191
 #: ../wp_ultra_simple_shopping_cart.php:1195
 #: ../wp_ultra_simple_shopping_cart.php:1226
 msgid "e.g."
-msgstr "ex:"
+msgstr "por ejemplo,"
 
 #: ../wp_ultra_simple_shopping_cart.php:1194
 msgid "Currency Symbol"
-msgstr "Affichage du symbole de devise"
+msgstr "Símbolo de moneda"
 
 #: ../wp_ultra_simple_shopping_cart.php:1199
 msgid "Currency display"
-msgstr "Affichage de la devise"
+msgstr "La moneda de visualización"
 
 #: ../wp_ultra_simple_shopping_cart.php:1205
 msgid "Base Shipping Cost"
-msgstr "Coût de livraison (globale)"
+msgstr "Base de costo de envío"
 
 #: ../wp_ultra_simple_shopping_cart.php:1206
 msgid "This is the base shipping cost that will be added to the total of individual products shipping cost. Put 0 if you do not want to charge shipping cost or use base shipping cost."
-msgstr "Il s'agit du coût d'expédition de base qui sera ajouté au total des coûts d'expédition des produits individuels. Mettre 0 si vous ne voulez pas de facturer les coûts d'expédition ou frais de port par défault."
+msgstr "Esta es la base de los gastos de envío que se añadirán al total del costo de cada envío de productos. Poner 0 si no quiere cargar los gastos de envío o uso de la base de costos de envío."
 
 #: ../wp_ultra_simple_shopping_cart.php:1210
 msgid "Free Shipping for Orders Over"
-msgstr "Livraison gratuite pour toute commande supérieure à"
+msgstr "Envío gratuito para pedidos superiores a"
 
 #: ../wp_ultra_simple_shopping_cart.php:1211
 msgid "When a customer orders more than this amount he/she will get free shipping. Leave empty if you do not want to use it."
-msgstr "Lorsqu'un client commande plus que ce montant, il / elle recevra la livraison gratuite. Laisser vide si vous ne voulez pas l'utiliser."
+msgstr "Cuando un cliente más de esto, la cantidad / ella recibirá el envío gratis. Dejar en blanco si no desea utilizarlo."
 
 #: ../wp_ultra_simple_shopping_cart.php:1215
 msgid "Must Collect Shipping Address on PayPal"
-msgstr "Recueillir l'adresse d'expédition sur PayPal"
+msgstr "Debe recoger la dirección de envío en PayPal"
 
 #: ../wp_ultra_simple_shopping_cart.php:1216
 msgid "If checked the customer will be forced to enter a shipping address on PayPal when checking out."
-msgstr "Si elle est cochée, le client sera obligé de saisir une adresse de livraison sur PayPal lors de la vérification."
+msgstr "Si se selecciona el cliente se verá obligado a introducir una dirección de envío en PayPal al momento de pagar."
 
 #: ../wp_ultra_simple_shopping_cart.php:1220
 msgid "Use PayPal Profile Based Shipping"
-msgstr "Utiliser la livraison basé sur le profile PayPal"
+msgstr "Usa envío basados ​​en el perfil de PayPal"
 
 #: ../wp_ultra_simple_shopping_cart.php:1221
 msgid "Check this if you want to use"
-msgstr "Cochez cette case si vous souhaitez l'utiliser"
+msgstr "Seleccione esta opción si desea utilizar"
 
 #: ../wp_ultra_simple_shopping_cart.php:1221
 msgid "PayPal profile based shipping"
-msgstr "Livraison basé sur le profile PayPal"
+msgstr "Transporte basados ​​en el perfil de PayPal"
 
 #: ../wp_ultra_simple_shopping_cart.php:1221
 msgid "Using this will ignore any other shipping options that you have specified in this plugin."
-msgstr "L'utilisation de cette configuration va hiniber les options d'expédition par défault"
+msgstr "El uso de este ignorará las opciones de envío de otros que se han especificado en este plugin."
 
 #: ../wp_ultra_simple_shopping_cart.php:1225
 msgid "Add to Cart button text or Image"
-msgstr "Ajouter un texte ou image au bouton de comande"
+msgstr "Añadir a la Cesta botón o texto de la imagen"
 
 #: ../wp_ultra_simple_shopping_cart.php:1226
 msgid "To use a customized image as the button simply enter the URL of the image file."
-msgstr "Pour utiliser une image personnalisée de bouton, il vous suffit d'entrer l'URL du fichier image."
+msgstr "Para utilizar una imagen personalizada como el botón, simplemente introduzca la dirección URL del archivo de imagen."
 
 #: ../wp_ultra_simple_shopping_cart.php:1230
 msgid "Cart button class style"
-msgstr "Style à associer au boutton"
+msgstr "Botón del carro de clase de estilo"
 
 #: ../wp_ultra_simple_shopping_cart.php:1234
 msgid "Subtotal text"
-msgstr "Intitulé de sous-total (Sous-total)"
+msgstr "Texto subtotal"
 
 #: ../wp_ultra_simple_shopping_cart.php:1238
 msgid "Shipping text"
-msgstr "Intitulé de  frais de livraison (Livraison)"
+msgstr "Envío de texto"
 
 #: ../wp_ultra_simple_shopping_cart.php:1242
 msgid "Total text"
-msgstr "Intitulé du total (Total)"
+msgstr "Total del texto"
 
 #: ../wp_ultra_simple_shopping_cart.php:1246
 msgid "Item name text"
-msgstr "Intitulé de nom de produit (Produit)"
+msgstr "Elemento de texto el nombre de"
 
 #: ../wp_ultra_simple_shopping_cart.php:1250
 msgid "Quantity text"
-msgstr "Intitulé de quantité (Qté)"
+msgstr "La cantidad de texto"
 
 #: ../wp_ultra_simple_shopping_cart.php:1254
 msgid "Price text"
-msgstr "Intitulé de prix (Prix)"
+msgstr "Precio de texto"
 
 #: ../wp_ultra_simple_shopping_cart.php:1258
 msgid "Remove text"
-msgstr "Intitulé de suppression (Supprimer)"
+msgstr "Eliminar el texto"
 
 #: ../wp_ultra_simple_shopping_cart.php:1262
 msgid "Products page URL title"
-msgstr "Titre de l'URL de la page de produit"
+msgstr "Productos URL de la página del título"
 
 #: ../wp_ultra_simple_shopping_cart.php:1267
 msgid "Return URL"
-msgstr "URL de retour"
+msgstr "Volver URL"
 
 #: ../wp_ultra_simple_shopping_cart.php:1268
 msgid "This is the URL the customer will be redirected to after a successful payment"
-msgstr "Ceci est l'URL où le client sera redirigé après un paiement réussi"
+msgstr "Esta es la URL que el cliente va a ser redirigido después de un éxito de pago"
 
 #: ../wp_ultra_simple_shopping_cart.php:1272
 msgid "Products Page URL"
-msgstr "L'URL pour la page de produit"
+msgstr "Productos URL de la página"
 
 #: ../wp_ultra_simple_shopping_cart.php:1273
 msgid "This is the URL of your products page if you have any. If used, the shopping cart widget will display a link to this page when cart is empty"
-msgstr "Ceci est l'URL de votre page de produits si vous en avez. S'elle est utilisé, la widget panier affichera un lien vers cette page lorsque panier est vide"
+msgstr "Esta es la URL de la página de los productos si usted tiene cualquiera. Si se utiliza el flash carrito de la compra se mostrará un enlace a esta página cuando la compra está vacía"
 
 #: ../wp_ultra_simple_shopping_cart.php:1277
 msgid "Automatic redirection to checkout page"
-msgstr "Redirection automatique vers la page de paiement"
+msgstr "Redirección automática a la caja página"
 
 #: ../wp_ultra_simple_shopping_cart.php:1279
 msgid "Checkout Page URL"
-msgstr "Page de validation de la commande"
+msgstr "Pedido URL de la página"
 
 #: ../wp_ultra_simple_shopping_cart.php:1280
 msgid "If checked the visitor will be redirected to the Checkout page after a product is added to the cart. You must enter a URL in the Checkout Page URL field for this to work."
-msgstr "Si elle est cochée ,le visiteur sera redirigé vers la page de paiement une fois le produit ajouté à la commande. Vous devez entrer une URL dans le champ URL de la page Commander pour que cela fonctionne."
+msgstr "Si se selecciona el visitante va a ser redirigido a la página de confirmación después de que un producto es añadido a la cesta. Debe introducir una URL en el campo URL Pedido página para que esto funcione."
 
 #: ../wp_ultra_simple_shopping_cart.php:1284
 msgid "Reset Cart After Redirection to Return Page"
-msgstr "Réinitialiser la comande après une redirection à la page de retour"
+msgstr "Vaciar la canasta después de la redirección de página Volver"
 
 #: ../wp_ultra_simple_shopping_cart.php:1286
 msgid "If checked the shopping cart will be reset when the customer lands on the return URL (Thank You) page."
-msgstr "Si coché, le panier sera remis à zéro lorsque le client utilisera la page d'URL de retour (automatique) ."
+msgstr "Si se marca la cesta de la compra se restablecerá cuando las tierras de los clientes en la dirección URL de retorno (Gracias) página."
 
 #: ../wp_ultra_simple_shopping_cart.php:1290
 msgid "Use WP Affiliate Platform"
-msgstr "Utiliser WP Affiliate Platform"
+msgstr "Utilice la plataforma de WP Afiliado"
 
 #: ../wp_ultra_simple_shopping_cart.php:1292
 msgid "Check this if using with the"
-msgstr "Cochez cette case si vous l'utilisez"
+msgstr "Seleccione esta opción si se utiliza con el"
 
 #: ../wp_ultra_simple_shopping_cart.php:1292
 msgid "This plugin lets you run your own affiliate campaign/program and allows you to reward (pay commission) your affiliates for referred sales"
-msgstr "Ce plugin vous permet d'exécuter votre propre programme d'affiliation campagne / et vous permet de faire gagner de l'argent (commission) à vos affiliés pour des ventes envoyé"
+msgstr "Este plugin te permite ejecutar su propio programa de afiliados de campaña / y le permite premio (paga comisión) a sus afiliados por las ventas que se refiere"
 
 #: ../wp_ultra_simple_shopping_cart.php:1297
 msgid "Update Options &raquo;"
-msgstr "Mettre à jour les options &raquo;"
+msgstr "Opciones de actualización »"
 
 #: ../wp_ultra_simple_shopping_cart.php:1303
 msgid "Like the WP Ultra Simple Paypal Shopping Cart Plugin?"
-msgstr "Vous appréciez le plugin WP Ultra Simple Paypal Shopping Cart?"
+msgstr "Al igual que el WP ultra simple plugin Paypal Cesta de la compra?"
 
 #: ../wp_ultra_simple_shopping_cart.php:1303
 msgid "Give it a good rating"
-msgstr "Donnez-lui une bonne notation"
+msgstr "Darle una buena calificación"
 
 #: ../wp_ultra_simple_shopping_cart.php:1308
 msgid "WP Ultra simple Paypal Cart Options"
-msgstr "Options WP Ultra Simple Shopping Cart"
+msgstr "WP ultra Opciones sencillas compra de PayPal"
 
 #: ../wp_ultra_simple_shopping_cart.php:1318
 msgid "WP Ultra simple Paypal Cart"
-msgstr "WP Ultra-Simple Shopping Cart"
+msgstr "WP ultra compra de PayPal sencilla"
 
 #: ../wp_ultra_simple_shopping_cart.php:1318
 msgid "Ultra simple Cart"
-msgstr "Commande Ultra-Simple"
+msgstr "Cesta de ultra sencillo"
 
 #: ../wp_ultra_simple_shopping_cart.php:1326
 msgid "Shopping Cart"
-msgstr "Commande"
+msgstr "Compras"
 
 #: ../wp_ultra_simple_shopping_cart.php:1347
 msgid "Set the Plugin Settings from the Settings menu"
-msgstr "Définissez les options du Plug-in dans le menu Paramètres"
+msgstr "Establecer la configuración de plug-in en el menú Configuración"
 
 #: ../wp_ultra_simple_shopping_cart.php:1354
 msgid "Display WP Ultra Simple Paypal Shopping Cart."
-msgstr "Afficher WP Ultra Simple Paypal Shopping Cart."
+msgstr "WP pantalla ultra carro simple compra de PayPal."
 
 #: ../wp_ultra_simple_shopping_cart.php:1355
 #: ../wp_ultra_simple_shopping_cart.php:1356
 msgid "WP Ultra Simple Paypal Shopping Cart"
-msgstr "WP Ultra-Simple Paypal Shopping Cart"
+msgstr "WP ultra simple carro compra de PayPal"
 
 #~ msgid "WP Ultra Simple Paypal Shopping Cart Settings"
-#~ msgstr "Configuration WP Ultra Simple Paypal Shopping Cart"
-
-#~ msgid "Learn More on Shipping Calculation"
-#~ msgstr "En savoir plus sur le calcul des frais"
+#~ msgstr "WP ultra simple Paypal Configuración Compras"

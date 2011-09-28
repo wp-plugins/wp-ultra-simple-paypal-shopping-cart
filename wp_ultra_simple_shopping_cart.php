@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Ultra simple Paypal Cart
-Version: v4.1.2.1
+Version: v4.1.3
 Plugin URI: http://www.ultra-prod.com/?p=86
 Author: Mike Castro Demaria
 Author URI: http://www.ultra-prod.com
@@ -32,9 +32,15 @@ load_plugin_textdomain('WUSPSC', false, WP_CART_FOLDER . '/languages');
 
 add_option('wp_cart_title', __("Your Shopping Cart", "WUSPSC"));
 add_option('wp_cart_empty_text', __("Your cart is empty", "WUSPSC"));
+add_option('wp_shopping_cart_empty_hide', '1');
 
 add_option('wp_cart_visit_shop_text', __('Visit The Shop', "WUSPSC"));
 add_option('wp_cart_update_quantiy_text', __('Hit enter to submit new Quantity.', "WUSPSC"));
+
+add_option('wp_shopping_cart_items_in_cart_hide', '1');
+add_option('plural_items_text', __('products in your cart', "WUSPSC"));
+add_option('singular_items_text', __('product in your cart', "WUSPSC"));
+
 add_option('subtotal_text', __('Subtotal', "WUSPSC"));
 add_option('shipping_text', __('Shipping', "WUSPSC"));
 add_option('total_text', __('Total', "WUSPSC"));
@@ -58,7 +64,7 @@ function show_wp_shopping_cart_handler()
     {
        	$output = print_wp_shopping_cart();
     }
-    else 
+    else  
     {
     	$output = get_the_empty_cart_content();
     }
@@ -240,6 +246,7 @@ function get_the_empty_cart_content()
 
 	$wp_cart_visit_shop_text = get_option('wp_cart_visit_shop_text');
 	$empty_cart_text = get_option('wp_cart_empty_text');
+	$emptyCartAllowDisplay = get_option('wp_shopping_cart_empty_hide');
 	
 	$output .= '<div id="empty-cart">';
 	
@@ -263,23 +270,33 @@ function get_the_empty_cart_content()
 	
 	$output .= '</div>';
 	
-	return $output;
+	if ( !$emptyCartAllowDisplay )
+	{
+		return $output;
+	}
 
 }
 
 function print_wp_shopping_cart()
 {
-
+	
+	$emptyCartAllowDisplay = get_option('wp_shopping_cart_empty_hide');
+	/*if ( $emptyCartAllowDisplay )
+	{
+		$output = get_the_empty_cart_content();
+	}
+	*/
 	if (!cart_not_empty())
 	{
 	    $output = get_the_empty_cart_content();
-	}
-	
+	} 
+		
     $email = get_bloginfo('admin_email');
     $use_affiliate_platform = get_option('wp_use_aff_platform');   
     $defaultCurrency = get_option('cart_payment_currency');
     $defaultSymbol = get_option('cart_currency_symbol');
     $defaultEmail = get_option('cart_paypal_email');
+    
     if (!empty($defaultCurrency))
         $paypal_currency = $defaultCurrency;
     else
@@ -336,18 +353,25 @@ function print_wp_shopping_cart()
     $form = '';
     if ($_SESSION['ultraSimpleCart'] && is_array($_SESSION['ultraSimpleCart']))
     {   
-        $output .= '
-        <tr>
-        <th style="text-align: left">'.get_option('item_name_text').'</th><th>'.get_option('qualtity_text').'</th><th>'.get_option('price_text').'</th>
-        </tr>';
-    
-	    foreach ($_SESSION['ultraSimpleCart'] as $item)
+    	
+    	if ( get_option('wp_shopping_cart_items_in_cart_hide') == "" )
+    	{
+			$itemsInCart = count($_SESSION['ultraSimpleCart']);
+			$itemsInCartString = _n( get_option('singular_items_text'), get_option('plural_items_text'), $itemsInCart );
+			
+			$output .= '
+			<tr id="item_in_cart">
+			<th style="text-align: left" colspan="3">'.$itemsInCart." ".$itemsInCartString.'</th>
+			</tr>';
+    	}
+    	
+    	foreach ($_SESSION['ultraSimpleCart'] as $item)
 	    {
 	        $total += get_the_price($item['price']) * $item['quantity'];
 	        $item_total_shipping += get_the_price($item['shipping']) * $item['quantity'];
 	        $total_items +=  $item['quantity'];
 	    }
-		
+
 	    if( $item_total_shipping == 0)
 	    {
 	    	$baseShipping = get_option('cart_base_shipping_cost');
@@ -364,6 +388,12 @@ function print_wp_shopping_cart()
 	    {
 	    	$postage_cost = 0;
 	    }
+	    
+        $output .= '
+        <tr class="cart_labels">
+        <th style="text-align: left">'.get_option('item_name_text').'</th><th>'.get_option('qualtity_text').'</th><th>'.get_option('price_text').'</th>
+        </tr>';
+	    
 	    
 	    foreach ($_SESSION['ultraSimpleCart'] as $item)
 	    {
@@ -833,7 +863,7 @@ function wuspc_detect_language() {
 }
 
 function show_wp_cart_options_page () {	
-	$wp_ultra_simple_paypal_shopping_cart_version = "4.1.2";
+	$wp_ultra_simple_paypal_shopping_cart_version = "4.1.3";
 	
     if (isset($_POST['info_update']))
     {
@@ -848,13 +878,21 @@ function show_wp_cart_options_page () {
         update_option('cart_paypal_email', (string)$_POST["cart_paypal_email"]);
         update_option('addToCartButtonName', (string)$_POST["addToCartButtonName"]);
         update_option('wp_cart_title', (string)$_POST["wp_cart_title"]);
+        
         update_option('wp_cart_empty_text', (string)$_POST["wp_cart_empty_text"]);
+        update_option('wp_shopping_cart_empty_hide', ($_POST['wp_shopping_cart_empty_hide']!='') ? 'checked="checked"':'' );
+        
         update_option('cart_return_from_paypal_url', (string)$_POST["cart_return_from_paypal_url"]);
         update_option('cart_products_page_url', (string)$_POST["cart_products_page_url"]);
         
         // txt string
         update_option('wp_cart_visit_shop_text', (string)$_POST["wp_cart_visit_shop_text"]);
         update_option('wp_cart_update_quantiy_text', (string)$_POST["wp_cart_update_quantiy_text"]);
+        
+        update_option('plural_items_text', (string)$_POST["plural_items_text"]);
+        update_option('singular_items_text', (string)$_POST["singular_items_text"]);
+        update_option('wp_shopping_cart_items_in_cart_hide', (string)$_POST["wp_shopping_cart_items_in_cart_hide"]);
+        
         update_option('subtotal_text', (string)$_POST["subtotal_text"]);
         update_option('shipping_text', (string)$_POST["shipping_text"]);
         update_option('total_text', (string)$_POST["total_text"]);
@@ -874,6 +912,7 @@ function show_wp_cart_options_page () {
         update_option('wp_shopping_cart_reset_after_redirection_to_return_page', ($_POST['wp_shopping_cart_reset_after_redirection_to_return_page']!='') ? 'checked="checked"':'' );        
                 
         update_option('wp_shopping_cart_image_hide', ($_POST['wp_shopping_cart_image_hide']!='') ? 'checked="checked"':'' );
+        
         update_option('wp_use_aff_platform', ($_POST['wp_use_aff_platform']!='') ? 'checked="checked"':'' );
         
         echo '<div id="message" class="updated fade">';
@@ -916,6 +955,8 @@ function show_wp_cart_options_page () {
 	else {$defaultSandboxChecked1 = ""; $defaultSandboxChecked2 = "checked";}
 	
 	$emptyCartText = get_option('wp_cart_empty_text');
+	$emptyCartAllowDisplay = get_option('wp_shopping_cart_empty_hide');
+	
 	$cart_products_page_url = get_option('cart_products_page_url');	 
 
 	$cart_checkout_page_url = get_option('cart_checkout_page_url');
@@ -927,6 +968,10 @@ function show_wp_cart_options_page () {
     // added txt string    
    	$wp_cart_visit_shop_text = get_option('wp_cart_visit_shop_text');
 	$wp_cart_update_quantiy_text = get_option('wp_cart_update_quantiy_text');
+	
+	$plural_items_text = get_option("plural_items_text");
+    $singular_items_text = get_option("singular_items_text");
+	
 	$subtotal_text = get_option('subtotal_text');
 	$shipping_text = get_option('shipping_text');
 	$total_text = get_option('total_text');
@@ -955,7 +1000,17 @@ function show_wp_cart_options_page () {
         $wp_cart_image_hide = 'checked="checked"';
     else
         $wp_cart_image_hide = '';
-
+    
+    if (get_option('wp_shopping_cart_empty_hide'))
+        $wp_cart_empty_hide = 'checked="checked"';
+    else
+        $wp_cart_empty_hide = '';
+    
+    if (get_option('wp_shopping_cart_items_in_cart_hide'))
+        $wp_shopping_cart_items_in_cart_hide = 'checked="checked"';
+    else
+        $wp_shopping_cart_items_in_cart_hide = '';
+    
     if (get_option('wp_use_aff_platform'))
         $wp_use_aff_platform = 'checked="checked"';
     else
@@ -980,6 +1035,7 @@ function show_wp_cart_options_page () {
 	<ul>
 		<li><a href="#tabs-1"><?php _e("Usage", "WUSPSC"); ?></a></li>
 		<li><a href="#tabs-2"><?php _e("Settings", "WUSPSC"); ?></a></li>
+		<li><a href="#tabs-4"><?php _e("Discount Code", "WUSPSC"); ?></a></li>
 		<li><a href="#tabs-3"><?php _e("About", "WUSPSC"); ?></a></li>
 	</ul>
 	
@@ -1070,7 +1126,15 @@ echo '<div id="tabs-3">
 </p>
 <p>'.(__("Thanks a lot for your support !!!", "WUSPSC")).'<p>
 </div>';
-?>   
+
+echo '<div id="tabs-4">
+<h2><div id="icon-edit-comments" class="icon32"></div>'.(__("Coupon Code", "WUSPSC")).'</h2>
+<p>'.(__("Do you need discount Code feature?", "WUSPSC")).'<p>
+<p>'.(__("If the answer is yes, please ask it on ", "WUSPSC")).'<a target="_blank" href="http://www.ultra-prod.com/developpement-support/wp-ultra-simple-paypal-shopping-cart-group3/suggestions-features-forum9/discount-code-in-shopping-cart-thread17.0/">'.(__("this Forum thread", "WUSPSC")).'</a><p>
+</div>';
+
+?>  
+
 	<div id="tabs-2">
 	<h2><div id="icon-options-general" class="icon32"></div><?php _e("WP Ultra Simple Shopping Cart Settings", "WUSPSC"); ?> v <?php echo $wp_ultra_simple_paypal_shopping_cart_version; ?></h2>
     <form method="post" action="<?php echo $_SERVER["REQUEST_URI"]; ?>">
@@ -1087,14 +1151,41 @@ echo '<div id="tabs-3">
 <th scope="row">'.(__("Paypal Sandbox (cart is in test)", "WUSPSC")).'</th>
 <td>Test: <input type="radio" name="is_sandbox" value="1" '.$defaultSandboxChecked1.'/>&nbsp;Production: <input type="radio" name="is_sandbox" value="0" '.$defaultSandboxChecked2.'/><br /> You must open a free developer account to use sandbox for your tests before go live.<br /> Go to <a href="https://developer.paypal.com/">https://developer.paypal.com/</a>, register and connect.</td>
 </tr>
+
 <tr valign="top">
 <th scope="row">'.(__("Shopping Cart title", "WUSPSC")).'</th>
 <td><input type="text" name="wp_cart_title" value="'.$title.'" size="40" /></td>
 </tr>
+
 <tr valign="top">
 <th scope="row">'.(__("Text/Image to Show When Cart Empty", "WUSPSC")).'</th>
 <td><input type="text" name="wp_cart_empty_text" value="'.$emptyCartText.'" size="60" /><br />'.(__("You can either enter plain text or the URL of an image that you want to show when the shopping cart is empty", "WUSPSC")).'</td>
 </tr>
+
+<tr valign="top">
+<th scope="row">'.(__('Hide "Cart Empty" message', "WUSPSC")).'</th>
+<td><input type="checkbox" name="wp_shopping_cart_empty_hide" value="1" '.$wp_cart_empty_hide.' /><br />'.(__("If ticked, the shopping cart empty message on page/post or widget will not be display.", "WUSPSC")).'</td>
+</tr>
+
+<tr valign="top">
+<th scope="row">'.(__('Singular "product in your cart" text', "WUSPSC")).'</th>
+<td><input type="text" name="singular_items_text" value="'.$singular_items_text.'" size="40" /></td>
+</tr>
+<tr valign="top">
+<th scope="row">'.(__('Plural "products in your cart" text', "WUSPSC")).'</th>
+<td><input type="text" name="plural_items_text" value="'.$plural_items_text.'" size="40" /></td>
+</tr>
+
+<tr valign="top">
+<th scope="row">'.(__('Hide items count display message', "WUSPSC")).'</th>
+<td><input type="checkbox" name="wp_shopping_cart_items_in_cart_hide" value="1" '.$wp_shopping_cart_items_in_cart_hide.' /><br />'.(__("If ticked, the items in cart count message on page/post or widget will not be display.", "WUSPSC")).'</td>
+</tr>
+
+<tr valign="top">
+<th scope="row">'.(__("Hide Shopping Cart Image", "WUSPSC")).'</th>
+<td><input type="checkbox" name="wp_shopping_cart_image_hide" value="1" '.$wp_cart_image_hide.' /><br />'.(__("If ticked the shopping cart image will not be shown.", "WUSPSC")).'</td>
+</tr>
+
 <tr valign="top">
 <th scope="row">'.(__("Currency", "WUSPSC")).'</th>
 <td><input type="text" name="cart_payment_currency" value="'.$defaultCurrency.'" size="6" /> ('.(__("e.g.", "WUSPSC")).' USD, EUR, GBP, AUD)</td>
@@ -1196,11 +1287,6 @@ echo '<div id="tabs-3">
 </tr>
 
 <tr valign="top">
-<th scope="row">'.(__("Hide Shopping Cart Image", "WUSPSC")).'</th>
-<td><input type="checkbox" name="wp_shopping_cart_image_hide" value="1" '.$wp_cart_image_hide.' /><br />'.(__("If ticked the shopping cart image will not be shown.", "WUSPSC")).'</td>
-</tr>
-
-<tr valign="top">
 <th scope="row">'.(__("Use WP Affiliate Platform", "WUSPSC")).'</th>
 <td><input type="checkbox" name="wp_use_aff_platform" value="1" '.$wp_use_aff_platform.' />
 <br />'.(__("Check this if using with the", "WUSPSC")).' <a href="http://tipsandtricks-hq.com/?p=1474" target="_blank">Ruhul Amin WP Affiliate Platform plugin</a>. '.(__("This plugin lets you run your own affiliate campaign/program and allows you to reward (pay commission) your affiliates for referred sales", "WUSPSC")).'</td>
@@ -1235,12 +1321,18 @@ function wp_cart_options_page ()
 function show_wp_paypal_shopping_cart_widget($args)
 {
 	extract($args);
+	$emptyCartAllowDisplay = get_option('wp_shopping_cart_empty_hide');
+	$cart_title = get_option('wp_cart_title');
+	if (empty($cart_title)) $cart_title = __("Shopping Cart", "WUSPSC");
 	
 	echo $before_widget;
 	
 	if (cart_not_empty()) {	
-		$cart_title = get_option('wp_cart_title');
-		if (empty($cart_title)) $cart_title = __("Shopping Cart", "WUSPSC");
+		echo $before_title . $cart_title . $after_title; 
+		echo print_wp_shopping_cart();
+	}
+	elseif ($emptyCartAllowDisplay == "")
+	{
 		echo $before_title . $cart_title . $after_title; 
 		echo print_wp_shopping_cart();
 	}
@@ -1268,7 +1360,7 @@ function widget_wp_paypal_shopping_cart_init()
 function wp_ultra_simple_cart_add_settings_link($links, $file) 
 {
 	if ($file == plugin_basename(__FILE__)){
-		$settings_link = '<a href="options-general.php?page='.dirname(plugin_basename(__FILE__)).'/wp_shopping_cart.php">'.(__("Settings", "WUSPSC")).'</a>';
+		$settings_link = '<a href="options-general.php?page='.dirname(plugin_basename(__FILE__)).'/wp_ultra_simple_shopping_cart.php">'.(__("Settings", "WUSPSC")).'</a>';
 		array_unshift($links, $settings_link);
 	}
 	return $links;
