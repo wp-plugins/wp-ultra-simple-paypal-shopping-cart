@@ -7,3 +7,7 @@
 #tabs-3 img { display: inline-block; margin: 10px 20px; }
 
 #tabs-3 .donate { margin: 10px auto; width:30%; text-align:left; }
+
+#tabs-5 .content { overflow: auto;border: 1px solid #666;padding: 8px; height: 800px;}
+
+#tabs-5 pre { white-space:pre-wrap; width:110ex; }
