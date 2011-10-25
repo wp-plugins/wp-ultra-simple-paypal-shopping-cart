@@ -11,3 +11,5 @@
 #tabs-5 .content { overflow: auto;border: 1px solid #666;padding: 8px; height: 800px;}
 
 #tabs-5 pre { white-space:pre-wrap; width:110ex; }
+
+.showme { /*text-decoration: blink; */  color: green; }

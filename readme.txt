@@ -4,7 +4,7 @@ Donate link: http://www.ultra-prod.com/?p=86
 Tags: WordPress shopping cart, PayPal API, Paypal shopping cart, online shop, shopping cart, wordpress ecommerce, sell products, e-commerce, PayPal cart widget
 Requires at least: 2.6
 Tested up to: 3.2.1
-Stable tag:4.2.0
+Stable tag:4.2.1
 
 Very easy to use Ultra Simple WordPress Paypal Shopping Cart Plugin. Great for selling products or service online with Paypal in one click with a simple shortcode in any post or page.
 
@@ -34,7 +34,7 @@ This plug-in is based on the based on Ruhul Amin's Simple Paypal Shopping Cart
 2. Create a page with your form (Cform2 is the better choice) and do the following configuration to your form:
 3. Uncheck "Ajax enabled",
 4. Go to Form Settings, Core Form Admin / Email Options section, Redirect option, and check enable alternative success page (redirect), plus past your final page's URL (the page who contain [show_wp_shopping_cart] tag)
-5. Create a page with the shortcode [show_wpus_shopping_cart]
+5. Create a page with the shortcode [show_wp_shopping_cart]
 
 **Using Shipping**
 1. To use per product shipping cost use the following shortcode text in you post/page.
@@ -110,8 +110,11 @@ Keyword list :
 * Bug correction : Images on about was not in the package
 = 4.2.0 =
 * Add feature : Add the posibility to propose a 3 steps Paypal redirect (Step-1 cart's validation, Step-2 use and form page who redirect to page 3,Step-3 cart paypal validation and redirect.)
-* Add feature : Add [validate_wp_shopping_cart] shortcode for step1 cart,  [show_wp_shopping_cart] is olways avalable for 1 step cart or final step cart.
+* Add feature : Add [validate_wp_shopping_cart] shortcode for step1 cart,  [show_wp_shopping_cart] is always available for 1 step cart or final step cart.
 * Enhancement : rename functions
 * Enhancement : Add class to variation select menu
 * Enhancement : Add locate paypal button in EN, FR, DE, IT, ES
 * Cleaning : Clean and add class / id. Removing style tag in the html code
+= 4.2.1 =
+* Add feature : Add a new option switch, display products URL in cart.
+* Bug correction : Usage and redme doc error, show_wp_shopping_cart instead show_wpus_shopping_cart (thanks simstace)

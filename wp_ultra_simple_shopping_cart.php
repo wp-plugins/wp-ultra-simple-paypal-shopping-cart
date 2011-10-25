@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Ultra simple Paypal Cart
-Version: v4.2.0
+Version: v4.2.1
 Plugin URI: http://www.ultra-prod.com/?p=86
 Author: Mike Castro Demaria
 Author URI: http://www.ultra-prod.com
@@ -33,6 +33,7 @@ load_plugin_textdomain('WUSPSC', false, WP_CART_FOLDER . '/languages');
 add_option('wp_cart_title', __("Your Shopping Cart", "WUSPSC"));
 add_option('wp_cart_empty_text', __("Your cart is empty", "WUSPSC"));
 add_option('wpus_shopping_cart_empty_hide', '1');
+add_option('wpus_display_link_in_cart', '1');
 
 add_option('wp_cart_visit_shop_text', __('Visit The Shop', "WUSPSC"));
 add_option('wp_cart_update_quantiy_text', __('Hit enter to submit new Quantity.', "WUSPSC"));
@@ -418,9 +419,20 @@ function print_wpus_shopping_cart($step="paypal")
 	    	$price = get_the_price( $item['price'] );
 	    	$name = get_the_name( $item['name'] );
 	    	
+	    	$wpus_display_link_in_cart = get_option('wpus_display_link_in_cart');
+	    	
+	    	if (!empty( $wpus_display_link_in_cart ))
+	    	{ 
+	    		$cartProductDisplayLink = '<a href="'.$item['cartLink'].'">'.$name.'</a>'; 
+	    	}
+	    	else 
+	    	{ 
+	    		$cartProductDisplayLink = $name; 
+	    	}
+	    	
 			$output .= "
 			<tr>
-				<td class=\"cartLink\"><a href='".$item['cartLink']."'>".$name."</a></td>
+				<td class=\"cartLink\">{$cartProductDisplayLink}</td>
 				<td class=\"center\">
 					<form method=\"post\"  action=\"\" name='pcquantity' style='display: inline'>
 					<input type=\"hidden\" name=\"product\" value=\"".$name."\" />
@@ -921,6 +933,7 @@ function show_wp_cart_options_page () {
         
         update_option('wp_cart_empty_text', (string)$_POST["wp_cart_empty_text"]);
         update_option('wpus_shopping_cart_empty_hide', ($_POST['wpus_shopping_cart_empty_hide']!='') ? 'checked="checked"':'' );
+        update_option('wpus_display_link_in_cart', ($_POST['wpus_display_link_in_cart']!='') ? 'checked="checked"':'' );
         
         update_option('cart_validate_url', (string)$_POST["cart_validate_url"]);
         update_option('cart_return_from_paypal_url', (string)$_POST["cart_return_from_paypal_url"]);
@@ -998,7 +1011,7 @@ function show_wp_cart_options_page () {
 	
 	$emptyCartText = get_option('wp_cart_empty_text');
 	$emptyCartAllowDisplay = get_option('wpus_shopping_cart_empty_hide');
-	
+		
 	$cart_products_page_url = get_option('cart_products_page_url');	 
 
 	$cart_checkout_page_url = get_option('cart_checkout_page_url');
@@ -1048,6 +1061,12 @@ function show_wp_cart_options_page () {
     else
         $wp_cart_empty_hide = '';
     
+    if (get_option('wpus_display_link_in_cart'))
+        $wpus_display_link_in_cart = 'checked="checked"';
+    else
+        $wpus_display_link_in_cart = '';
+    
+    
     if (get_option('wpus_shopping_cart_items_in_cart_hide'))
         $wpus_shopping_cart_items_in_cart_hide = 'checked="checked"';
     else
@@ -1079,7 +1098,7 @@ function show_wp_cart_options_page () {
 		<li><a href="#tabs-2"><?php _e("Settings", "WUSPSC"); ?></a></li>
 		<li><a href="#tabs-4"><?php _e("Discount Code", "WUSPSC"); ?></a></li>
 		<li><a href="#tabs-5"><?php _e("Readme", "WUSPSC"); ?></a></li>
-		<li><a href="#tabs-3"><?php _e("About & donate", "WUSPSC"); ?></a></li>
+		<li><a href="#tabs-3"><span class="showme"><?php _e("About & donate", "WUSPSC"); ?></span></a></li>
 	</ul>
 	
 	<div id="tabs-1">
@@ -1132,13 +1151,13 @@ function show_wp_cart_options_page () {
     </p>
 	<p><h4><?php _e("3. To add the shopping cart to a post or page (eg. checkout page) simply add the shortcode", "WUSPSC"); ?></h4>
 		<blockquote><blockquote>
-			<?php _e("To display checkout to a post or page, simply add the shortcode", "WUSPSC"); ?> <strong>[show_wpus_shopping_cart]</strong><br />
+			<?php _e("To display checkout to a post or page, simply add the shortcode", "WUSPSC"); ?> <strong>&#91;show_wp_shopping_cart&#93;</strong><br />
 			<?php _e("Or use the sidebar widget to add the shopping cart to the sidebar.", "WUSPSC"); ?>
 		</blockquote></blockquote>
 		<strong><?php _e('You must use [validate_wp_shopping_cart] shortcode on another page if you want to use the 3 steps process.', "WUSPSC"); ?></strong><br/>
 		<br/>
 		<ol>
-			<li><?php _e('Create a page with the shortcode', "WUSPSC"); ?> [validate_wp_shopping_cart]</li>
+			<li><?php _e('Create a page with the shortcode', "WUSPSC"); ?> &#91;validate_wp_shopping_cart&#93;</li>
 			<li><?php _e('Create a page with your form (<a href="http://www.deliciousdays.com/cforms-plugin/" target="_blank">Cform2</a> is the better choice) and do the following configuration to your form:', "WUSPSC"); ?></li>
 			<ul>
 				<li><?php _e('Uncheck "Ajax enabled"', "WUSPSC"); ?>,</li>
@@ -1147,7 +1166,7 @@ function show_wp_cart_options_page () {
 				<li><?php _e('Go to Redirect option', "WUSPSC"); ?>,</li>
 				<li><?php _e("And check enable alternative success page (redirect), plus past your final page's URL (the page who contain [show_wp_shopping_cart] tag)", "WUSPSC"); ?></li>
 			</ul>
-			<li><?php _e('Create a page with the shortcode', "WUSPSC"); ?> [show_wpus_shopping_cart]</li>
+			<li><?php _e('Create a page with the shortcode', "WUSPSC"); ?> &#91;show_wp_shopping_cart&#93;</li>
 		</ol>
 	</p>
 	<p></p>
@@ -1334,7 +1353,12 @@ echo '<div id="tabs-4">
 <th scope="row">'.(__("Return URL", "WUSPSC")).'</th>
 <td><input type="text" name="cart_return_from_paypal_url" value="'.$return_url.'" size="100" /><br />'.(__("This is the URL the customer will be redirected to after a successful payment", "WUSPSC")).'</td>
 </tr>
-		
+
+<tr valign="top">
+<th scope="row">'.(__('Display Products URL in cart', "WUSPSC")).'</th>
+<td><input type="checkbox" name="wpus_display_link_in_cart" value="1" '.$wpus_display_link_in_cart.' /><br />'.(__("If ticked, the product's link will not be display in cart. Activate it if you are using a page or a post for each product.", "WUSPSC")).'</td>
+</tr>
+
 <tr valign="top">
 <th scope="row">'.(__("Products Page URL", "WUSPSC")).'</th>
 <td><input type="text" name="cart_products_page_url" value="'.$cart_products_page_url.'" size="100" /><br />'.(__("This is the URL of your products page if you have any. If used, the shopping cart widget will display a link to this page when cart is empty", "WUSPSC")).'</td>
@@ -1468,7 +1492,9 @@ add_filter('the_content', 'print_wp_cart_action',11);
 add_filter('the_content', 'shopping_cart_show');
 
 add_shortcode('show_wp_shopping_cart', 'show_wpus_shopping_cart_handler');
+add_shortcode('show_wpus_shopping_cart', 'show_wpus_shopping_cart_handler');
 add_shortcode('validate_wp_shopping_cart', 'validate_wpus_shopping_cart_handler');
+add_shortcode('validate_wpus_shopping_cart', 'validate_wpus_shopping_cart_handler');
 
 add_shortcode('always_show_wpus_shopping_cart', 'always_show_cart_handler');
 
