@@ -1,13 +1,12 @@
 <?php
 /*
 Plugin Name: WP Ultra simple Paypal Cart
-Version: v4.2.1
+Version: v4.2.2
 Plugin URI: http://www.ultra-prod.com/?p=86
 Author: Mike Castro Demaria
 Author URI: http://www.ultra-prod.com
-Description: WP Ultra simple Paypal Cart Plugin,  use PayPal API to easely add Shopping Cart in your post or your page (you need to <a href="https://www.paypal.com/fr/mrb/pal=CH4PZVAK2GJAJ">create a PayPal account</a>).
-Different features are available like PayPal sandbox test, price Variations, shipping Variations, unlimited extra variations label, interface text's personalization, CSS call for button and many other improvements and bugs corrections too.
-This plug-in is based on the based on Ruhul Amin's "Simple Paypal Shopping Cart".
+Description: WP Ultra simple Paypal Cart Plugin, simply and easely add Shopping Cart in your WP using post or your page (you need to <a href="https://www.paypal.com/fr/mrb/pal=CH4PZVAK2GJAJ">create a PayPal account</a>).
+Different features are available like PayPal sandbox test, price Variations, shipping Variations, unlimited extra variations label, interface text's personalization, CSS call for button, etc.
 */
 /*
     This program is free software; you can redistribute it
@@ -39,8 +38,11 @@ add_option('wp_cart_visit_shop_text', __('Visit The Shop', "WUSPSC"));
 add_option('wp_cart_update_quantiy_text', __('Hit enter to submit new Quantity.', "WUSPSC"));
 
 add_option('wpus_shopping_cart_items_in_cart_hide', '1');
+
 add_option('plural_items_text', __('products in your cart', "WUSPSC"));
 add_option('singular_items_text', __('product in your cart', "WUSPSC"));
+
+add_option('add_cartstyle', 'wp_cart_xpcheckout_button');
 
 add_option('subtotal_text', __('Subtotal', "WUSPSC"));
 add_option('shipping_text', __('Shipping', "WUSPSC"));
@@ -51,6 +53,10 @@ add_option('price_text', __('Price', "WUSPSC"));
 add_option('remove_text', __("Remove", "WUSPSC"));
 add_option('add_cartstyle', '');
 add_option('cart_currency_symbol_order', '1');
+
+// wpusc_cart_item_qty() default string
+add_option('item_qty_string', '%d item%s in your cart');
+add_option('no_item_in_cart_string', 'Cart empty');
 
 add_option('cart_return_from_paypal_url', get_bloginfo('wpurl'));
 
@@ -508,12 +514,19 @@ function print_wpus_shopping_cart($step="paypal")
        				// https://www.sandbox.paypal.com/cgi-bin/webscr (paypal testing site)
 					// https://www.paypal.com/us/cgi-bin/webscr (paypal live site )
        				if (get_option('is_sandbox') == "1") { $is_sandbox = "sandbox."; } else { $is_sandbox = ""; }
+       				
+       				$add_cartstyle = get_option('add_cartstyle');
+					if (empty($add_cartstyle)) $add_cartstyle = "wp_cart_xpcheckout_button";
        			
             	  	$output .= "<form action=\"https://www.".$is_sandbox."paypal.com/cgi-bin/webscr\" method=\"post\">$form";
     				if ($count)
     					$language = wuspc_detect_language();
             			//$output .= '<input type="image" src="'.WP_CART_URL.'/images/'.(__("paypal_checkout_EN.png", "WUSPSC")).'" name="submit" class="wp_cart_checkout_button" alt="'.(__("Make payments with PayPal - it\'s fast, free and secure!", "WUSPSC")).'" />';
-            			$output .= '<input type="image" src="'.WP_CART_URL.'/images/btn_xpressCheckout-'.$language.'.gif" name="submit" class="wp_cart_checkout_button" alt="'.(__("Make payments with PayPal - it\'s fast, free and secure!", "WUSPSC")).'" />';
+            			if (get_option('custom_paypal_button') == "1"){
+            				$output .= '<button name="submit" value="'.(__("Checkout", "WUSPSC")).'" title="'.(__("Checkout", "WUSPSC")).'" class="'.$add_cartstyle.'" alt="'.(__("Make payments with PayPal - it\'s fast, free and secure!", "WUSPSC")).'" />';
+       					} else {
+       						$output .= '<input type="image" src="'.WP_CART_URL.'/images/btn_xpressCheckout-'.$language.'.gif" name="submit" class="'.$add_cartstyle.'" alt="'.(__("Make payments with PayPal - it\'s fast, free and secure!", "WUSPSC")).'" />';
+            			} 
        			
     				$output .= $urls.'
 				    <input type="hidden" name="business" value="'.$email.'" />
@@ -756,6 +769,27 @@ function wp_cart_add_read_form_javascript()
 	</script>';	
 }
 
+function wpusc_cart_item_qty(){
+	
+	$itemInCart = cart_not_empty();
+	$itemQtyString=get_option('item_qty_string');
+	$noItemInCartString=get_option('no_item_in_cart_string');
+	
+	if ( $itemInCart > 0 )
+	{
+		if ( $itemInCart == 1 ){ $plural = ""; }
+		else { $plural = "s"; }
+		
+		$displayQtyString = sprintf($itemQtyString, $itemInCart, $plural);
+	}
+	else 
+	{
+		$displayQtyString = $noItemInCartString;
+	}
+	
+	return($displayQtyString);
+}
+
 function print_wp_cart_button_for_product($name, $price, $shipping=0)
 {
         $addcart = get_option('addToCartButtonName');
@@ -915,7 +949,7 @@ function wuspc_detect_language() {
 }
 
 function show_wp_cart_options_page () {	
-	$wp_ultra_simple_paypal_shopping_cart_version = "4.2.0";
+	$wp_ultra_simple_paypal_shopping_cart_version = "4.2.2";
 	
     if (isset($_POST['info_update']))
     {
@@ -957,7 +991,15 @@ function show_wp_cart_options_page () {
         update_option('qualtity_text', (string)$_POST["qualtity_text"]);
         update_option('price_text', (string)$_POST["price_text"]);
         update_option('remove_text', (string)$_POST["remove_text"]);
+        
+        // wpusc_cart_item_qty() string
+        update_option('item_qty_string', (string)$_POST["item_qty_string"]);
+        update_option('no_item_in_cart_string', (string)$_POST["no_item_in_cart_string"]);
+        
+        // custom button option
+        update_option('custom_paypal_button', (string)$_POST["custom_paypal_button"]);
         update_option('add_cartstyle', (string)$_POST["add_cartstyle"]);
+        
         // sandbox option
         update_option('is_sandbox', (string)$_POST["is_sandbox"]);
                 
@@ -1004,6 +1046,20 @@ function show_wp_cart_options_page () {
 	$title = get_option('wp_cart_title');
 	//if (empty($title)) $title = __("Your Shopping Cart", "WUSPSC");
 	
+	$itemQtyString = get_option('item_qty_string');
+	if (empty($itemQtyString)) $itemQtyString = __("%d item%s in your cart", "WUSPSC");
+	$noItemInCartString = get_option('no_item_in_cart_string');
+	if (empty($noItemInCartString)) $noItemInCartString = __("Cart empty", "WUSPSC");
+	
+	// custom_paypal_button
+	if (get_option('custom_paypal_button'))
+        $customPaypalButton = 'checked="checked"';
+    else
+        $customPaypalButton = '';
+	
+	$add_cartstyle = get_option('add_cartstyle');
+	if (empty($add_cartstyle)) $add_cartstyle = "wp_cart_checkout_button";
+					
 	// sandbox
 	$defaultSandboxChecked = get_option('is_sandbox');
 	if ($defaultSandboxChecked == "1"){$defaultSandboxChecked1 = "checked"; $defaultSandboxChecked2 = "";}
@@ -1034,8 +1090,7 @@ function show_wp_cart_options_page () {
 	$qualtity_text = get_option('qualtity_text');
 	$price_text = get_option('price_text');
 	$remove_text = get_option('remove_text');
-	$add_cartstyle = get_option('add_cartstyle');
-        
+    
     if (get_option('wpus_shopping_cart_reset_after_redirection_to_return_page'))
         $wpus_shopping_cart_reset_after_redirection_to_return_page = 'checked="checked"';
     else
@@ -1116,7 +1171,17 @@ function show_wp_cart_options_page () {
     		<strong>[wp_cart:<?php _e("PRODUCT-NAME", "WUSPSC"); ?>:price:<?php _e("PRODUCT-PRICE", "WUSPSC"); ?>:end]</strong><br />
     		<blockquote><?php _e("eg.", "WUSPSC"); ?> [wp_cart:<?php _e("Test Product", "WUSPSC"); ?>:price:15.00:end]</blockquote>
     	</ol>
-
+		
+		<ol>
+    		<?php _e("To add the ‘Add to Cart’ button on you theme’s template files, use &lt;?php echo print_wp_cart_button_for_product('PRODUCT-NAME', PRODUCT-PRICE); ?&gt; . Replace PRODUCT-NAME and PRODUCT-PRICE with the actual name and price.", "WUSPSC"); ?><br />
+    		<blockquote></blockquote>
+    	</ol>
+    	
+    	<ol>
+    		<?php _e("To display the numbers of items in cart use &lt;?php echo wpusc_cart_item_qty(); ?&gt; . The string display are set in the plugin's settings.", "WUSPSC"); ?><br />
+    		<blockquote></blockquote>
+    	</ol>
+		
 		<ol>
 			<?php _e("To use variation of the price use the following trigger text:", "WUSPSC"); ?><br />
 			<strong>[wp_cart:<?php _e("PRODUCT-NAME", "WUSPSC"); ?>:price:[<?php _e("VARIATION-NAME", "WUSPSC"); ?>|<?php _e("VARIATION-LABEL1", "WUSPSC"); ?>,<?php _e("VARIATION-PRICE1", "WUSPSC"); ?>|<?php _e("VARIATION-LABEL2", "WUSPSC"); ?>,<?php _e("VARIATION-PRICE2", "WUSPSC"); ?>]:end]</strong><br />
@@ -1181,7 +1246,7 @@ $language = wuspc_detect_language();
 
 echo '<div id="tabs-3">
 <h2><div id="icon-users" class="icon32"></div>'.(__("Do you like WUSPSC ?", "WUSPSC")).'</h2>
-<p><a href="http://wordpress.org/extend/plugins/wp-ultra-simple-paypal-shopping-cart/" target="_blank">'.(__("If you like WUSPSC, give it a good rating", "WUSPSC")).'</a>'.(__(" and please consider to donate a few $, &#8364; or &pound; to help me to give time for user&#8217;s support, add new features and fast upgrades.", "WUSPSC")).'</p>
+<p><a href="http://wordpress.org/extend/plugins/wp-ultra-simple-paypal-shopping-cart/" target="_blank">'.(__("Please, if you like WUSPSC, give it a good rating", "WUSPSC")).'</a>'.(__(" and please consider to donate a few $, &#8364; or &pound; to help me to give time for user&#8217;s support, add new features and fast upgrades.", "WUSPSC")).'</p>
 <p>
 <form class="donate" action="https://www.paypal.com/cgi-bin/webscr" method="post">
 <input type="hidden" name="cmd" value="_s-xclick">
@@ -1235,7 +1300,7 @@ echo '<div id="tabs-4">
 </tr>
 <tr valign="top">
 <th scope="row">'.(__("Paypal Sandbox (cart is in test)", "WUSPSC")).'</th>
-<td>Test: <input type="radio" name="is_sandbox" value="1" '.$defaultSandboxChecked1.'/>&nbsp;Production: <input type="radio" name="is_sandbox" value="0" '.$defaultSandboxChecked2.'/><br /> You must open a free developer account to use sandbox for your tests before go live.<br /> Go to <a href="https://developer.paypal.com/">https://developer.paypal.com/</a>, register and connect.</td>
+<td>Test: <input type="radio" name="is_sandbox" value="1" '.$defaultSandboxChecked1.'/>&nbsp;Production: <input type="radio" name="is_sandbox" value="0" '.$defaultSandboxChecked2.'/><br /> '.(__('You must open a free developer account to use sandbox for your tests before go live.<br /> Go to <a href="https://developer.paypal.com/">https://developer.paypal.com/</a>, register and connect.', "WUSPSC")).'</td>
 </tr>
 
 <tr valign="top">
@@ -1274,7 +1339,7 @@ echo '<div id="tabs-4">
 
 <tr valign="top">
 <th scope="row">'.(__("Currency", "WUSPSC")).'</th>
-<td><input type="text" name="cart_payment_currency" value="'.$defaultCurrency.'" size="6" /> ('.(__("e.g.", "WUSPSC")).' USD, EUR, GBP, AUD)</td>
+<td><input type="text" name="cart_payment_currency" value="'.$defaultCurrency.'" maxlength="3" size="4" /> ('.(__("e.g.", "WUSPSC")).' USD, EUR, GBP, AUD)'.(__('Full list on <a target="_blank" href="https://cms.paypal.com/us/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_api_nvp_currency_codes">PayPal website</a>', "WUSPSC")).'</td>
 </tr>
 <tr valign="top">
 <th scope="row">'.(__("Currency Symbol", "WUSPSC")).'</th>
@@ -1313,7 +1378,11 @@ echo '<div id="tabs-4">
 </tr>
 
 <tr valign="top">
-<th scope="row">'.(__("Cart button class style", "WUSPSC")).'</th>
+<th scope="row">'.(__("Custom Paypal button", "WUSPSC")).'</th>
+<td><input type="checkbox" name="custom_paypal_button" value="1" '.$customPaypalButton.' /><br />'.(__(" If ticked, use .wp_cart_checkout_button class to your theme to override default settings.", "WUSPSC")).'</td>
+</tr>
+<tr valign="top">
+<th scope="row">'.(__("Cart button class name (without the dot)", "WUSPSC")).'</th>
 <td><input type="text" name="add_cartstyle" value="'.$add_cartstyle.'" size="40" /></td>
 </tr>
 <tr valign="top">
@@ -1339,6 +1408,14 @@ echo '<div id="tabs-4">
 <tr valign="top">
 <th scope="row">'.(__("Price text", "WUSPSC")).'</th>
 <td><input type="text" name="price_text" value="'.$price_text.'" size="40" /></td>
+</tr>
+<tr valign="top">
+<th scope="row">'.(__("Item count text", "WUSPSC")).'</th>
+<td><input type="text" name="item_qty_string" value="'.$itemQtyString.'" size="40" /></td>
+</tr>
+<tr valign="top">
+<th scope="row">'.(__("No item in cart text", "WUSPSC")).'</th>
+<td><input type="text" name="no_item_in_cart_string" value="'.$noItemInCartString.'" size="40" /></td>
 </tr>
 <tr valign="top">
 <th scope="row">'.(__("Remove text", "WUSPSC")).'</th>

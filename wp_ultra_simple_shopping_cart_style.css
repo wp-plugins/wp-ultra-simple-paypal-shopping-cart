@@ -90,4 +90,17 @@ width: auto !important;
 	text-transform: uppercase;
 }
 
+button.wp_cart_xpcheckout_button{
+    background-image: url('images/btn_xpressCheckout-en_US.gif'); /* 145x42 px */
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    width: 145px!important;
+    height: 42px;
+    vertical-align: middle;
+}
 
+button.wp_cart_xpcheckout_button:hover {
+	opacity: 0.7;
+}
