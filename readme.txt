@@ -1,12 +1,13 @@
 === WordPress Ultra Simple Paypal Shopping Cart ===
-Contributors: Mike Castro Demaria
+Contributors: mikecastrodemaria, Franck Maussand
 Donate link: http://www.ultra-prod.com/?p=86
 Tags: WordPress shopping cart, Paypal shopping cart, online shop, shopping cart, wordpress ecommerce, sell products, e-commerce, PayPal cart widget
 Requires at least: 2.6
-Tested up to: 3.2.1
-Stable tag:4.2.2
+Tested up to: 3.4
+Stable tag: trunk
+License: GPLv2 or later
 
-Ultra Simple WordPress Paypal Shopping Cart Plugin is a very easy to use plugin. Great for selling products or service online, with Paypal handling the transaction, in one click. All that is required is placing a simple shortcode on any post or page or in theme.
+WUSPSC it's ultra simple to add cart to your WP. All that is required is placing a simple shortcode on any post or page or in theme.
 
 == Description ==
 
@@ -20,9 +21,38 @@ Other new features include, Price Variations, interface text's personalization, 
 This plugin customisable in the plugin admin and 100% customisable by CSS.
 To style the 'add to cart' button use cart button class style in the admin. Eg. 
 
-For screenshots, detailed documentation, support and updates, please visit [Ultra Prod Forum](http://www.ultra-prod.com/developpement-support/wp-ultra-simple-paypal-shopping-cart-group3.0/ "go to Ultra Prod forum")
+For screenshots, detailed documentation, support and updates, please visit [Ultra Prod Support Forum](http://www.ultra-prod.com/developpement-support/wp-ultra-simple-paypal-shopping-cart-group3.0/ "go to Ultra Prod forum")
 
-This plug-in is based on the Ruhul Amin's Simple Paypal Shopping Cart
+= Features =
+
+* shortcode : Create "add to cart" button with options if needed (price, shipping, options variations). The cart's shortcode can be displayed on posts or pages.
+* theme's function : Use function to add dynamic "add to cart" button directly in your theme with dynamic datas.
+* configurations : Usefull strings can be customized to give a specific word for your business.
+* sandbox : You can use Paypal sandbox to test your integrations before go live.
+* and many more...
+
+== Credits ==
+
+Copyright 2011-2012 by Mike Castro Demaria & Ultra Prod Team
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License 
+along with this program; if not, write to the Free Software Foundation,
+Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+== Installation ==
+
+Upload the WordPress Ultra Simple Paypal Shopping Cart plugin to your WordPress plugin directory, activate it, put payment's shortcode to your posts or pages, and add cart's shortcode or widget.
+You're ready to sell! 
 
 == Usage ==
 
@@ -133,3 +163,6 @@ Keyword list :
 * Add feature : Add a new function to display items count in template wpusc_cart_item_qty() .
 * Add feature : Paypal button use default language or can be customized usin wp_cart_xpcheckout_button class.
 * Enhancement : readme is  rewrited to add clarity (thanks jr-whs)
+= 4.3.0 =
+* Add feature : Add quantity box who can be enables / disabled .
+* Enhancement : cleaning code and restructuration ton prepare upcoming V5 
