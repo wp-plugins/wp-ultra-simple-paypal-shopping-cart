@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Ultra simple Paypal Cart
-Version: v4.3.0
+Version: v4.3.1
 Plugin URI: http://www.ultra-prod.com/?p=86
 Author: Mike Castro Demaria
 Author URI: http://www.ultra-prod.com
@@ -23,7 +23,7 @@ if(!isset($_SESSION)) {
 }	
 
 if ( ! defined( 'WUSPSC_VERSION' ) )
-    define( 'WUSPSC_VERSION', '4.3.0' );
+    define( 'WUSPSC_VERSION', '4.3.1' );
 
 if ( ! defined( 'WUSPSC_CART_URL' ) )
     define('WUSPSC_CART_URL', plugins_url('',__FILE__));
@@ -392,7 +392,7 @@ function print_wpus_shopping_cart( $step="paypal") {
 function print_wp_cart_action($content)
 {
 		//wp_cart_add_read_form_javascript();
-			
+
 		if(get_option('display_product_inline') && get_option('display_product_inline') == 1) { 
 			$option_break = ' ';
 		} else {
@@ -406,7 +406,7 @@ function print_wp_cart_action($content)
 		$pattern = '#\[wp_cart:.+:price:.+:end]#';
 		preg_match_all ($pattern, $content, $matches);
 		
-		$replacement = '';	
+		$replacement = '';
 
 		foreach($matches[0] as $match) {   
 			
@@ -440,6 +440,7 @@ function print_wp_cart_action($content)
 						$var_output .= '<option value="'.$allVariationLabelArray[$v].'">'.$allVariationLabelArray[$v].'</option>';
 					}
 					$var_output .= '</select>'.$option_break;
+
 				}
 			}
 			
@@ -526,6 +527,7 @@ function print_wp_cart_action($content)
 						.$shippingDigitAndWordArray[1].'">'
 						.$shippingDigitAndWordArray[0].'</option>';
 					}
+					
 					$replacement .= '</select>'.$option_break;
 					
 				} elseif($pieces['2'] != "" ) { 
@@ -547,11 +549,11 @@ function print_wp_cart_action($content)
 				$replacement .= '<input class="vsubmit submit" type="submit" value="'.$addcart.'" />';
 			} 
 			
-			$replacement .= '</form>';
-			
+			$replacement .= '</form>';	
 			//$replacement .= '</object>';
-			$content = str_replace ($match, $replacement, $content);				
 		}
+		
+		$content = str_replace ($match, $replacement, $content);
 		return $content;
 }
 

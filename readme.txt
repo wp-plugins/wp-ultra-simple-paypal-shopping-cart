@@ -1,5 +1,5 @@
 === WordPress Ultra Simple Paypal Shopping Cart ===
-Contributors: mikecastrodemaria, franck_maussand
+Contributors: mikecastrodemaria, Franck Maussand
 Donate link: http://www.ultra-prod.com/?p=86
 Tags: WordPress shopping cart, Paypal shopping cart, online shop, shopping cart, wordpress ecommerce, sell products, e-commerce, PayPal cart widget
 Requires at least: 2.6
@@ -165,4 +165,6 @@ Keyword list :
 * Enhancement : readme is  rewrited to add clarity (thanks jr-whs)
 = 4.3.0 =
 * Add feature : Add quantity box who can be enables / disabled .
-* Enhancement : cleaning code and restructuration ton prepare upcoming V5 
+* Enhancement : cleaning code and restructuration ton prepare upcoming V5
+= V4.3.1 =
+* Bugfix : shortcode in the same post/page was recursiv, sorry (Thanks TC)
