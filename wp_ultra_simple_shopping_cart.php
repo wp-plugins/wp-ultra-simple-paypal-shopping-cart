@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Ultra simple Paypal Cart
-Version: v4.3.1
+Version: v4.3.2
 Plugin URI: http://www.ultra-prod.com/?p=86
 Author: Mike Castro Demaria
 Author URI: http://www.ultra-prod.com
@@ -23,7 +23,7 @@ if(!isset($_SESSION)) {
 }	
 
 if ( ! defined( 'WUSPSC_VERSION' ) )
-    define( 'WUSPSC_VERSION', '4.3.1' );
+    define( 'WUSPSC_VERSION', '4.3.2' );
 
 if ( ! defined( 'WUSPSC_CART_URL' ) )
     define('WUSPSC_CART_URL', plugins_url('',__FILE__));
@@ -405,12 +405,11 @@ function print_wp_cart_action($content)
 				
 		$pattern = '#\[wp_cart:.+:price:.+:end]#';
 		preg_match_all ($pattern, $content, $matches);
-		
-		$replacement = '';
 
 		foreach($matches[0] as $match) {   
-			
-			$var_output = '';
+
+			$replacement = '';
+			$var_output  = '';
 			$pos = strpos($match,":var1");
 			
 			/*
@@ -444,14 +443,10 @@ function print_wp_cart_action($content)
 				}
 			}
 			
-			$pattern = '[wp_cart:';
-			$m = str_replace ($pattern, '', $match);
-			$pattern = 'price:';
-			$m = str_replace ($pattern, '', $m);
-			$pattern = 'shipping:';
-			$m = str_replace ($pattern, '', $m);
-			$pattern = ':end]';
-			$m = str_replace ($pattern, '', $m);
+			$pattern = '[wp_cart:';	$m = str_replace ($pattern, '', $match);
+			$pattern = 'price:';	$m = str_replace ($pattern, '', $m);
+			$pattern = 'shipping:';	$m = str_replace ($pattern, '', $m);
+			$pattern = ':end]';		$m = str_replace ($pattern, '', $m);
 
 			$pieces = explode(':',$m);
 
@@ -482,7 +477,6 @@ function print_wp_cart_action($content)
 			if(!empty($var_output)) { $replacement .= $var_output; }
 
 			$replacement .= '<input type="hidden" name="product" value="'.$pieces['0'].'" />';
-			
 			
 			/*
 			/ price variation combo
@@ -549,11 +543,11 @@ function print_wp_cart_action($content)
 				$replacement .= '<input class="vsubmit submit" type="submit" value="'.$addcart.'" />';
 			} 
 			
-			$replacement .= '</form>';	
-			//$replacement .= '</object>';
+			$replacement .= '</form>';
+			$content = str_replace ($match, $replacement, $content);
+
 		}
-		
-		$content = str_replace ($match, $replacement, $content);
+
 		return $content;
 }
 

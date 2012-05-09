@@ -3,7 +3,7 @@ Mike Castro Demaria & Ultra Prod Team
 
 * More Changelog can be found at [Ultra Prod forum](http://www.ultra-prod.com/developpement-support/wp-ultra-simple-paypal-shopping-cart-group3/annoucements-and-updates-forum7/ "Ulra Prod forum").
 
-= V4.3.1 - 09.05.2012 =
+= V4.3.2 - 09.05.2012 =
 * Bugfix : shortcode in the same post/page was recursiv, sorry (Thanks TC)
 
 = V4.3.0 - 08.05.2012 =

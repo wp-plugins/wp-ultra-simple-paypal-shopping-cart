@@ -166,5 +166,5 @@ Keyword list :
 = 4.3.0 =
 * Add feature : Add quantity box who can be enables / disabled .
 * Enhancement : cleaning code and restructuration ton prepare upcoming V5
-= V4.3.1 =
+= V4.3.2 =
 * Bugfix : shortcode in the same post/page was recursiv, sorry (Thanks TC)
