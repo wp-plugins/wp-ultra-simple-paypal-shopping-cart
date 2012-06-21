@@ -168,3 +168,5 @@ Keyword list :
 * Enhancement : cleaning code and restructuration ton prepare upcoming V5
 = V4.3.2 =
 * Bugfix : shortcode in the same post/page was recursiv, sorry (Thanks TC)
+= V4.3.3 =
+* Bugfix : quantity error on template call code, corrected now (Thanks Raylance)

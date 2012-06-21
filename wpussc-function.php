@@ -44,6 +44,7 @@ function shopping_cart_show($content) {
 
 function reset_wp_cart() {
 	$products = $_SESSION['ultraSimpleCart'];
+	
 	if(empty($products)) {
 		unset($_SESSION['ultraSimpleCart']);
 		return;
@@ -51,6 +52,7 @@ function reset_wp_cart() {
 	foreach($products as $key => $item) {
 		unset($products[$key]);
 	}
+	
 	$_SESSION['ultraSimpleCart'] = $products;	
 }
 

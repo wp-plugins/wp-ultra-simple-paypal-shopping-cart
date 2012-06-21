@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Ultra simple Paypal Cart
-Version: v4.3.2
+Version: v4.3.3
 Plugin URI: http://www.ultra-prod.com/?p=86
 Author: Mike Castro Demaria
 Author URI: http://www.ultra-prod.com
@@ -23,7 +23,7 @@ if(!isset($_SESSION)) {
 }	
 
 if ( ! defined( 'WUSPSC_VERSION' ) )
-    define( 'WUSPSC_VERSION', '4.3.2' );
+    define( 'WUSPSC_VERSION', '4.3.3' );
 
 if ( ! defined( 'WUSPSC_CART_URL' ) )
     define('WUSPSC_CART_URL', plugins_url('',__FILE__));
@@ -569,6 +569,7 @@ function print_wp_cart_button_for_product($name, $price, $shipping=0) {
 	}
 
 	$replacement .= '<input type="hidden" name="product" value="'.$name.'" />';
+	$replacement .= '<input type="hidden" name="quantity" value="1" />';
 	
 // price variation combo
 	if( preg_match('/\[(?P<label>\w+)/', $price) ) {
