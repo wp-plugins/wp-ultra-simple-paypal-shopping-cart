@@ -3,10 +3,16 @@ Mike Castro Demaria & Ultra Prod Team
 
 * More Changelog can be found at [Ultra Prod forum](http://www.ultra-prod.com/developpement-support/wp-ultra-simple-paypal-shopping-cart-group3/annoucements-and-updates-forum7/ "Ulra Prod forum").
 
-= V4.3.2 - 09.05.2012 =
+= V4.3.4 - 13.09.2012 =
+* Enhancement : reload button for qty and message display using jQuery
+
+= V4.3.3 =
+* Bugfix : quantity error on template call code, corrected now (Thanks Raylance)
+
+= V4.3.2 =
 * Bugfix : shortcode in the same post/page was recursiv, sorry (Thanks TC)
 
-= V4.3.0 - 08.05.2012 =
+= V4.3.0 =
 * Add feature : Add quantity box who can be enables / disabled .
 * Enhancement : cleaning code and restructuration ton prepare upcoming V5 
 

@@ -3,7 +3,7 @@ Contributors: mikecastrodemaria, Franck Maussand
 Donate link: http://www.ultra-prod.com/?p=86
 Tags: WordPress shopping cart, Paypal shopping cart, online shop, shopping cart, wordpress ecommerce, sell products, e-commerce, PayPal cart widget
 Requires at least: 2.6
-Tested up to: 3.4
+Tested up to: 3.4.1
 Stable tag: trunk
 License: GPLv2 or later
 
@@ -170,3 +170,5 @@ Keyword list :
 * Bugfix : shortcode in the same post/page was recursiv, sorry (Thanks TC)
 = V4.3.3 =
 * Bugfix : quantity error on template call code, corrected now (Thanks Raylance)
+= V4.3.4 =
+* Enhancement : reload button for qty and message display using jQuery

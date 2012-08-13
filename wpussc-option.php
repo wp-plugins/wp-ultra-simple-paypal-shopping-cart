@@ -1,7 +1,7 @@
 <?php
 /*
 Ultra Prod WPUSSC Admin Options
-Version: v1
+Version: v1.0.1
 */
 /*
 	This program is free software; you can redistribute it
@@ -23,7 +23,7 @@ add_option('wp_cart_empty_text',			__("Your cart is empty", "WUSPSC"));
 add_option('wpus_shopping_cart_empty_hide',	'1');
 add_option('wpus_display_link_in_cart',		'1');
 add_option('wp_cart_visit_shop_text',		__('Visit The Shop', "WUSPSC"));
-add_option('wp_cart_update_quantiy_text',	__('Hit enter to submit new Quantity.', "WUSPSC"));
+add_option('wp_cart_update_quantiy_text',	__('Hit enter or click on reload icon to submit the updated quantity please.', "WUSPSC"));
 add_option('wpus_shopping_cart_items_in_cart_hide', '1');
 add_option('plural_items_text',				__('products in your cart', "WUSPSC"));
 add_option('singular_items_text',			__('product in your cart', "WUSPSC"));

@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Ultra simple Paypal Cart
-Version: v4.3.3
+Version: v4.3.4
 Plugin URI: http://www.ultra-prod.com/?p=86
 Author: Mike Castro Demaria
 Author URI: http://www.ultra-prod.com
@@ -23,7 +23,7 @@ if(!isset($_SESSION)) {
 }	
 
 if ( ! defined( 'WUSPSC_VERSION' ) )
-    define( 'WUSPSC_VERSION', '4.3.3' );
+    define( 'WUSPSC_VERSION', '4.3.4' );
 
 if ( ! defined( 'WUSPSC_CART_URL' ) )
     define('WUSPSC_CART_URL', plugins_url('',__FILE__));
@@ -215,7 +215,8 @@ function print_wpus_shopping_cart( $step="paypal") {
 	
 	$wp_cart_update_quantiy_text = get_option('wp_cart_update_quantiy_text');
 	
-	$output .= '<span id="pinfo" style="display: none; font-weight: bold; color: red;">'.$wp_cart_update_quantiy_text.'</span>';
+	$output .= "<script>jQuery(document).ready(function() { jQuery('.pinfo').hide(); jQuery('.iquantity').keypress( function() { jQuery('#paypalbutton').hide(\"slow\"); jQuery('.pinfo').show('slow'); });});</script>";
+		
 	$output .= '<table style="width: 100%;">';	
 	
 	$count			= 1;
@@ -284,7 +285,7 @@ function print_wpus_shopping_cart( $step="paypal") {
 					<form method=\"post\"  action=\"\" name='pcquantity' style='display: inline'>
 					".$output_name."
 					<input type=\"hidden\" name=\"cquantity\" value=\"1\" />
-					<input type=\"text\" name=\"quantity\" value=\"".$item['quantity']."\" size=\"1\"  onchange=\"this.form.submit();\" onkeypress='document.getElementById(\"pinfo\").style.display = \"\";' />
+					<input class=\"iquantity\" type=\"text\" name=\"quantity\" value=\"".$item['quantity']."\" size=\"1\"  onchange=\"this.form.submit();\" /><input class=\"pinfo\" type=\"image\" title=\"Reload\" value=\"Reload\" src=\"".WUSPSC_CART_URL."/images/Shoppingcart_reload.png\">
 					</form>
 				</td>
 				<td class=\"center\">".print_payment_currency(($price * $item['quantity']), $paypal_symbol, $decimal, get_option('cart_currency_symbol_order'))."</td>
@@ -292,7 +293,7 @@ function print_wpus_shopping_cart( $step="paypal") {
 					<form method=\"post\"  action=\"\">
 					<input type=\"hidden\" name=\"product\" value=\"".$item['name']."\" />
 					<input type='hidden' name='delcart' value='1' />
-					<input type='image' src='".WUSPSC_CART_URL."/images/Shoppingcart_delete.png' value='".get_option('remove_text')."' title='".get_option('remove_text')."' />
+					<input class=\"remove\" type=\"image\" src='".WUSPSC_CART_URL."/images/Shoppingcart_delete.png' value='".get_option('remove_text')."' title='".get_option('remove_text')."' />
 					</form>
 				</td>
 			</tr>
@@ -355,15 +356,17 @@ function print_wpus_shopping_cart( $step="paypal") {
    				
    				$add_cartstyle = get_option('add_cartstyle');
 				if(empty($add_cartstyle)) $add_cartstyle = "wp_cart_xpcheckout_button";
-   			
+   				
+   				$output .= '<span class="pinfo" style="font-weight: bold; color: red;">'.$wp_cart_update_quantiy_text.'</span>';
+   				
 			  	$output .= "<form action=\"https://www.".$is_sandbox."paypal.com/cgi-bin/webscr\" method=\"post\">$form";
 				if($count)
 					$language = __UP_detect_language();
-				//$output .= '<input type="image" src="'.WUSPSC_CART_URL.'/images/'.(__("paypal_checkout_EN.png", "WUSPSC")).'" name="submit" class="wp_cart_checkout_button" alt="'.(__("Make payments with PayPal - it\'s fast, free and secure!", "WUSPSC")).'" />';
+					//$output .= '<input type="image" src="'.WUSPSC_CART_URL.'/images/'.(__("paypal_checkout_EN.png", "WUSPSC")).'" name="submit" class="wp_cart_checkout_button" alt="'.(__("Make payments with PayPal - it\'s fast, free and secure!", "WUSPSC")).'" />';
 				if(get_option('custom_paypal_button') == "1") {
-					$output .= '<button name="submit" value="'.(__("Checkout", "WUSPSC")).'" title="'.(__("Checkout", "WUSPSC")).'" class="'.$add_cartstyle.'" alt="'.(__("Make payments with PayPal - it\'s fast, free and secure!", "WUSPSC")).'" />';
+					$output .= '<button id="paypalbutton" name="submit" value="'.(__("Checkout", "WUSPSC")).'" title="'.(__("Checkout", "WUSPSC")).'" class="'.$add_cartstyle.'" alt="'.(__("Make payments with PayPal - it\'s fast, free and secure!", "WUSPSC")).'" />';
 				} else {
-					$output .= '<input type="image" src="'.WUSPSC_CART_URL.'/images/btn_xpressCheckout-'.$language.'.gif" name="submit" class="'.$add_cartstyle.'" alt="'.(__("Make payments with PayPal - it\'s fast, free and secure!", "WUSPSC")).'" />';
+					$output .= '<input id="paypalbutton" type="image" src="'.WUSPSC_CART_URL.'/images/btn_xpressCheckout-'.$language.'.gif" name="submit" class="'.$add_cartstyle.'" alt="'.(__("Make payments with PayPal - it\'s fast, free and secure!", "WUSPSC")).'" />';
 				} 
    			
 				$output .= $urls.'
