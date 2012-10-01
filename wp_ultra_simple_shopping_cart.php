@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Ultra simple Paypal Cart
-Version: v4.3.4
+Version: v4.3.5
 Plugin URI: http://www.ultra-prod.com/?p=86
 Author: Mike Castro Demaria
 Author URI: http://www.ultra-prod.com
@@ -23,7 +23,7 @@ if(!isset($_SESSION)) {
 }	
 
 if ( ! defined( 'WUSPSC_VERSION' ) )
-    define( 'WUSPSC_VERSION', '4.3.4' );
+    define( 'WUSPSC_VERSION', '4.3.5' );
 
 if ( ! defined( 'WUSPSC_CART_URL' ) )
     define('WUSPSC_CART_URL', plugins_url('',__FILE__));
@@ -77,8 +77,9 @@ if(isset($_GET["mc_gross"])&&  $_GET["mc_gross"]> 0) {
 }
 
 //Clear the cart if the customer landed on the thank you page
+
 if(get_option('wpus_shopping_cart_reset_after_redirection_to_return_page')) {
-	if(get_option('cart_return_from_paypal_url') == get_permalink($post->ID)) {
+	if(get_option('cart_return_from_paypal_url') == no_notice_get_permalink($post->ID)) {
 		reset_wp_cart();
 	}
 }
@@ -152,7 +153,7 @@ if($_POST['addcart']) {
 	$_SESSION['ultraSimpleCart'] = $products;
 }
 
-function print_wpus_shopping_cart( $step="paypal") {
+function print_wpus_shopping_cart( $step="paypal", $type="page") {
 	
 	$emptyCartAllowDisplay = get_option('wpus_shopping_cart_empty_hide');
 	/*if( $emptyCartAllowDisplay )
@@ -198,11 +199,19 @@ function print_wpus_shopping_cart( $step="paypal") {
 			$urls .= '<input type="hidden" name="notify_url" value="'.$notify.'" />';
 		}
 	}
+	
 	$title = get_option('wp_cart_title');
 	//if(empty($title)) $title = __("Your Shopping Cart", "WUSPSC");
 	
 	global $plugin_dir_name;
-	$output .= '<div class="shopping_cart" id="shopping_cart">';
+	
+	if (!empty($type)){
+		$type_class = " ".$type;
+	} else {
+		$type_class = "";		
+	}
+	
+	$output .= '<div class="shopping_cart'.$type_class.'" id="shopping_cart">';
 	if(!get_option('wpus_shopping_cart_image_hide')) {		
 		$output .= "<img src='".WUSPSC_CART_URL."/images/shopping_cart_icon.png' value='".(__("Cart", "WUSPSC"))."' title='".(__("Cart", "WUSPSC"))."' />";
 	}
@@ -215,7 +224,7 @@ function print_wpus_shopping_cart( $step="paypal") {
 	
 	$wp_cart_update_quantiy_text = get_option('wp_cart_update_quantiy_text');
 	
-	$output .= "<script>jQuery(document).ready(function() { jQuery('.pinfo').hide(); jQuery('.iquantity').keypress( function() { jQuery('#paypalbutton').hide(\"slow\"); jQuery('.pinfo').show('slow'); });});</script>";
+	$output .= "<script>jQuery(document).ready(function() { jQuery('.pinfo').hide(); jQuery('.iquantity').keypress( function() { jQuery('.paypalbutton').hide(\"slow\"); jQuery('.pinfo').show('slow'); });});</script>";
 		
 	$output .= '<table style="width: 100%;">';	
 	
@@ -223,6 +232,8 @@ function print_wpus_shopping_cart( $step="paypal") {
 	$total_items	= 0;
 	$total			= 0;
 	$form			= '';
+	
+	$display_vat = get_option('display_vat');
 
 	if($_SESSION['ultraSimpleCart'] && is_array($_SESSION['ultraSimpleCart'])) {   
 		
@@ -260,6 +271,7 @@ function print_wpus_shopping_cart( $step="paypal") {
 			<th class="left">'.get_option('item_name_text').'</th>
 			<th class="center">'.get_option('qualtity_text').'</th>
 			<th class="center">'.get_option('price_text').'</th>
+			<th class="center">&nbsp;</th>
 		</tr>';
 		
 		
@@ -288,7 +300,7 @@ function print_wpus_shopping_cart( $step="paypal") {
 					<input class=\"iquantity\" type=\"text\" name=\"quantity\" value=\"".$item['quantity']."\" size=\"1\"  onchange=\"this.form.submit();\" /><input class=\"pinfo\" type=\"image\" title=\"Reload\" value=\"Reload\" src=\"".WUSPSC_CART_URL."/images/Shoppingcart_reload.png\">
 					</form>
 				</td>
-				<td class=\"center\">".print_payment_currency(($price * $item['quantity']), $paypal_symbol, $decimal, get_option('cart_currency_symbol_order'))."</td>
+				<td class=\"left\">".print_payment_currency(($price * $item['quantity']), $paypal_symbol, $decimal, get_option('cart_currency_symbol_order'))."</td>
 				<td>
 					<form method=\"post\"  action=\"\">
 					<input type=\"hidden\" name=\"product\" value=\"".$item['name']."\" />
@@ -326,22 +338,39 @@ function print_wpus_shopping_cart( $step="paypal") {
 			$output .= "
 			<tr>
 				<td colspan=\"2\" class=\"subcell\">".get_option('subtotal_text').": </td>
-				<td class=\"center\">".print_payment_currency($total, $paypal_symbol, $decimal, get_option('cart_currency_symbol_order'))."</td><td></td></tr>
+				<td colspan=\"2\" class=\"left\">".print_payment_currency($total, $paypal_symbol, $decimal, get_option('cart_currency_symbol_order'))."</td></tr>
 			<tr>
 				<td colspan=\"2\" class=\"shipcell\">".get_option('shipping_text').": </td>
-				<td class=\"center\">".print_payment_currency($postage_cost, $paypal_symbol, $decimal, get_option('cart_currency_symbol_order'))."</td><td></td></tr>";
+				<td colspan=\"2\" class=\"left\">".print_payment_currency($postage_cost, $paypal_symbol, $decimal, get_option('cart_currency_symbol_order'))."</td></tr>";
+		} elseif ($postage_cost == 0 && get_option('display_free_shipping') == 1) {
+			$output .= "<tr>
+				<td colspan=\"2\" class=\"shipcell\">".get_option('shipping_text').": </td>
+				<td colspan=\"2\" class=\"left\">".(__("Free", "WUSPSC"))."</td></tr>";
+		}
+		
+		if( $display_vat != '' && is_numeric($display_vat) ) {
+			
+			$vat = ($total*$display_vat) / 100;
+			
+			$output .= "
+			<tr>
+				<td colspan=\"2\" class=\"shipcell\">".(__("VAT", "WUSPSC"))." (".$display_vat."%): </td>
+				<td colspan=\"2\" class=\"left\">".print_payment_currency($vat, $paypal_symbol, $decimal, get_option('cart_currency_symbol_order'))."</td></tr>";
+				
+			$total = $total+$vat;
 		}
 
 		$output .= "
    		<tr>
    			<td colspan=\"2\" class=\"totalcel\">".get_option('total_text').": </td>
-   			<td class=\"center\">".print_payment_currency(($total+$postage_cost), $paypal_symbol, $decimal, get_option('cart_currency_symbol_order'))."</td>
-   			<td></td>
+   			<td colspan=\"2\" class=\"left\">".print_payment_currency(($total+$postage_cost), $paypal_symbol, $decimal, get_option('cart_currency_symbol_order'))."</td>
    		</tr>
    		<tr>
    			<td colspan=\"4\">";
    		
+   		// 1 or 2 step caddy
    		switch($step) {
+   			// 2 steps caddy with valication firsl
    			case "validate":
    				$output .= '<form action="'.$cart_validation_url.'" method="post">'.$form;
 				if($count)
@@ -349,37 +378,66 @@ function print_wpus_shopping_cart( $step="paypal") {
 				$output .= '</form>';
    				break;
    				
+   			// 1 step with direct paypal submit
    			case "paypal":
+   				// base URL to play with PayPal
    				// https://www.sandbox.paypal.com/cgi-bin/webscr (paypal testing site)
 				// https://www.paypal.com/us/cgi-bin/webscr (paypal live site )
+				// just for information
+				
+				//is the sandbox is activated
    				$is_sandbox = (get_option('is_sandbox') == "1")? "sandbox.": "";
    				
-   				$add_cartstyle = get_option('add_cartstyle');
-				if(empty($add_cartstyle)) $add_cartstyle = "wp_cart_xpcheckout_button";
-   				
+   				$language = __UP_detect_language();
+				
+				// checkout button default
+   				$checkout_style = get_option('checkout_style');
+				if(empty($checkout_style)) $checkout_style = "wp_checkout_button";
+				
+				// default use no text on button
+				$displaybuttontext = ' name="'.(__("Checkout", "WUSPSC")).'" value="'.(__("Checkout", "WUSPSC")).'"';
+				
+				$css_id_checkout_style = "paypalbutton";
+				$css_class_checkout_style = "paypalbutton";
+				
+				// use custom button ot not
+				if( get_option('use_custom_button') == "1" ) {
+				
+					// add custom style + default paypalbutton calls for jQuery call
+					$css_id_checkout_style = $checkout_style;
+					$css_class_checkout_style = "paypalbutton ".$checkout_style;
+
+					// use text on button
+					$displaybuttontext = ' name="'.(__("Checkout", "WUSPSC")).'" value="'.$checkout_button_name.'"';
+
+				}
+
+   				// qty display
    				$output .= '<span class="pinfo" style="font-weight: bold; color: red;">'.$wp_cart_update_quantiy_text.'</span>';
    				
+   				// start the form to submit cart
 			  	$output .= "<form action=\"https://www.".$is_sandbox."paypal.com/cgi-bin/webscr\" method=\"post\">$form";
-				if($count)
-					$language = __UP_detect_language();
-					//$output .= '<input type="image" src="'.WUSPSC_CART_URL.'/images/'.(__("paypal_checkout_EN.png", "WUSPSC")).'" name="submit" class="wp_cart_checkout_button" alt="'.(__("Make payments with PayPal - it\'s fast, free and secure!", "WUSPSC")).'" />';
-				if(get_option('custom_paypal_button') == "1") {
-					$output .= '<button id="paypalbutton" name="submit" value="'.(__("Checkout", "WUSPSC")).'" title="'.(__("Checkout", "WUSPSC")).'" class="'.$add_cartstyle.'" alt="'.(__("Make payments with PayPal - it\'s fast, free and secure!", "WUSPSC")).'" />';
-				} else {
-					$output .= '<input id="paypalbutton" type="image" src="'.WUSPSC_CART_URL.'/images/btn_xpressCheckout-'.$language.'.gif" name="submit" class="'.$add_cartstyle.'" alt="'.(__("Make payments with PayPal - it\'s fast, free and secure!", "WUSPSC")).'" />';
-				} 
-   			
-				$output .= $urls.'
-				<input type="hidden" name="business" value="'.$email.'" />
-				<input type="hidden" name="currency_code" value="'.$paypal_currency.'" />
-				<input type="hidden" name="cmd" value="_cart" />
-				<input type="hidden" name="upload" value="1" />
-				<input type="hidden" name="rm" value="2" />
-				<input type="hidden" name="mrb" value="DKBDRZGU62JYC" />';
+			  	
+			  	// all data sent to paypal
+			  	$output .= $urls.'
+					<input type="hidden" name="business" value="'.$email.'" />
+					<input type="hidden" name="currency_code" value="'.$paypal_currency.'" />
+					<input type="hidden" name="cmd" value="_cart" />
+					<input type="hidden" name="upload" value="1" />
+					<input type="hidden" name="rm" value="2" />
+					<input type="hidden" name="mrb" value="DKBDRZGU62JYC" />
+					<input type="hidden" name="bn" value="UltraProdSAS_SI_ADHOC" />';
+					
 				if($use_affiliate_platform) {
 					$output .= wp_cart_add_custom_field();
 				}
+   			
+				// set the button
+				$output .= '<input type="submit" id="'.$css_id_checkout_style.'" class="'.$css_class_checkout_style.'"'.$displaybuttontext.' alt="'.(__("Make payments with PayPal - it's fast, free and secure!", "WUSPSC")).'" />';
+   			
 				$output .= '</form>';
+				
+				// end the form to submit cart
 				break;
 		}
    	}
@@ -402,10 +460,30 @@ function print_wp_cart_action($content)
 			$option_break = '<br/>';
 		}
 		
-		$addcart = get_option('addToCartButtonName');	
-		if(!$addcart || ($addcart == '') )
-			$addcart = __("Add to Cart", "WUSPSC");
+		// default use text on button
+		$displaybuttontext = ' name="'.(__("Add to Cart", "WUSPSC")).'" value="'.(__("Add to Cart", "WUSPSC")).'" alt="'.(__("Add to Cart", "WUSPSC")).'"';
+		
+		// use custom button ot not
+		if( get_option('use_custom_button') == "1" ) {
+			
+			// is the cart button is custom or not
+			$addcart_button_name = get_option('addToCartButtonName');	
+			if(!$addcart_button_name)
+				$addcart_button_name = (__("Add to Cart", "WUSPSC"));
 				
+			$add_cartstyle = get_option('add_cartstyle');
+			if(!$add_cartstyle)
+				$add_cartstyle = "wp_cart_button";
+				
+			$css_class_addcart_style = " ".$add_cartstyle;
+			
+			// use text on button
+			$displaybuttontext = ' name="'.(__("Add to Cart", "WUSPSC")).'" value="'.$addcart_button_name.'" alt="'.$addcart_button_name.'"';
+
+		}
+		
+		$addToCartButton .= '<input type="submit" class="vsubmit submit'.$css_class_addcart_style.'" '.$displaybuttontext.' />'; 
+		
 		$pattern = '#\[wp_cart:.+:price:.+:end]#';
 		preg_match_all ($pattern, $content, $matches);
 
@@ -468,7 +546,7 @@ function print_wp_cart_action($content)
 			
 			$replacement .= $product_name;
 
-			$replacement .= '<form method="post" id="wpus-cart-button-form" class="wpus-cart-button-form '.__UP_strtolower_utf8($pieces['0']).'" action="" onsubmit="return ReadForm(this, true);">';  
+			$replacement .= '<form method="post" class="wpus-cart-button-form '.__UP_strtolower_utf8($pieces['0']).'" action="" onsubmit="return ReadForm(this, true);">';  
 			
 			/* quantity */
 			if(get_option('display_quantity') && get_option('display_quantity') == 1) { 
@@ -537,15 +615,9 @@ function print_wp_cart_action($content)
 			*/
 			
 			$replacement .= '<input type="hidden" name="product_tmp" value="'.$pieces['0'].'" />';
-			$replacement .= '<input type="hidden" name="cartLink" value="'.get_permalink($post->ID).'" />';
+			$replacement .= '<input type="hidden" name="cartLink" value="'.no_notice_get_permalink($post->ID).'" />';
 			$replacement .= '<input type="hidden" name="addcart" value="1" />';
-
-			if(preg_match("/http/", $addcart)) {	// Use the image as the 'add to cart' button
-				$replacement .= '<input class="image" type="image" src="'.$addcart.'" class="wp_cart_button" alt="'.(__("Add to Cart", "WUSPSC")).'"/>';
-			} else {
-				$replacement .= '<input class="vsubmit submit" type="submit" value="'.$addcart.'" />';
-			} 
-			
+			$replacement .= $addToCartButton;			
 			$replacement .= '</form>';
 			$content = str_replace ($match, $replacement, $content);
 
@@ -561,12 +633,32 @@ function print_wp_cart_action($content)
 /* ------------------------------- to do ------------------------------------- */
 
 function print_wp_cart_button_for_product($name, $price, $shipping=0) {
-	$addcart = get_option('addToCartButtonName');
+
+	// default use text on button
+	$displaybuttontext = ' name="'.(__("Add to Cart", "WUSPSC")).'" value="'.(__("Add to Cart", "WUSPSC")).'" alt="'.(__("Add to Cart", "WUSPSC")).'"';
 	
-	if(!$addcart || ($addcart == '') )
-		$addcart = __("Add to Cart", "WUSPSC");			   
+	// use custom button ot not
+	if( get_option('use_custom_button') == "1" ) {
+		
+		// is the cart button is custom or not
+		$addcart_button_name = get_option('addToCartButtonName');	
+		if(!$addcart_button_name)
+			$addcart_button_name = (__("Add to Cart", "WUSPSC"));
+			
+		$add_cartstyle = get_option('add_cartstyle');
+		if(!$add_cartstyle)
+			$add_cartstyle = "wp_cart_button";
+			
+		$css_class_addcart_style = " ".$add_cartstyle;
+		
+		// use text on button
+		$displaybuttontext = ' name="'.(__("Add to Cart", "WUSPSC")).'" value="'.$addcart_button_name.'" alt="'.$addcart_button_name.'"';
+
+	}
 	
-	$replacement = '<object><form method="post" id="wpus-cart-button-form" class="wpus-cart-button-form '.__UP_strtolower_utf8($name).'" action="" onsubmit="return ReadForm(this, true);">';			 
+	$addToCartButton .= '<input type="submit" class="vsubmit submit'.$css_class_addcart_style.'" '.$displaybuttontext.' />'; 
+	
+	$replacement = '<form method="post" class="wpus-cart-button-form '.__UP_strtolower_utf8($name).'" action="" onsubmit="return ReadForm(this, true);">';			 
 	if(!empty($var_output)) {
 		$replacement .= $var_output;
 	}
@@ -625,16 +717,10 @@ function print_wp_cart_button_for_product($name, $price, $shipping=0) {
 	}
 	
 	$replacement .= '<input type="hidden" name="product_tmp" value="'.$name.'" />';
-	$replacement .= '<input type="hidden" name="cartLink" value="'.get_permalink($post->ID).'" />';
+	$replacement .= '<input type="hidden" name="cartLink" value="'.no_notice_get_permalink($post->ID).'" />';
 	$replacement .= '<input type="hidden" name="addcart" value="1" />';
-
-	if(preg_match("/http/", $addcart)) { // Use the image as the 'add to cart' button
-		$replacement .= '<input class="image" type="image" src="'.$addcart.'" class="wp_cart_button" alt="'.(__("Add to Cart", "WUSPSC")).'"/>';
-	} else {
-		$replacement .= '<input class="vsubmit submit" type="submit" value="'.$addcart.'" />';
-	} 
-		
-	$replacement .= '</form></object>';   
+	$replacement .= $addToCartButton;
+	$replacement .= '</form>';   
 	
 	return $replacement;
 }
@@ -691,7 +777,7 @@ add_shortcode('show_wp_shopping_cart', 'show_wpus_shopping_cart_handler');
 add_shortcode('show_wpus_shopping_cart', 'show_wpus_shopping_cart_handler');
 add_shortcode('validate_wp_shopping_cart', 'validate_wpus_shopping_cart_handler');
 add_shortcode('validate_wpus_shopping_cart', 'validate_wpus_shopping_cart_handler');
-add_shortcode('always_show_wpus_shopping_cart', 'always_show_cart_handler');
+add_shortcode('always_show_wpus_shopping_cart', 'us_always_show_cart_handler');
 
 add_action('wp_head', 'wp_cart_add_read_form_javascript');
 

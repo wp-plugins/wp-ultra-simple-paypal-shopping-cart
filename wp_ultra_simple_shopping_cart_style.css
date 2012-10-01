@@ -1,25 +1,55 @@
 .shopping_cart{
-font-size:12px;
+	font-size:12px;
 }
 .shopping_cart h2{
-font-size:14px;
+	font-size:14px;
 }
 .shopping_cart img{
-border:none;
+	border:none;
 }
 .shopping_cart input{
-width:auto !important;
+	width:auto;
 }
 .wpus-cart-button-form input{
-width: auto !important;
+	width: auto;
 }
 
-.wp_cart_checkout_button { margin: 4px 0 ; }
-
-.wp_cart_checkout_button:hover{
-	opacity:0.7;
+input[type=submit], 
+input[type=reset] {
+ 	cursor:pointer;
 }
 
+input[type=submit]:hover, 
+input[type=reset]:hover {
+	cursor:pointer;
+}
+ 
+input[type=submit]:active, 
+input[type=reset]:active {
+ cursor:pointer;
+}
+
+.wp_checkout_button{
+    background-image: url('images/btn_xpressCheckout-en_US.gif'); /* 145x42 px */
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    width: 145px !important;
+    height: 42px;
+    vertical-align: middle;
+    display: block;
+    position: relative;
+    margin: 10px 0; 
+}
+
+
+.wp_cart_checkout_button, 
+.wp_cart_button { 
+	margin: 4px 0 ; 
+}
+
+.wp_cart_checkout_button:hover, 
 .wp_cart_button:hover{
 	opacity:0.7;
 }
@@ -90,21 +120,6 @@ width: auto !important;
 	text-transform: uppercase;
 }
 
-button.wp_cart_xpcheckout_button{
-    background-image: url('images/btn_xpressCheckout-en_US.gif'); /* 145x42 px */
-    background-color: transparent;
-    background-repeat: no-repeat;
-    border: none;
-    cursor: pointer;
-    width: 145px!important;
-    height: 42px;
-    vertical-align: middle;
-}
-
-button.wp_cart_xpcheckout_button:hover {
-	opacity: 0.7;
-}
-
 .product_name{
 	color: #666;
 	font-size: 14px;
@@ -112,4 +127,13 @@ button.wp_cart_xpcheckout_button:hover {
 	letter-spacing: 0.1em;
 	line-height: 2.6em;
 	text-transform: uppercase;
+}
+
+.remove {
+	width: 16px;
+	height: 16px;
+	margin-left: 4px;
+	position: relative;
+	display: block;
+	top: 4px;
 }

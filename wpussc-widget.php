@@ -1,7 +1,7 @@
 <?php
 /*
 Ultra Prod WPUSSC Widget
-Version: v1
+Version: v1.3.5
 */
 /*
 	This program is free software; you can redistribute it
@@ -26,14 +26,14 @@ function show_wp_paypal_shopping_cart_widget($args) {
 	if(cart_not_empty()) {	
 		if(empty($cart_validation_url)) {
 			echo $before_title . $cart_title . $after_title; 
-			echo print_wpus_shopping_cart("paypal");
+			echo print_wpus_shopping_cart("paypal","widget");
 		} else {
 			echo $before_title . $cart_title . $after_title; 
-			echo print_wpus_shopping_cart("validate");
+			echo print_wpus_shopping_cart("validate","widget");
 		}
 	} elseif($emptyCartAllowDisplay == "") {
 		echo $before_title . $cart_title . $after_title; 
-		echo print_wpus_shopping_cart();
+		echo print_wpus_shopping_cart("paypal","widget");
 	}
 	
 	echo $after_widget;

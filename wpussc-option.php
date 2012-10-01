@@ -1,7 +1,7 @@
 <?php
 /*
 Ultra Prod WPUSSC Admin Options
-Version: v1.0.1
+Version: v1.3.5
 */
 /*
 	This program is free software; you can redistribute it
@@ -27,7 +27,9 @@ add_option('wp_cart_update_quantiy_text',	__('Hit enter or click on reload icon 
 add_option('wpus_shopping_cart_items_in_cart_hide', '1');
 add_option('plural_items_text',				__('products in your cart', "WUSPSC"));
 add_option('singular_items_text',			__('product in your cart', "WUSPSC"));
-add_option('add_cartstyle',					'wp_cart_xpcheckout_button');
+add_option('add_cartstyle',					'wp_cart_button');
+add_option('checkout_style',				'wp_checkout_button');
+//add_option('use_custom_button',				'0');
 add_option('display_product_name',			'0');
 add_option('display_product_inline',		'0');
 add_option('display_quantity',				'0');
@@ -58,8 +60,18 @@ function show_wp_cart_options_page () {
 		update_option('wpus_shopping_cart_use_profile_shipping', ($_POST['wpus_shopping_cart_use_profile_shipping']!='') ? 'checked="checked"':'' );
 				
 		update_option('cart_paypal_email', (string)$_POST["cart_paypal_email"]);
-		update_option('addToCartButtonName', (string)$_POST["addToCartButtonName"]);
 		update_option('wp_cart_title', (string)$_POST["wp_cart_title"]);
+		
+		update_option('display_free_shipping', (string)$_POST["display_free_shipping"]);
+		
+		update_option('display_vat', (string)$_POST["display_vat"]); 
+
+		// custom button option
+		update_option('use_custom_button', (string)$_POST["use_custom_button"]);
+		update_option('add_cartstyle', (string)$_POST["add_cartstyle"]);
+		update_option('addToCartButtonName', (string)$_POST["addToCartButtonName"]);
+		update_option('checkout_style', (string)$_POST["checkout_style"]);
+		update_option('checkoutButtonName', (string)$_POST["checkoutButtonName"]);
 		
 		update_option('wp_cart_empty_text', (string)$_POST["wp_cart_empty_text"]);
 		update_option('wpus_shopping_cart_empty_hide', ($_POST['wpus_shopping_cart_empty_hide']!='') ? 'checked="checked"':'' );
@@ -95,10 +107,6 @@ function show_wp_cart_options_page () {
 		// wpusc_cart_item_qty() string
 		update_option('item_qty_string', (string)$_POST["item_qty_string"]);
 		update_option('no_item_in_cart_string', (string)$_POST["no_item_in_cart_string"]);
-		
-		// custom button option
-		update_option('custom_paypal_button', (string)$_POST["custom_paypal_button"]);
-		update_option('add_cartstyle', (string)$_POST["add_cartstyle"]);
 		
 		// sandbox option
 		update_option('is_sandbox', (string)$_POST["is_sandbox"]);
@@ -141,14 +149,13 @@ function show_wp_cart_options_page () {
 	
 	$cart_free_shipping_threshold = get_option('cart_free_shipping_threshold');
 
+	$display_vat = get_option('display_vat');
+
 	$defaultEmail = get_option('cart_paypal_email');
 	if(empty($defaultEmail)) $defaultEmail = get_bloginfo('admin_email');
 	
 	$return_url =  get_option('cart_return_from_paypal_url');
 	$cart_validate_url =  get_option('cart_validate_url');
-	
-	$addcart = get_option('addToCartButtonName');
-	if(empty($addcart)) $addcart = __("Add to Cart", "WUSPSC");		   
 
 	$title = get_option('wp_cart_title');
 	//-if(empty($title)) $title = __("Your Shopping Cart", "WUSPSC");
@@ -158,11 +165,22 @@ function show_wp_cart_options_page () {
 	$noItemInCartString = get_option('no_item_in_cart_string');
 	if(empty($noItemInCartString)) $noItemInCartString = __("Cart empty", "WUSPSC");
 	
-// custom_paypal_button
-	$customPaypalButton = (get_option('custom_paypal_button'))? 'checked="checked"': '';
+	$displayFreeShipping = (get_option('display_free_shipping'))? 'checked="checked"': '';
+	
+// use_custom_button
+	$useCustomButton = (get_option('use_custom_button'))? 'checked="checked"': '';
 	
 	$add_cartstyle = get_option('add_cartstyle');
-	if(empty($add_cartstyle)) $add_cartstyle = "wp_cart_checkout_button";
+	if(empty($add_cartstyle)) $add_cartstyle = "wp_cart_button";
+	
+	$addcart_button_name = get_option('addToCartButtonName');
+	//if(empty($addcart_button_name)) $addcart_button_name = __("Add to Cart", "WUSPSC");		 
+	
+	$checkout_style = get_option('checkout_style');
+	if(empty($checkout_style)) $checkout_style = "wp_checkout_button";  
+
+	$checkout_button_name = get_option('checkoutButtonName');
+	//if(empty($checkout_button_name)) $checkout_button_name = __("Checkout", "WUSPSC");	
 					
 // sandbox
 	$defaultSandboxChecked = get_option('is_sandbox');
@@ -177,7 +195,7 @@ function show_wp_cart_options_page () {
 	$cart_checkout_page_url = get_option('cart_checkout_page_url');
 	$wpus_shopping_cart_auto_redirect_to_checkout_page = (get_option('wpus_shopping_cart_auto_redirect_to_checkout_page'))? 'checked="checked"': '';	
 	
- // added txt string	
+// added txt string	
    	$wp_cart_visit_shop_text = get_option('wp_cart_visit_shop_text');
 	$wp_cart_update_quantiy_text = get_option('wp_cart_update_quantiy_text');
 	
@@ -410,6 +428,11 @@ echo '<div id="tabs-4">
 </tr>
 
 <tr valign="top">
+<th scope="row">'.(__("Free Shipping", "WUSPSC")).'</th>
+<td><input type="checkbox" name="display_free_shipping" value="1" '.$displayFreeShipping.' /><br />'.(__(" If ticked, display a shipping free message on cart.", "WUSPSC")).'</td>
+</tr>
+
+<tr valign="top">
 <th scope="row">'.(__("Currency", "WUSPSC")).'</th>
 <td><input type="text" name="cart_payment_currency" value="'.$defaultCurrency.'" maxlength="3" size="4" /> ('.(__("e.g.", "WUSPSC")).' USD, EUR, GBP, AUD)'.(__('Full list on <a target="_blank" href="https://cms.paypal.com/us/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_api_nvp_currency_codes">PayPal website</a>', "WUSPSC")).'</td>
 </tr>
@@ -423,20 +446,30 @@ echo '<div id="tabs-4">
 <td>Is the currency symbol is displayed befor or after the price ? <input type="radio" name="cart_currency_symbol_order" value="1" '.$defaultSymbolOrderChecked1.'/> Before or <input type="radio" name="cart_currency_symbol_order" value="2" '.$defaultSymbolOrderChecked2.'/> After
 </td>
 </tr>
-
 <tr valign="top">
-<th scope="row">'.(__("Custom Paypal button", "WUSPSC")).'</th>
-<td><input type="checkbox" name="custom_paypal_button" value="1" '.$customPaypalButton.' /><br />'.(__(" If ticked, use .wp_cart_checkout_button class to your theme to override default settings.", "WUSPSC")).'</td>
+<th scope="row">'.(__("Item global VAT", "WUSPSC")).'</th>
+<td><input type="text" name="display_vat" value="'.$display_vat.'" size="5" />%<br />'.(__("Add VAT rate. The VAT must be a percentage eg. 19.60. Leave empty to disable it.", "WUSPSC")).'</td>
 </tr>
 
 <tr valign="top">
-<th scope="row">'.(__("Add to Cart button text or Image", "WUSPSC")).'</th>
-<td><input type="text" name="addToCartButtonName" value="'.$addcart.'" size="100" /><br />'.(__("To use a customized image as the button simply enter the URL of the image file.", "WUSPSC")).' '.(__("e.g.", "WUSPSC")).' http://www.your-domain.com/wp-content/plugins/wordpress-paypal-shopping-cart/images/buy_now_button.png</td>
+<th scope="row">'.(__("Custom buttons", "WUSPSC")).'</th>
+<td><input type="checkbox" name="use_custom_button" value="1" '.$useCustomButton.' /><br />'.(__(" If ticked, use following custom id & class on button.", "WUSPSC")).'</td>
 </tr>
-
 <tr valign="top">
-<th scope="row">'.(__("Cart button class name (without the dot)", "WUSPSC")).'</th>
+<th scope="row">'.(__("Add to Cart button text", "WUSPSC")).'</th>
+<td><input type="text" name="addToCartButtonName" value="'.$addcart_button_name.'" size="100" /><br />'.(__("To use a customized 'add to cart' button text, fill with a text or leave empty for using image as button background. Don't forget to add background-image to your theme's style.", "WUSPSC")).'</td>
+</tr>
+<tr valign="top">
+<th scope="row">'.(__("Cart button id & class name (without the dash or dot)", "WUSPSC")).'</th>
 <td><input type="text" name="add_cartstyle" value="'.$add_cartstyle.'" size="40" /></td>
+</tr>
+<tr valign="top">
+<th scope="row">'.(__("Checkout button text", "WUSPSC")).'</th>
+<td><input type="text" name="checkoutButtonName" value="'.$checkout_button_name.'" size="100" /><br />'.(__("To use a customized 'checkout' button text, fill with a text or leave empty for using image as button background. Don't forget to add background-image to your theme's style.", "WUSPSC")).'</td>
+</tr>
+<tr valign="top">
+<th scope="row">'.(__("Checkout button id & class name (without the dash or dot)", "WUSPSC")).'</th>
+<td><input type="text" name="checkout_style" value="'.$checkout_style.'" size="40" /></td>
 </tr>
 
 <tr valign="top">
