@@ -177,3 +177,5 @@ Keyword list :
 * Add feature : Add VAT to items
 * Add feature : shipping can be display as "Free"
 * Bugfix : th missing on cart
+= V4.3.6 =
+* Enhancement : add more class and id to the cart's html table

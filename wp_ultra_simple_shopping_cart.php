@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Ultra simple Paypal Cart
-Version: v4.3.5
+Version: v4.3.6
 Plugin URI: http://www.ultra-prod.com/?p=86
 Author: Mike Castro Demaria
 Author URI: http://www.ultra-prod.com
@@ -23,7 +23,7 @@ if(!isset($_SESSION)) {
 }	
 
 if ( ! defined( 'WUSPSC_VERSION' ) )
-    define( 'WUSPSC_VERSION', '4.3.5' );
+    define( 'WUSPSC_VERSION', '4.3.6' );
 
 if ( ! defined( 'WUSPSC_CART_URL' ) )
     define('WUSPSC_CART_URL', plugins_url('',__FILE__));
@@ -79,7 +79,7 @@ if(isset($_GET["mc_gross"])&&  $_GET["mc_gross"]> 0) {
 //Clear the cart if the customer landed on the thank you page
 
 if(get_option('wpus_shopping_cart_reset_after_redirection_to_return_page')) {
-	if(get_option('cart_return_from_paypal_url') == no_notice_get_permalink($post->ID)) {
+	if(get_option('cart_return_from_paypal_url') == get_permalink($post->ID)) {
 		reset_wp_cart();
 	}
 }
@@ -270,7 +270,7 @@ function print_wpus_shopping_cart( $step="paypal", $type="page") {
 		<tr class="cart_labels">
 			<th class="left">'.get_option('item_name_text').'</th>
 			<th class="center">'.get_option('qualtity_text').'</th>
-			<th class="center">'.get_option('price_text').'</th>
+			<th class="left">'.get_option('price_text').'</th>
 			<th class="center">&nbsp;</th>
 		</tr>';
 		
@@ -291,7 +291,7 @@ function print_wpus_shopping_cart( $step="paypal", $type="page") {
 			$output_name .= "<input type=\"hidden\" name=\"product\" value=\"".$name."\" />";
 			
 			$output .= "
-			<tr>
+			<tr id=\"cartcontent\" class=\"cartcontent\">
 				<td class=\"cartLink\">{$cartProductDisplayLink}</td>
 				<td class=\"center\">
 					<form method=\"post\"  action=\"\" name='pcquantity' style='display: inline'>
@@ -336,16 +336,16 @@ function print_wpus_shopping_cart( $step="paypal", $type="page") {
 
 		if($postage_cost != 0) {
 			$output .= "
-			<tr>
-				<td colspan=\"2\" class=\"subcell\">".get_option('subtotal_text').": </td>
-				<td colspan=\"2\" class=\"left\">".print_payment_currency($total, $paypal_symbol, $decimal, get_option('cart_currency_symbol_order'))."</td></tr>
-			<tr>
-				<td colspan=\"2\" class=\"shipcell\">".get_option('shipping_text').": </td>
-				<td colspan=\"2\" class=\"left\">".print_payment_currency($postage_cost, $paypal_symbol, $decimal, get_option('cart_currency_symbol_order'))."</td></tr>";
+			<tr id=\"subrow\" class=\"subrow\">
+				<td colspan=\"2\" class=\"subcell subcelllabel\">".get_option('subtotal_text').": </td>
+				<td colspan=\"2\" class=\"subcell left subcellamount\">".print_payment_currency($total, $paypal_symbol, $decimal, get_option('cart_currency_symbol_order'))."</td></tr>
+			<tr id=\"shiprow\" class=\"shiprow\">
+				<td colspan=\"2\" class=\"shipcell shiplabel\">".get_option('shipping_text').": </td>
+				<td colspan=\"2\" class=\"shipcell left shipamount\">".print_payment_currency($postage_cost, $paypal_symbol, $decimal, get_option('cart_currency_symbol_order'))."</td></tr>";
 		} elseif ($postage_cost == 0 && get_option('display_free_shipping') == 1) {
-			$output .= "<tr>
-				<td colspan=\"2\" class=\"shipcell\">".get_option('shipping_text').": </td>
-				<td colspan=\"2\" class=\"left\">".(__("Free", "WUSPSC"))."</td></tr>";
+			$output .= "<tr id=\"shiprow\" class=\"shiprow\">
+				<td colspan=\"2\" class=\"shipcell shiplabel\">".get_option('shipping_text').": </td>
+				<td colspan=\"2\" class=\"shipcell left shipamount\">".(__("Free", "WUSPSC"))."</td></tr>";
 		}
 		
 		if( $display_vat != '' && is_numeric($display_vat) ) {
@@ -353,19 +353,19 @@ function print_wpus_shopping_cart( $step="paypal", $type="page") {
 			$vat = ($total*$display_vat) / 100;
 			
 			$output .= "
-			<tr>
-				<td colspan=\"2\" class=\"shipcell\">".(__("VAT", "WUSPSC"))." (".$display_vat."%): </td>
-				<td colspan=\"2\" class=\"left\">".print_payment_currency($vat, $paypal_symbol, $decimal, get_option('cart_currency_symbol_order'))."</td></tr>";
+			<tr id=\"vatrow\" class=\"vatrow\">
+				<td colspan=\"2\" class=\"vatcell vatlabel\">".(__("VAT", "WUSPSC"))." (".$display_vat."%): </td>
+				<td colspan=\"2\" class=\"vatcell left vatamount\">".print_payment_currency($vat, $paypal_symbol, $decimal, get_option('cart_currency_symbol_order'))."</td></tr>";
 				
 			$total = $total+$vat;
 		}
 
 		$output .= "
-   		<tr>
-   			<td colspan=\"2\" class=\"totalcel\">".get_option('total_text').": </td>
-   			<td colspan=\"2\" class=\"left\">".print_payment_currency(($total+$postage_cost), $paypal_symbol, $decimal, get_option('cart_currency_symbol_order'))."</td>
+   		<tr id=\"totalrow\" class=\"totalrow\">
+   			<td colspan=\"2\" class=\"totalcel totallabel\">".get_option('total_text').": </td>
+   			<td colspan=\"2\" class=\"totalcel left totalamount\">".print_payment_currency(($total+$postage_cost), $paypal_symbol, $decimal, get_option('cart_currency_symbol_order'))."</td>
    		</tr>
-   		<tr>
+   		<tr id=\"ppcheckout\" class=\"ppcheckout\">
    			<td colspan=\"4\">";
    		
    		// 1 or 2 step caddy
@@ -615,7 +615,7 @@ function print_wp_cart_action($content)
 			*/
 			
 			$replacement .= '<input type="hidden" name="product_tmp" value="'.$pieces['0'].'" />';
-			$replacement .= '<input type="hidden" name="cartLink" value="'.no_notice_get_permalink($post->ID).'" />';
+			$replacement .= '<input type="hidden" name="cartLink" value="'.get_permalink($post->ID).'" />';
 			$replacement .= '<input type="hidden" name="addcart" value="1" />';
 			$replacement .= $addToCartButton;			
 			$replacement .= '</form>';
@@ -717,7 +717,7 @@ function print_wp_cart_button_for_product($name, $price, $shipping=0) {
 	}
 	
 	$replacement .= '<input type="hidden" name="product_tmp" value="'.$name.'" />';
-	$replacement .= '<input type="hidden" name="cartLink" value="'.no_notice_get_permalink($post->ID).'" />';
+	$replacement .= '<input type="hidden" name="cartLink" value="'.get_permalink($post->ID).'" />';
 	$replacement .= '<input type="hidden" name="addcart" value="1" />';
 	$replacement .= $addToCartButton;
 	$replacement .= '</form>';   

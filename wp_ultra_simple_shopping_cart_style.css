@@ -92,6 +92,7 @@ input[type=reset]:active {
 
 .subcell,
 .shipcell,
+.vatcell,
 .totalcel 
 {
 	font-weight: bold; 

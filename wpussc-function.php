@@ -1,7 +1,7 @@
 <?php
 /*
 Ultra Prod WPUSSC Functions
-Version: v1.3.5
+Version: v1.3.6
 */
 /*
 	This program is free software; you can redistribute it
@@ -30,8 +30,9 @@ function validate_wpus_shopping_cart_handler() {
 	return $output;	
 }
 
+// need to be uddated
 function no_notice_get_permalink($post) {
-	// thanks mophilly 
+	
 	if (empty($post)) {
 		$permlink = '';
 	} else {
@@ -40,7 +41,7 @@ function no_notice_get_permalink($post) {
 	
 	return $permlink;
 }
-
+//---
 
 function shopping_cart_show($content) {
 	if(strpos($content, "<!--show-wp-shopping-cart-->") !== FALSE) {
