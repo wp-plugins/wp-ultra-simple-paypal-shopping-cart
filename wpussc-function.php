@@ -1,7 +1,7 @@
 <?php
 /*
 Ultra Prod WPUSSC Functions
-Version: v1.3.6
+Version: v1.3.7
 */
 /*
 	This program is free software; you can redistribute it
@@ -270,9 +270,12 @@ function wuspsc_admin_register_head_cart_css() {
 	
 }
 
+if ( function_exists( 'add_image_size' ) ) { 
+	add_image_size( 'wuspsc-product-thumb', 64, 64, true ); //(cropped)
+}
+
 /* WP Hooks : http://codex.wordpress.org/Function_Reference/add_action */
 add_action('wp_head', 'wuspsc_cart_css');
 add_action('admin_head', 'wuspsc_admin_register_head_cart_css');
-
 
 ?>

@@ -3,6 +3,9 @@ Mike Castro Demaria & Ultra Prod Team
 
 * More Changelog can be found at [Ultra Prod forum](http://www.ultra-prod.com/developpement-support/wp-ultra-simple-paypal-shopping-cart-group3/annoucements-and-updates-forum7/ "Ulra Prod forum").
 
+= V4.3.7 - 18.03.2013=
+* Add feature : Add thumbnail option is the post has thumbnail (1 shortcode per post only)
+
 = V4.3.6 - 19.10.2012=
 * Enhancement : add more class and id to the cart's html table
 

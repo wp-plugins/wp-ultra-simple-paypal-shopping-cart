@@ -138,3 +138,10 @@ input[type=reset]:active {
 	display: block;
 	top: 4px;
 }
+
+.product-thumb {
+	margin-right: 5px;
+	margin-bottom: 0;
+	border: 0;
+	vertical-align: middle;
+}

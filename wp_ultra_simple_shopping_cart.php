@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Ultra simple Paypal Cart
-Version: v4.3.6
+Version: v4.3.7
 Plugin URI: http://www.ultra-prod.com/?p=86
 Author: Mike Castro Demaria
 Author URI: http://www.ultra-prod.com
@@ -23,7 +23,7 @@ if(!isset($_SESSION)) {
 }	
 
 if ( ! defined( 'WUSPSC_VERSION' ) )
-    define( 'WUSPSC_VERSION', '4.3.6' );
+    define( 'WUSPSC_VERSION', '4.3.7' );
 
 if ( ! defined( 'WUSPSC_CART_URL' ) )
     define('WUSPSC_CART_URL', plugins_url('',__FILE__));
@@ -282,8 +282,27 @@ function print_wpus_shopping_cart( $step="paypal", $type="page") {
 			
 			$wpus_display_link_in_cart = get_option('wpus_display_link_in_cart');
 			
+			/* need improvement to the next version 4.3.8*/
+			$wpus_display_thumbnail_in_cart = get_option('wpus_display_thumbnail_in_cart');
+			$wpus_thumbnail_in_cart_width = get_option('wpus_thumbnail_in_cart_width');
+			$wpus_thumbnail_in_cart_height = get_option('wpus_thumbnail_in_cart_height');
+			
+			if( empty( $wpus_thumbnail_in_cart_width ) || empty( $wpus_thumbnail_in_cart_width ) ) 
+			{ 
+				$wpus_thumbnail_in_cart_width = 32; 
+				$wpus_thumbnail_in_cart_height = 32;
+			}
+			
 			if(!empty( $wpus_display_link_in_cart )) { 
-				$cartProductDisplayLink = '<a href="'.$item['cartLink'].'">'.$name.'</a>'; 
+			
+				/* need improvement to the next version 4.3.8*/
+				if(empty( $wpus_display_thumbnail_in_cart )) { 
+					$product_thumbnail = get_the_post_thumbnail($post->ID, array($wpus_thumbnail_in_cart_width,$wpus_thumbnail_in_cart_height), array('class' => 'marginleft product-thumb') );
+				} else {
+					$product_thumbnail = "";
+				}
+				
+				$cartProductDisplayLink = '<a href="'.$item['cartLink'].'">'.$product_thumbnail.$name.'</a>'; 
 			} else { 
 				$cartProductDisplayLink = $name; 
 			}

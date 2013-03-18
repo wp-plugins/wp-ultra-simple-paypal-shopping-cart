@@ -3,7 +3,7 @@ Contributors: mikecastrodemaria, Franck Maussand
 Donate link: http://www.ultra-prod.com/?p=86
 Tags: WordPress shopping cart, Paypal shopping cart, online shop, shopping cart, wordpress ecommerce, sell products, e-commerce, PayPal cart widget
 Requires at least: 2.6
-Tested up to: 3.4.2
+Tested up to: 3.5.1
 Stable tag: trunk
 License: GPLv2 or later
 
@@ -150,7 +150,7 @@ Keyword list :
 * Bug correction : Settings link on plugin list was wrong
 * Bug correction : Images on about was not in the package
 = 4.2.0 =
-* Add feature : Add the posibility to propose a 3 steps Paypal redirect (Step-1 cart's validation, Step-2 use and form page who redirect to page 3,Step-3 cart paypal validation and redirect.)
+* Add feature : Add the posibility to propose a 3 steps Paypal redirect (Step-1 cart s validation, Step-2 use and form page who redirect to page 3,Step-3 cart paypal validation and redirect.)
 * Add feature : Add [validate_wp_shopping_cart] shortcode for step1 cart,  [show_wp_shopping_cart] is always available for 1 step cart or final step cart.
 * Enhancement : rename functions
 * Enhancement : Add class to variation select menu
@@ -178,4 +178,6 @@ Keyword list :
 * Add feature : shipping can be display as "Free"
 * Bugfix : th missing on cart
 = V4.3.6 =
-* Enhancement : add more class and id to the cart's html table
+* Enhancement : add more class and id to the cart html table
+= V4.3.7 =
+* Add feature : Add thumbnail option is the post has thumbnail (1 shortcode per post only)

@@ -1,7 +1,7 @@
 <?php
 /*
 Ultra Prod WPUSSC Admin Options
-Version: v1.3.5
+Version: v1.3.7
 */
 /*
 	This program is free software; you can redistribute it
@@ -22,6 +22,9 @@ add_option('wp_cart_title',					__("Your Shopping Cart", "WUSPSC"));
 add_option('wp_cart_empty_text',			__("Your cart is empty", "WUSPSC"));
 add_option('wpus_shopping_cart_empty_hide',	'1');
 add_option('wpus_display_link_in_cart',		'1');
+add_option('wpus_display_thumbnail_in_cart',		'0');
+add_option('wpus_thumbnail_in_cart_width',		'32');
+add_option('wpus_thumbnail_in_cart_height',		'32');
 add_option('wp_cart_visit_shop_text',		__('Visit The Shop', "WUSPSC"));
 add_option('wp_cart_update_quantiy_text',	__('Hit enter or click on reload icon to submit the updated quantity please.', "WUSPSC"));
 add_option('wpus_shopping_cart_items_in_cart_hide', '1');
@@ -76,6 +79,9 @@ function show_wp_cart_options_page () {
 		update_option('wp_cart_empty_text', (string)$_POST["wp_cart_empty_text"]);
 		update_option('wpus_shopping_cart_empty_hide', ($_POST['wpus_shopping_cart_empty_hide']!='') ? 'checked="checked"':'' );
 		update_option('wpus_display_link_in_cart', ($_POST['wpus_display_link_in_cart']!='') ? 'checked="checked"':'' );
+		update_option('wpus_display_thumbnail_in_cart', ($_POST['wpus_display_thumbnail_in_cart']!='') ? 'checked="checked"':'' );
+		update_option('wpus_thumbnail_in_cart_width', (string)$_POST["wpus_thumbnail_in_cart_width"]);
+		update_option('wpus_thumbnail_in_cart_height', (string)$_POST["wpus_thumbnail_in_cart_height"]);
 		
 		update_option('cart_validate_url', (string)$_POST["cart_validate_url"]);
 		update_option('cart_return_from_paypal_url', (string)$_POST["cart_return_from_paypal_url"]);
@@ -220,6 +226,11 @@ function show_wp_cart_options_page () {
 	$wp_cart_image_hide = (get_option('wpus_shopping_cart_image_hide'))? 'checked="checked"': '';
 	$wp_cart_empty_hide = (get_option('wpus_shopping_cart_empty_hide'))? 'checked="checked"': '';
 	$wpus_display_link_in_cart = (get_option('wpus_display_link_in_cart'))? 'checked="checked"': '';
+	
+	$wpus_display_thumbnail_in_cart = (get_option('wpus_display_thumbnail_in_cart'))? 'checked="checked"': '';
+	$wpus_thumbnail_in_cart_width = get_option('wpus_thumbnail_in_cart_width');
+	$wpus_thumbnail_in_cart_height = get_option('wpus_thumbnail_in_cart_height');
+	
 	$wpus_shopping_cart_items_in_cart_hide = (get_option('wpus_shopping_cart_items_in_cart_hide'))? 'checked="checked"': '';
 	$wp_use_aff_platform = (get_option('wp_use_aff_platform'))? 'checked="checked"': '';
 
@@ -495,6 +506,16 @@ echo '<div id="tabs-4">
 <tr valign="top">
 <th scope="row">'.(__('Display Products URL in cart', "WUSPSC")).'</th>
 <td><input type="checkbox" name="wpus_display_link_in_cart" value="1" '.$wpus_display_link_in_cart.' />'.(__("If ticked, the product's link will not be display in cart. Activate it if you are using a page or a post for each product.", "WUSPSC")).'</td>
+</tr>
+
+<tr valign="top">
+<th scope="row">'.(__('Display thumbnail in cart', "WUSPSC")).'</th>
+<td><input type="checkbox" name="wpus_display_thumbnail_in_cart" value="1" '.$wpus_display_thumbnail_in_cart.' />'.(__("If ticked, the product's thumbnail will not be display in cart. Activate it if you are using a page or a post for each product.", "WUSPSC")).'</td>
+</tr>
+
+<tr valign="top">
+<th scope="row">'.(__('Thumbnail size', "WUSPSC")).'</th>
+<td><input type="text" size="4" name="wpus_thumbnail_in_cart_width" value="'.$wpus_thumbnail_in_cart_width.'" /> px / <input type="text" size="4" name="wpus_thumbnail_in_cart_height" value="'.$wpus_thumbnail_in_cart_height.'" /> px '.(__("Size in pixel of product's thumbnail display in cart. Displayed if product's thumbnail are activate and if you'r using a page or a post for each product.", "WUSPSC")).'</td>
 </tr>
 
 <tr valign="top">
