@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Ultra simple Paypal Cart
-Version: v4.3.7
+Version: v4.3.7.2
 Plugin URI: http://www.ultra-prod.com/?p=86
 Author: Mike Castro Demaria
 Author URI: http://www.ultra-prod.com
@@ -18,6 +18,9 @@ Different features are available like PayPal sandbox test, price Variations, shi
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 */
+
+wp_enqueue_script('jquery');
+
 if(!isset($_SESSION)) {
 	session_start();
 }	
@@ -224,7 +227,16 @@ function print_wpus_shopping_cart( $step="paypal", $type="page") {
 	
 	$wp_cart_update_quantiy_text = get_option('wp_cart_update_quantiy_text');
 	
-	$output .= "<script>jQuery(document).ready(function() { jQuery('.pinfo').hide(); jQuery('.iquantity').keypress( function() { jQuery('.paypalbutton').hide(\"slow\"); jQuery('.pinfo').show('slow'); });});</script>";
+	$output .= '<script type="text/javascript">
+		var $j=jQuery.noConflict();
+		$j(document).ready(function(){
+			$j(".pinfo").hide(); 
+			$j(".iquantity").keypress( function() { 
+				$j(".paypalbutton").hide("slow"); 
+				$j(".pinfo").show("slow"); 
+			});
+		});
+	</script>';
 		
 	$output .= '<table style="width: 100%;">';	
 	
@@ -243,7 +255,7 @@ function print_wpus_shopping_cart( $step="paypal", $type="page") {
 			
 			$output .= '
 			<tr id="item_in_cart">
-			<th class="left" colspan="3">'.$itemsInCart." ".$itemsInCartString.'</th>
+			<th class="left" colspan="4">'.$itemsInCart." ".$itemsInCartString.'</th>
 			</tr>';
 		}
 		

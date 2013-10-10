@@ -3,7 +3,7 @@ Contributors: mikecastrodemaria, Franck Maussand
 Donate link: http://www.ultra-prod.com/?p=86
 Tags: WordPress shopping cart, Paypal shopping cart, online shop, shopping cart, wordpress ecommerce, sell products, e-commerce, PayPal cart widget
 Requires at least: 2.6
-Tested up to: 3.5.1
+Tested up to: 3.7.0
 Stable tag: trunk
 License: GPLv2 or later
 
@@ -181,3 +181,7 @@ Keyword list :
 * Enhancement : add more class and id to the cart html table
 = V4.3.7 =
 * Add feature : Add thumbnail option is the post has thumbnail (1 shortcode per post only)
+= V4.3.7.2 =
+* Bugfix : widget colspan 4 and jQuery no conflict added
+* Enhancement : add more class in the CSS
+ 

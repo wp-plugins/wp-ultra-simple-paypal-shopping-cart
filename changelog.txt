@@ -3,6 +3,10 @@ Mike Castro Demaria & Ultra Prod Team
 
 * More Changelog can be found at [Ultra Prod forum](http://www.ultra-prod.com/developpement-support/wp-ultra-simple-paypal-shopping-cart-group3/annoucements-and-updates-forum7/ "Ulra Prod forum").
 
+= V4.3.7.2 =
+* Bugfix : widget colspan 4 and jQuery no conflict added
+* Enhancement : add more class in the CSS
+
 = V4.3.7 - 18.03.2013=
 * Add feature : Add thumbnail option is the post has thumbnail (1 shortcode per post only)
 
