@@ -13,3 +13,9 @@
 #tabs-5 pre { white-space:pre-wrap; width:110ex; }
 
 .showme { /*text-decoration: blink; */  color: green; }
+
+#helpme { background-color: yellow; color: darkblue; padding: 1.2em; }
+#helpme p { 
+	font-size: 1.1em; 
+    font-weight: bolder;
+}

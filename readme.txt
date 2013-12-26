@@ -3,7 +3,7 @@ Contributors: mikecastrodemaria, Franck Maussand
 Donate link: http://www.ultra-prod.com/?p=86
 Tags: WordPress shopping cart, Paypal shopping cart, online shop, shopping cart, wordpress ecommerce, sell products, e-commerce, PayPal cart widget
 Requires at least: 2.6
-Tested up to: 3.7.0
+Tested up to: 3.8.1
 Stable tag: trunk
 License: GPLv2 or later
 
@@ -184,4 +184,5 @@ Keyword list :
 = V4.3.7.2 =
 * Bugfix : widget colspan 4 and jQuery no conflict added
 * Enhancement : add more class in the CSS
- 
+= V4.3.8.1 =
+* Enhancement : WP 3.8.1 validation

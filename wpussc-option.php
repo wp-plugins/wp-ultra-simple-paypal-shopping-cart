@@ -1,7 +1,7 @@
 <?php
 /*
 Ultra Prod WPUSSC Admin Options
-Version: v1.3.7
+Version: v1.3.8
 */
 /*
 	This program is free software; you can redistribute it
@@ -251,9 +251,9 @@ function show_wp_cart_options_page () {
 		
 	<div id="tabs">
 	<ul>
+		<li><a href="#tabs-3"><span class="showme"><?php _e("Do you like WUSPSC ?", "WUSPSC"); ?></span></a></li>
 		<li><a href="#tabs-1"><?php _e("Usage", "WUSPSC"); ?></a></li>
 		<li><a href="#tabs-2"><?php _e("Settings", "WUSPSC"); ?></a></li>
-		<li><a href="#tabs-3"><span class="showme"><?php _e("About & donate", "WUSPSC"); ?></span></a></li>
 		<li><a href="#tabs-4"><?php _e("Discount Code", "WUSPSC"); ?></a></li>
 		<li><a href="#tabs-6"><?php _e("Support", "WUSPSC"); ?></a></li>
 		<li><a href="#tabs-5"><?php _e("Readme", "WUSPSC"); ?></a></li>
@@ -348,7 +348,10 @@ $language = __UP_detect_language();
 
 echo '<div id="tabs-3">
 <h2><div id="icon-users" class="icon32"></div>'.(__("Do you like WUSPSC ?", "WUSPSC")).'</h2>
-<p><a href="http://wordpress.org/extend/plugins/wp-ultra-simple-paypal-shopping-cart/" target="_blank">'.(__("Please, if you like WUSPSC, give it a good rating", "WUSPSC")).'</a>'.(__(" and please consider to donate a few $, &#8364; or &pound; to help me to give time for user&#8217;s support, add new features and fast upgrades.", "WUSPSC")).'</p>
+<div id="helpme">
+<p><a href="http://wordpress.org/plugins/wp-ultra-simple-paypal-shopping-cart/" target="_blank">'.(__("Please, if you like WUSPSC, think to give it a good rating", "WUSPSC")).'</a>'.(__(" and please consider to donate 1$ only or more if you can, &#8364; or &pound; to help me to give time for user&#8217;s support, add new features and upgrades.", "WUSPSC")).'</p>
+<p>'.(__('After more than 80,000 downloads, <a href="http://www.ultra-prod.com/products-modules-plugin/wp-ultra-simple-paypal-shopping-cart/">only less that 8 users donate</a>.', "WUSPSC")).'</p>
+</div>
 <p>
 <form class="donate" action="https://www.paypal.com/cgi-bin/webscr" method="post">
 <input type="hidden" name="cmd" value="_s-xclick">
