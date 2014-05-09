@@ -3,7 +3,7 @@ Contributors: mikecastrodemaria, Franck Maussand
 Donate link: http://www.ultra-prod.com/?p=86
 Tags: WordPress shopping cart, Paypal shopping cart, online shop, shopping cart, wordpress ecommerce, sell products, e-commerce, PayPal cart widget
 Requires at least: 2.6
-Tested up to: 3.9.0
+Tested up to: 3.9.1
 Stable tag: trunk
 License: GPLv2 or later
 
@@ -19,7 +19,7 @@ email address in the admin panel, and click the 'test' radio button.
 Other new features include, Price Variations, interface text's personalization, CSS call for the 'Add to cart button' and many other improvements, including bug correction too.
 
 This plugin customisable in the plugin admin and 100% customisable by CSS.
-To style the 'add to cart' button use cart button class style in the admin. Eg. 
+To style the 'add to cart' button use cart button class style in the admin. Eg.
 
 For screenshots, detailed documentation, support and updates, please visit [Ultra Prod Support Forum](http://www.ultra-prod.com/developpement-support/wp-ultra-simple-paypal-shopping-cart-group3.0/ "go to Ultra Prod forum")
 
@@ -45,14 +45,14 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License 
+You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software Foundation,
 Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 == Installation ==
 
 Upload the WordPress Ultra Simple Paypal Shopping Cart plugin to your WordPress plugin directory, activate it, put payment's shortcode to your posts or pages, and add cart's shortcode or widget.
-You're ready to sell! 
+You're ready to sell!
 
 == Usage ==
 
@@ -92,10 +92,10 @@ eg. [wp_cart:Demo Product 1:price:[Size|Small,1.10|Medium,2.10|Large,3.10]:shipp
 [wp_cart:PRODUCT-NAME:price:PRODUCT-PRICE:var1[VARIATION-NAME|VARIATION1|VARIATION2|VARIATION3]:var2[VARIATION-NAME|VARIATION1|VARIATION2]:end]
 eg. [wp_cart:Demo Product 1:price:15:shipping:2:var1[Size|Small|Medium|Large]:var2[Color|Red|Green]:end]
 
-Keyword list : 
-* price eg. 45.50 or a list like price:[Size|Small,1.10|Medium,2.10|Large,3.10], 
-* shipping : eg. 3.50 or a list like price:[Shipping type|regular mail,1.10|express mail,2.10|priority mail,3.10], 
-* var1 : eg. var1[Size|Small|Medium|Large] , 
+Keyword list :
+* price eg. 45.50 or a list like price:[Size|Small,1.10|Medium,2.10|Large,3.10],
+* shipping : eg. 3.50 or a list like price:[Shipping type|regular mail,1.10|express mail,2.10|priority mail,3.10],
+* var1 : eg. var1[Size|Small|Medium|Large] ,
 * var2 : eg. var2[Color|Red|Green]
 * var3, etc.
 
@@ -114,7 +114,7 @@ Keyword list :
 4. Does this plugin have multiple currency support? Yes.
 5. Is the 'Add to Cart' button customizable? Yes.
 6. Does this plugin use a return URL to redirect customers to a specified page after Paypal has processed the payment? Yes.
-7. What is the 3 step process? 1) add items to cart 2) collect buyer information on a form 3) process transaction via paypal 
+7. What is the 3 step process? 1) add items to cart 2) collect buyer information on a form 3) process transaction via paypal
     (2 step process is steps 1 and 3 above)
 
 
@@ -186,3 +186,5 @@ Keyword list :
 * Enhancement : add more class in the CSS
 = V4.3.8.1 =
 * Enhancement : WP 3.8.1 validation
+= V4.3.8.2 =
+* Bugfix : affiliate platform - errors on return from PayPal when using the IPN (Thanks Mark Phillips)
