@@ -3,7 +3,7 @@ Contributors: mikecastrodemaria, Franck Maussand
 Donate link: http://www.ultra-prod.com/?p=86
 Tags: WordPress shopping cart, Paypal shopping cart, online shop, shopping cart, wordpress ecommerce, sell products, e-commerce, PayPal cart widget
 Requires at least: 2.6
-Tested up to: 3.9.1
+Tested up to: 3.9.2
 Stable tag: trunk
 License: GPLv2 or later
 
@@ -33,7 +33,7 @@ For screenshots, detailed documentation, support and updates, please visit [Ultr
 
 == Credits ==
 
-Copyright 2011-2012 by Mike Castro Demaria & Ultra Prod Team
+Copyright 2011-2014 by Mike Castro Demaria & Ultra Prod Team
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
