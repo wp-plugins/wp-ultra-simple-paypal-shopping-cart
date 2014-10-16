@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Ultra simple Paypal Cart
-Version: v4.3.8.2
+Version: v4.3.8.3
 Plugin URI: http://www.ultra-prod.com/?p=86
 Author: Mike Castro Demaria
 Author URI: http://www.ultra-prod.com
