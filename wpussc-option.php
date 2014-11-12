@@ -1,7 +1,7 @@
 <?php
 /*
 Ultra Prod WPUSSC Admin Options
-Version: v1.3.9
+Version: v1.4.0
 */
 /*
 	This program is free software; you can redistribute it
