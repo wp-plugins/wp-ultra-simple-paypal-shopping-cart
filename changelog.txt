@@ -3,6 +3,10 @@ Mike Castro Demaria & Ultra Prod Team
 
 * More Changelog can be found at [Ultra Prod forum](http://www.ultra-prod.com/developpement-support/wp-ultra-simple-paypal-shopping-cart-group3/annoucements-and-updates-forum7/ "Ulra Prod forum").
 
+= V4.3.8.4 =
+* Bugfix : checkoutButtonName correction if using custom button (thanks Lucy)
+* Enhancement : Update 3 step process help using Contact form 7 ( https://wordpress.org/plugins/contact-form-7/ ) instead Cform2 who is discontiued ( http://www.deliciousdays.com/cforms-plugin/ ).
+
 = V4.3.8.3 =
 * Enhancement : WP 4.0 validation
 
@@ -39,7 +43,7 @@ Mike Castro Demaria & Ultra Prod Team
 
 = V4.3.0 =
 * Add feature : Add quantity box who can be enables / disabled .
-* Enhancement : cleaning code and restructuration ton prepare upcoming V5 
+* Enhancement : cleaning code and restructuration ton prepare upcoming V5
 
 = V4.2.2 =
 * Add feature : Add a new function to display items count in template wpusc_cart_item_qty() .

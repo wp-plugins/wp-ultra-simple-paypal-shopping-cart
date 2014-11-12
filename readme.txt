@@ -1,5 +1,5 @@
 === WordPress Ultra Simple Paypal Shopping Cart ===
-Contributors: mikecastrodemaria, Franck Maussand
+Contributors: Mike Castro Demaria, Franck Maussand
 Donate link: http://www.ultra-prod.com/?p=86
 Tags: WordPress shopping cart, Paypal shopping cart, online shop, shopping cart, wordpress ecommerce, sell products, e-commerce, PayPal cart widget
 Requires at least: 2.6
@@ -190,3 +190,6 @@ Keyword list :
 * Bugfix : affiliate platform - errors on return from PayPal when using the IPN (Thanks Mark Phillips)
 = V4.3.8.3 =
 * Enhancement : WP 4.0 validation
+= V4.3.8.4 =
+* Bugfix : checkoutButtonName correction if using custom button (thanks Lucy)
+* Enhancement : Update 3 step process help using Contact form 7 ( https://wordpress.org/plugins/contact-form-7/ ) instead Cform2 who is discontiued ( http://www.deliciousdays.com/cforms-plugin/ ).

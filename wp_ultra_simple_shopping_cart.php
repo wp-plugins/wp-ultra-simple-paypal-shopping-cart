@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Ultra simple Paypal Cart
-Version: v4.3.8.3
+Version: v4.3.8.4
 Plugin URI: http://www.ultra-prod.com/?p=86
 Author: Mike Castro Demaria
 Author URI: http://www.ultra-prod.com
@@ -518,6 +518,10 @@ function print_wp_cart_action($content)
 			$addcart_button_name = get_option('addToCartButtonName');
 			if(!$addcart_button_name)
 				$addcart_button_name = (__("Add to Cart", "WUSPSC"));
+
+			$checkout_button_name = get_option('checkoutButtonName');
+			if(!$checkout_button_name)
+				$checkout_button_name = (__("Checkout", "WUSPSC"));
 
 			$add_cartstyle = get_option('add_cartstyle');
 			if(!$add_cartstyle)
