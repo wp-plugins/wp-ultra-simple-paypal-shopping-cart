@@ -3,10 +3,12 @@
 Plugin Name: WP Ultra simple Paypal Cart
 Version: v4.3.8.4
 Plugin URI: http://www.ultra-prod.com/?p=86
-Author: Mike Castro Demaria
+Author: Mike Castro Demaria, Franck Maussand
 Author URI: http://www.ultra-prod.com
 Description: WP Ultra simple Paypal Cart Plugin, ultra simply and easely add Shopping Cart in your WP using post or page ( you need to <a href="https://www.paypal.com/fr/mrb/pal=CH4PZVAK2GJAJ" target="_blank">create a PayPal account</a> and go to <a href="options-general.php?page=wp-ultra-simple-paypal-shopping-cart/wpussc-option.php">plugin configuration panel</a>.
 Different features are available like PayPal sandbox test, price Variations, shipping Variations, unlimited extra variations label, interface text's personalization, CSS call for button, etc.
+Text Domain: WUSPSC
+Domain Path: /languages/
 */
 /*
 	This program is free software; you can redistribute it
