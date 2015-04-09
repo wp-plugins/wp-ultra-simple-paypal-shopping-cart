@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Ultra simple Paypal Cart
-Version: v4.3.8.4
+Version: v4.3.8.5
 Plugin URI: http://www.ultra-prod.com/?p=86
 Author: Mike Castro Demaria, Franck Maussand
 Author URI: http://www.ultra-prod.com
@@ -90,6 +90,7 @@ if(get_option('wpus_shopping_cart_reset_after_redirection_to_return_page')) {
 }
 
 if($_POST['addcart']) {
+
 	$domain_url = $_SERVER['SERVER_NAME'];
 	$cookie_domain = str_replace("www","",$domain_url);
 	setcookie("cart_in_use","true",time()+21600,"/",$cookie_domain);  //useful to not serve cached page when using with a caching plugin
@@ -136,19 +137,26 @@ if($_POST['addcart']) {
 			exit;
 		}
 	}
+
 } elseif($_POST['quantity']) {
+
 	$products = $_SESSION['ultraSimpleCart'];
-	foreach($products as $key => $item) {
-		//if((stripslashes($item['name']) == stripslashes($_POST['product'])) && $_POST['quantity'])
-		if((get_the_name(stripslashes($item['name'])) == stripslashes($_POST['product'])) && stripslashes($_POST['quantity'])) {
-			$item['quantity'] = stripslashes($_POST['quantity']);
-			unset($products[$key]);
-			array_push($products, $item);
-		} elseif((get_the_name(stripslashes($item['name'])) == stripslashes($_POST['product'])) && !$_POST['quantity'])
-			unset($products[$key]);
+
+	if( !empty($products) ){
+		foreach($products as $key => $item) {
+			//if((stripslashes($item['name']) == stripslashes($_POST['product'])) && $_POST['quantity'])
+			if((get_the_name(stripslashes($item['name'])) == stripslashes($_POST['product'])) && stripslashes($_POST['quantity'])) {
+				$item['quantity'] = stripslashes($_POST['quantity']);
+				unset($products[$key]);
+				array_push($products, $item);
+			} elseif((get_the_name(stripslashes($item['name'])) == stripslashes($_POST['product'])) && !$_POST['quantity'])
+				unset($products[$key]);
+		}
+		sort($products);
 	}
-	sort($products);
+
 	$_SESSION['ultraSimpleCart'] = $products;
+
 } elseif($_POST['delcart']) {
 	$products = $_SESSION['ultraSimpleCart'];
 	foreach($products as $key => $item) {
