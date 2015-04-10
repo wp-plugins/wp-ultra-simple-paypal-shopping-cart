@@ -1,7 +1,7 @@
 <?php
 /*
 Ultra Prod WPUSSC Functions
-Version: v1.3.7
+Version: v1.3.8
 */
 /*
 	This program is free software; you can redistribute it
@@ -264,7 +264,7 @@ function wuspsc_admin_register_head_cart_css() {
 	$url = $siteurl . '/wp-content/plugins/' . basename(dirname(__FILE__)) . '/wp_ultra_simple_shopping_cart_admin_style.css';
 	echo "<link rel='stylesheet' type='text/css' href='{$url}' />\n";
 	
-	$ui_url = "http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.0/themes/smoothness/jquery-ui.css";
+	$ui_url = "//ajax.googleapis.com/ajax/libs/jqueryui/1.7.0/themes/smoothness/jquery-ui.css";
 	echo "<link rel='stylesheet' type='text/css' href='{$ui_url}' />\n";
 	
 	
