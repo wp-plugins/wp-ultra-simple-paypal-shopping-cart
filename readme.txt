@@ -3,7 +3,7 @@ Contributors: mikecastrodemaria , franckmaussand
 Donate link: http://www.ultra-prod.com/?p=86
 Tags: WordPress shopping cart, Paypal shopping cart, online shop, shopping cart, wordpress ecommerce, sell products, e-commerce, PayPal cart widget
 Requires at least: 2.6
-Tested up to: 4.1.1
+Tested up to: 4.2.2
 Stable tag: trunk
 License: GPLv2 or later
 
@@ -195,3 +195,6 @@ Keyword list :
 * Enhancement : Update 3 step process help using Contact form 7 ( https://wordpress.org/plugins/contact-form-7/ ) instead Cform2 who is discontiued ( http://www.deliciousdays.com/cforms-plugin/ ).
 = V4.3.8.5 =
 * Bugfix : remove "Warning Invalid argument supplied for foreach() 141" message.
+= V4.3.8.6 =
+* Enhancement : WP 4.2.2 validation
+

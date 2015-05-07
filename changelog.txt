@@ -3,6 +3,12 @@ Mike Castro Demaria & Ultra Prod Team
 
 * More Changelog can be found at [Ultra Prod forum](http://www.ultra-prod.com/developpement-support/wp-ultra-simple-paypal-shopping-cart-group3/annoucements-and-updates-forum7/ "Ulra Prod forum").
 
+= V4.3.8.6 =
+* Enhancement : WP 4.2.2 validation
+
+= V4.3.8.5 =
+* Bugfix : remove "Warning Invalid argument supplied for foreach() 141" message.
+
 = V4.3.8.4 =
 * Bugfix : checkoutButtonName correction if using custom button (thanks Lucy)
 * Enhancement : Update 3 step process help using Contact form 7 ( https://wordpress.org/plugins/contact-form-7/ ) instead Cform2 who is discontiued ( http://www.deliciousdays.com/cforms-plugin/ ).
