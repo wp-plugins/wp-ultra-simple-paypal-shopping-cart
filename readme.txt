@@ -197,4 +197,7 @@ Keyword list :
 * Bugfix : remove "Warning Invalid argument supplied for foreach() 141" message.
 = V4.3.8.6 =
 * Enhancement : WP 4.2.2 validation
+= V4.3.8.7 =
+* Bug correction : Tax correctly transmited to paypal
+* Add feature : Shipping fee is added only once, or per quantities.
 

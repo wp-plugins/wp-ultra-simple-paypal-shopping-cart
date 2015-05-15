@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: WP Ultra simple Paypal Cart
-Version: v4.3.8.6
+Version: v4.3.8.7
 Plugin URI: http://www.ultra-prod.com/?p=86
 Author: Mike Castro Demaria, Franck Maussand
 Author URI: http://www.ultra-prod.com
-Description: WP Ultra simple Paypal Cart Plugin, ultra simply and easely add Shopping Cart in your WP using post or page ( you need to <a href="https://www.paypal.com/fr/mrb/pal=CH4PZVAK2GJAJ" target="_blank">create a PayPal account</a> and go to <a href="options-general.php?page=wp-ultra-simple-paypal-shopping-cart/wpussc-option.php">plugin configuration panel</a>.
+Description: WP Ultra simple Paypal Cart Plugin, ultra simply and easely add Shopping Cart in your WP using post or page ( you need to <a href="http://j.mp/paypal-create-account" target="_blank">create a PayPal account</a> and go to <a href="options-general.php?page=wp-ultra-simple-paypal-shopping-cart/wpussc-option.php">plugin configuration panel</a>.
 Different features are available like PayPal sandbox test, price Variations, shipping Variations, unlimited extra variations label, interface text's personalization, CSS call for button, etc.
 Text Domain: WUSPSC
 Domain Path: /languages/
@@ -20,6 +20,7 @@ Domain Path: /languages/
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 */
+// http://j.mp/paypal-create-account => https://www.paypal.com/fr/mrb/pal=CH4PZVAK2GJAJ
 
 wp_enqueue_script('jquery');
 
@@ -288,7 +289,16 @@ function print_wpus_shopping_cart( $step="paypal", $type="page") {
 
 		foreach($_SESSION['ultraSimpleCart'] as $item) {
 			$total += get_the_price($item['price']) * $item['quantity'];
-			$item_total_shipping += get_the_price($item['shipping']) * $item['quantity'];
+
+			$item_shipping = get_the_price($item['shipping']);
+			$wpus_shopping_cart_shipping_per_items = get_option('wpus_shopping_cart_shipping_per_items');
+
+			if( !empty( $wpus_shopping_cart_shipping_per_items ) ){
+				$item_total_shipping += $item_shipping ;
+			} else {
+				$item_total_shipping += $item_shipping * $item['quantity'] ;
+			}
+
 			$total_items +=  $item['quantity'];
 		}
 
@@ -313,6 +323,7 @@ function print_wpus_shopping_cart( $step="paypal", $type="page") {
 			<th class="center">&nbsp;</th>
 		</tr>';
 
+		$total_vat = 0;
 
 		foreach($_SESSION['ultraSimpleCart'] as $item) {
 
@@ -370,11 +381,19 @@ function print_wpus_shopping_cart( $step="paypal", $type="page") {
 			";
 
 			$form .= "
-				<input type=\"hidden\" name=\"item_name_$count\" value=\"".$name."\" />
-				<input type=\"hidden\" name=\"amount_$count\" value='".$price."' />
-				<input type=\"hidden\" name=\"quantity_$count\" value=\"".$item['quantity']."\" />
+				<input type=\"hidden\" name=\"item_name_{$count}\" value=\"{$name}\" />
+				<input type=\"hidden\" name=\"amount_{$count}\" value='{$price}' />
+				<input type=\"hidden\" name=\"quantity_{$count}\" value=\"{$item['quantity']}\" />
+				<input type=\"hidden\" name=\"amount_{$count}\" value=\"{$price}\" />
 				<input type='hidden' name='item_number' value='".$item['item_number']."' />
 			";
+
+			$item_tax = (!empty($display_vat) && is_numeric($display_vat) )? round(($price * $display_vat) / 100, 2) : 0 ;
+			if(!empty($item_tax)){
+				$form .= "<input type=\"hidden\" name=\"tax_{$count}\"  value=\"{$item_tax}\">";
+				$total_vat = $total_vat + ( $item_tax * $item['quantity'] );
+			}
+
 			$count++;
 		}
 
@@ -406,16 +425,16 @@ function print_wpus_shopping_cart( $step="paypal", $type="page") {
 				<td colspan=\"2\" class=\"shipcell left shipamount\">".(__("Free", "WUSPSC"))."</td></tr>";
 		}
 
-		if( $display_vat != '' && is_numeric($display_vat) ) {
+		if( !empty($display_vat) && is_numeric($display_vat) ) {
 
-			$vat = ($total*$display_vat) / 100;
+			$vat = ( ( $total - $postage_cost ) * $display_vat) / 100;
 
 			$output .= "
 			<tr id=\"vatrow\" class=\"vatrow\">
 				<td colspan=\"2\" class=\"vatcell vatlabel\">".(__("VAT", "WUSPSC"))." (".$display_vat."%): </td>
-				<td colspan=\"2\" class=\"vatcell left vatamount\">".print_payment_currency($vat, $paypal_symbol, $decimal, get_option('cart_currency_symbol_order'))."</td></tr>";
+				<td colspan=\"2\" class=\"vatcell left vatamount\">".print_payment_currency($total_vat, $paypal_symbol, $decimal, get_option('cart_currency_symbol_order'))."</td></tr>";
 
-			$total = $total+$vat;
+			$total = $total+$total_vat;
 		}
 
 		$output .= "
@@ -485,6 +504,8 @@ function print_wpus_shopping_cart( $step="paypal", $type="page") {
 					<input type="hidden" name="rm" value="2" />
 					<input type="hidden" name="mrb" value="DKBDRZGU62JYC" />
 					<input type="hidden" name="bn" value="UltraProdSAS_SI_ADHOC" />';
+
+				if(!empty($vat)) $output .= '<input type="hidden" name="tax_cart" value="'.$total_vat.'" />';
 
 				if($use_affiliate_platform) {
 					$output .= wp_cart_add_custom_field();

@@ -1,7 +1,7 @@
 <?php
 /*
 Ultra Prod WPUSSC Admin Options
-Version: v1.4.0
+Version: v1.4.1
 */
 /*
 	This program is free software; you can redistribute it
@@ -20,11 +20,12 @@ load_plugin_textdomain('WUSPSC', false, WUSPSC_PLUGIN_DIRNAME . '/languages');
 //
 add_option('wp_cart_title',					__("Your Shopping Cart", "WUSPSC"));
 add_option('wp_cart_empty_text',			__("Your cart is empty", "WUSPSC"));
-add_option('wpus_shopping_cart_empty_hide',	'1');
-add_option('wpus_display_link_in_cart',		'1');
-add_option('wpus_display_thumbnail_in_cart',		'0');
-add_option('wpus_thumbnail_in_cart_width',		'32');
-add_option('wpus_thumbnail_in_cart_height',		'32');
+add_option('wpus_shopping_cart_empty_hide',				'1');
+add_option('wpus_shopping_cart_shipping_per_items',		'0');
+add_option('wpus_display_link_in_cart',					'1');
+add_option('wpus_display_thumbnail_in_cart',			'0');
+add_option('wpus_thumbnail_in_cart_width',				'32');
+add_option('wpus_thumbnail_in_cart_height',				'32');
 add_option('wp_cart_visit_shop_text',		__('Visit The Shop', "WUSPSC"));
 add_option('wp_cart_update_quantiy_text',	__('Hit enter or click on reload icon to submit the updated quantity please.', "WUSPSC"));
 add_option('wpus_shopping_cart_items_in_cart_hide', '1');
@@ -65,7 +66,8 @@ function show_wp_cart_options_page () {
 		update_option('cart_paypal_email', (string)$_POST["cart_paypal_email"]);
 		update_option('wp_cart_title', (string)$_POST["wp_cart_title"]);
 
-		update_option('display_free_shipping', (string)$_POST["display_free_shipping"]);
+		update_option('wpus_shopping_cart_shipping_per_items', (int)$_POST["wpus_shopping_cart_shipping_per_items"]);
+		update_option('display_free_shipping', (int)$_POST["display_free_shipping"]);
 
 		update_option('display_vat', (string)$_POST["display_vat"]);
 
@@ -80,8 +82,8 @@ function show_wp_cart_options_page () {
 		update_option('wpus_shopping_cart_empty_hide', ($_POST['wpus_shopping_cart_empty_hide']!='') ? 'checked="checked"':'' );
 		update_option('wpus_display_link_in_cart', ($_POST['wpus_display_link_in_cart']!='') ? 'checked="checked"':'' );
 		update_option('wpus_display_thumbnail_in_cart', ($_POST['wpus_display_thumbnail_in_cart']!='') ? 'checked="checked"':'' );
-		update_option('wpus_thumbnail_in_cart_width', (string)$_POST["wpus_thumbnail_in_cart_width"]);
-		update_option('wpus_thumbnail_in_cart_height', (string)$_POST["wpus_thumbnail_in_cart_height"]);
+		update_option('wpus_thumbnail_in_cart_width', (int)$_POST["wpus_thumbnail_in_cart_width"]);
+		update_option('wpus_thumbnail_in_cart_height', (int)$_POST["wpus_thumbnail_in_cart_height"]);
 
 		update_option('cart_validate_url', (string)$_POST["cart_validate_url"]);
 		update_option('cart_return_from_paypal_url', (string)$_POST["cart_return_from_paypal_url"]);
@@ -171,7 +173,11 @@ function show_wp_cart_options_page () {
 	$noItemInCartString = get_option('no_item_in_cart_string');
 	if(empty($noItemInCartString)) $noItemInCartString = __("Cart empty", "WUSPSC");
 
-	$displayFreeShipping = (get_option('display_free_shipping'))? 'checked="checked"': '';
+	$option_display_free_shipping = get_option('display_free_shipping');
+	$displayFreeShipping = (!empty( $display_free_shipping ))? 'checked="checked"': '';
+
+	$option_wpus_shopping_cart_shipping_per_items = get_option('wpus_shopping_cart_shipping_per_items');
+	$wpus_shopping_cart_shipping_per_items = (!empty( $option_wpus_shopping_cart_shipping_per_items ))? 'checked="checked"': '';
 
 // use_custom_button
 
@@ -471,6 +477,11 @@ echo '<div id="tabs-4">
 <tr valign="top">
 <th scope="row">'.( __("Free Shipping for Orders Over", "WUSPSC")).'</th>
 <td><input type="text" name="cart_free_shipping_threshold" value="'.$cart_free_shipping_threshold.'" size="5" /> <br />'.( __("When a customer orders more than this amount he/she will get free shipping. Leave empty if you do not want to use it.", "WUSPSC")).'</td>
+</tr>
+
+<tr valign="top">
+<th scope="row">'.( __("Shipping fee per item", "WUSPSC")).'</th>
+<td><input type="checkbox" name="wpus_shopping_cart_shipping_per_items" value="1" '.$wpus_shopping_cart_shipping_per_items.' /><br />'.( __("By default, shipping fee is multiply by the item's quantity added. If ticked only 1 shipping fee is added per items group.", "WUSPSC")).'</td>
 </tr>
 
 <tr valign="top">

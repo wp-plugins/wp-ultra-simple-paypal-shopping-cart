@@ -3,6 +3,10 @@ Mike Castro Demaria & Ultra Prod Team
 
 * More Changelog can be found at [Ultra Prod forum](http://www.ultra-prod.com/developpement-support/wp-ultra-simple-paypal-shopping-cart-group3/annoucements-and-updates-forum7/ "Ulra Prod forum").
 
+= V4.3.8.7 =
+* Bug correction : Tax correctly transmited to paypal
+* Add feature : Shipping fee is added only once, or per quantities.
+
 = V4.3.8.6 =
 * Enhancement : WP 4.2.2 validation
 
