@@ -22,23 +22,23 @@ function always_show_cart_handler($atts) {
 
 function show_wpus_shopping_cart_handler() {
 	$output = (cart_not_empty())? print_wpus_shopping_cart("paypal"): get_the_empty_cart_content();
-	return $output;	
+	return $output;
 }
 
 function validate_wpus_shopping_cart_handler() {
 	$output = (cart_not_empty())? print_wpus_shopping_cart("validate"): get_the_empty_cart_content();
-	return $output;	
+	return $output;
 }
 
 // need to be uddated
 function no_notice_get_permalink($post) {
-	
+
 	if (empty($post)) {
 		$permlink = '';
 	} else {
 		$permlink = get_permalink($post);
 	}
-	
+
 	return $permlink;
 }
 //---
@@ -57,7 +57,7 @@ function shopping_cart_show($content) {
 
 function reset_wp_cart() {
 	$products = $_SESSION['ultraSimpleCart'];
-	
+
 	if(empty($products)) {
 		unset($_SESSION['ultraSimpleCart']);
 		return;
@@ -65,8 +65,8 @@ function reset_wp_cart() {
 	foreach($products as $key => $item) {
 		unset($products[$key]);
 	}
-	
-	$_SESSION['ultraSimpleCart'] = $products;	
+
+	$_SESSION['ultraSimpleCart'] = $products;
 }
 
 function get_the_price( $pricestr ){
@@ -74,20 +74,20 @@ function get_the_price( $pricestr ){
 	if( $pos !== false ) {
 		$pricearray = explode(",", $pricestr );
 		$price = $pricearray[1];
-	} else { 
-		$price = $pricestr; 
+	} else {
+		$price = $pricestr;
 	}
 	return $price;
 }
 
 function get_the_name( $namestr ) {
 	// clean the name of the idem to have a better display
-	if(preg_match("/\(([^\)]*)\).*/", $namestr, $matched)) { 
+	if(preg_match("/\(([^\)]*)\).*/", $namestr, $matched)) {
 		$namearray = explode(",", $matched[1] );
 		$name = str_ireplace ( $matched[1] , $namearray[0], $namestr );
-		
+
 		$nameVariationArray = explode(")(", $name );
-		
+
 		foreach($nameVariationArray as $item) {
 			$nameSmallArray = explode(",", $item );
 			//$name = str_ireplace ( $matched[1] , $namearray[0], $nameSmallArray );
@@ -97,30 +97,30 @@ function get_the_name( $namestr ) {
 	} else {
 		$name = $namestr ;
 	}
-	
+
 	return $name;
-} 
+}
 
 function get_the_empty_cart_content() {
 
 	$wp_cart_visit_shop_text = get_option('wp_cart_visit_shop_text');
 	$empty_cart_text = get_option('wp_cart_empty_text');
 	$emptyCartAllowDisplay = get_option('wpus_shopping_cart_empty_hide');
-	
+
 	$output .= '<div id="empty-cart">';
-	
+
 	if(!empty($empty_cart_text)) {
 		if(preg_match("/http/", $empty_cart_text)) {
 			$output .= '<img src="'.$empty_cart_text.'" alt="'.$empty_cart_text.'" />';
 		} else {
 			$output .= '<span class="empty-cart-text">'.$empty_cart_text.'</span>';
-		}			
+		}
 	}
-	
+
 	$cart_products_page_url = get_option('cart_products_page_url');
 	if(!empty($cart_products_page_url)) {
 		$output .= '<a rel="nofollow" href="'.$cart_products_page_url.'">'.$wp_cart_visit_shop_text.'</a>';
-	}		
+	}
 
 	$output .= '</div>';
 
@@ -147,19 +147,19 @@ function wp_cart_add_read_form_javascript() {
 	<script type="text/javascript">
 	<!--
 	//
-	function ReadForm (obj1, tst) 
-	{ 
+	function ReadForm (obj1, tst)
+	{
 		// Read the user form
 		var i,j,pos;
 		val_total="";
-		val_combo="";		
-	
-		for (i=0; i<obj1.length; i++) 
-		{	 
+		val_combo="";
+
+		for (i=0; i<obj1.length; i++)
+		{
 			// run entire form
 			obj = obj1.elements[i];		   // a form element
-	
-			if(obj.type == "select-one") 
+
+			if(obj.type == "select-one")
 			{   // just selects
 				if(obj.name == "quantity" ||
 					obj.name == "amount") continue;
@@ -173,31 +173,31 @@ function wp_cart_add_read_form_javascript() {
 		obj1.product.value = val_total;
 	}
 	//-->
-	</script>';	
+	</script>';
 }
 
 function wpusc_cart_item_qty() {
-	
+
 	$itemInCart = cart_not_empty();
 	$itemQtyString=get_option('item_qty_string');
 	$noItemInCartString=get_option('no_item_in_cart_string');
-	
+
 	if( $itemInCart > 0 ) {
 		if( $itemInCart == 1 ){ $plural = ""; }
 		else { $plural = "s"; }
-		
+
 		$displayQtyString = sprintf($itemQtyString, $itemInCart, $plural);
 	} else {
 		$displayQtyString = $noItemInCartString;
 	}
-	
+
 	return($displayQtyString);
 }
 
 function print_payment_currency($price, $symbol, $decimal, $defaultSymbolOrder) {
 
 	switch ( $defaultSymbolOrder ) {
-		
+
 		case "1":
 			$priceSymbol = $symbol.number_format($price, 2, $decimal, ',');
 			break;
@@ -209,29 +209,30 @@ function print_payment_currency($price, $symbol, $decimal, $defaultSymbolOrder) 
 		default:
 			$priceSymbol = $symbol.number_format($price, 2, $decimal, ',');
 	}
-	
+
 	return $priceSymbol;
 	//-	return $symbol.number_format($price, 2, $decimal, ',');
 }
 
 function wp_paypal_shopping_cart_widget_control() {
-	?>
-	<p>
-	<?php _e("Set the Plugin Settings from the Settings menu", "WUSPSC"); ?>
-	</p>
-	<?php
+	echo "<p>" . __("Set the Plugin Settings from the Settings menu", "WUSPSC") . "</p>";
 }
 
-function widget_wp_paypal_shopping_cart_init() {	
-	$widget_options = array('classname' => 'widget_wp_paypal_shopping_cart', 'description' => __("Display WP Ultra Simple Paypal Shopping Cart.", "WUSPSC") );
-	wp_register_sidebar_widget('wp_paypal_shopping_cart_widgets', __("WP Ultra Simple Paypal Shopping Cart", "WUSPSC"), 'show_wp_paypal_shopping_cart_widget', $widget_options);
+function widget_wp_paypal_shopping_cart_init() {
+
+	$widget_options = array(
+		'classname' => 'widget_wp_paypal_shopping_cart',
+		'description' => __("Display WP Ultra Simple Paypal Shopping Cart.", "WUSPSC")
+	);
+
+	wp_register_sidebar_widget( 'wp_paypal_shopping_cart_widgets', __("WP Ultra Simple Paypal Shopping Cart", "WUSPSC"), 'show_wp_paypal_shopping_cart_widget', $widget_options);
 	wp_register_widget_control('wp_paypal_shopping_cart_widgets', __("WP Ultra Simple Paypal Shopping Cart", "WUSPSC"), 'wp_paypal_shopping_cart_widget_control' );
 }
 
 // Add the settings link
 function wp_ultra_simple_cart_add_settings_link($links, $file) {
 	if($file == plugin_basename(__FILE__)){
-		$settings_link = '<a href="options-general.php?page='.dirname(plugin_basename(__FILE__)).'/wp_ultra_simple_shopping_cart.php">'.(__("Settings", "WUSPSC")).'</a>';
+		$settings_link = '<a href="options-general.php?page='.dirname(plugin_basename(__FILE__)).'/wp_ultra_simple_shopping_cart.php">'.__("Settings", "WUSPSC").'</a>';
 		array_unshift($links, $settings_link);
 	}
 	return $links;
@@ -263,14 +264,14 @@ function wuspsc_admin_register_head_cart_css() {
 	$siteurl = get_option('siteurl');
 	$url = $siteurl . '/wp-content/plugins/' . basename(dirname(__FILE__)) . '/wp_ultra_simple_shopping_cart_admin_style.css';
 	echo "<link rel='stylesheet' type='text/css' href='{$url}' />\n";
-	
+
 	$ui_url = "//ajax.googleapis.com/ajax/libs/jqueryui/1.7.0/themes/smoothness/jquery-ui.css";
 	echo "<link rel='stylesheet' type='text/css' href='{$ui_url}' />\n";
-	
-	
+
+
 }
 
-if ( function_exists( 'add_image_size' ) ) { 
+if ( function_exists( 'add_image_size' ) ) {
 	add_image_size( 'wuspsc-product-thumb', 64, 64, true ); //(cropped)
 }
 

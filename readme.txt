@@ -21,7 +21,7 @@ Other new features include, Price Variations, interface text's personalization, 
 This plugin customisable in the plugin admin and 100% customisable by CSS.
 To style the 'add to cart' button use cart button class style in the admin. Eg.
 
-For screenshots, detailed documentation, support and updates, please visit [Ultra Prod Support Forum](http://www.ultra-prod.com/developpement-support/wp-ultra-simple-paypal-shopping-cart-group3.0/ "go to Ultra Prod forum")
+For screenshots, detailed documentation, support and updates, please visit [Ultra Prod Support Forum](https://www.ultra-prod.com/developpement-support/ "go to Ultra Prod forum")
 
 = Features =
 
@@ -122,7 +122,7 @@ Keyword list :
 
 * screenshot-1.png screenshot-2.png screenshot-3.png screenshot-4.png screenshot-5.png
 * Visit [the plugin site](http://www.ultra-prod.com/?p=86) for more screenshots.
-* Support [Ultra Prod forum](http://www.ultra-prod.com/developpement-support/wp-ultra-simple-paypal-shopping-cart-group3.0/ "Ultra Prod forum").
+* Support [Ultra Prod forum](https://www.ultra-prod.com/developpement-support/ "Ultra Prod forum").
 
 
 == Changelog ==
@@ -200,4 +200,5 @@ Keyword list :
 = V4.3.8.7 =
 * Bug correction : Tax correctly transmited to paypal
 * Add feature : Shipping fee is added only once, or per quantities.
-
+= V4.3.8.8 =
+* I18n correction and links update

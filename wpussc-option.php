@@ -1,7 +1,7 @@
 <?php
 /*
 Ultra Prod WPUSSC Admin Options
-Version: v1.4.1
+Version: v1.4.2
 */
 /*
 	This program is free software; you can redistribute it
@@ -128,7 +128,7 @@ function show_wp_cart_options_page () {
 		update_option('wp_use_aff_platform', ($_POST['wp_use_aff_platform']!='') ? 'checked="checked"':'' );
 
 		echo '<div id="message" class="updated fade">';
-		echo '<p><strong>'.( __("Options Updated!", "WUSPSC")).'</strong></p></div>';
+		echo '<p><strong>'. __("Options Updated!", "WUSPSC").'</strong></p></div>';
 	}
 
 	$defaultCurrency = get_option('cart_payment_currency');
@@ -273,8 +273,8 @@ function show_wp_cart_options_page () {
 
 	<div id="tabs-1">
  	<h2><div id="icon-edit-pages" class="icon32"></div><?php _e("WP Ultra Simple Shopping Cart Usage", "WUSPSC"); ?> v <?php echo WUSPSC_VERSION; ?></h2>
- 	<p><?php _e("For information, updates and detailed documentation, please visit:", "WUSPSC"); ?> <a href="http://www.ultra-prod.com/?p=86">ultra-prod.com</a></p>
-	<p><?php _e("For support, please use our dedicated forum:", "WUSPSC"); ?> <a href="http://www.ultra-prod.com/developpement-support/wp-ultra-simple-paypal-shopping-cart-group3.0/"><?php _e("WPUSPSC Support Forum", "WUSPSC"); ?></a></p>
+ 	<p><?php _e("For information, updates and detailed documentation, please visit:", "WUSPSC"); ?> <a href="https://www.ultra-prod.com/?p=86">ultra-prod.com</a></p>
+	<p><?php _e("For support, please use our dedicated forum:", "WUSPSC"); ?> <a href="https://www.ultra-prod.com/developpement-support/"><?php _e("WPUSPSC Support Forum", "WUSPSC"); ?></a></p>
 
 	<fieldset class="options">
 		<p><h4><a href="https://www.paypal.com/fr/mrb/pal=CH4PZVAK2GJAJ"><?php _e("1. create a PayPal account (no cost for basic account)", "WUSPSC"); ?></a></h4>
@@ -282,48 +282,48 @@ function show_wp_cart_options_page () {
 		<p><h4><?php _e("2. Create post or page presenting the product or service and add caddy shortcode in the post. See example and possibilities following:", "WUSPSC"); ?></h4>
 	<ul>
 		<ol>
-			<?php _e("To add the 'Add to Cart' button simply add the trigger text to a post or page, next to the product. Replace PRODUCT-NAME and PRODUCT-PRICE with the actual name and price.", "WUSPSC"); ?><br />
-			<strong>[wp_cart:<?php _e("PRODUCT-NAME", "WUSPSC"); ?>:price:<?php _e("PRODUCT-PRICE", "WUSPSC"); ?>:end]</strong><br />
+			<?php _e("To add the 'Add to Cart' button simply add the trigger text to a post or page, next to the product. Replace PRODUCT-NAME and PRODUCT-PRICE with the actual name and price.", "WUSPSC"); ?><br>
+			<strong>[wp_cart:<?php _e("PRODUCT-NAME", "WUSPSC"); ?>:price:<?php _e("PRODUCT-PRICE", "WUSPSC"); ?>:end]</strong><br>
 			<blockquote><?php _e("eg.", "WUSPSC"); ?> [wp_cart:<?php _e("Test Product", "WUSPSC"); ?>:price:15.00:end]</blockquote>
 		</ol>
 
 		<ol>
-			<?php _e("To add the 'Add to Cart' button on you theme's template files, use &lt;?php echo print_wp_cart_button_for_product('PRODUCT-NAME', PRODUCT-PRICE); ?&gt; . Replace PRODUCT-NAME and PRODUCT-PRICE with the actual name and price.", "WUSPSC"); ?><br />
+			<?php _e("To add the 'Add to Cart' button on you theme's template files, use &lt;?php echo print_wp_cart_button_for_product('PRODUCT-NAME', PRODUCT-PRICE); ?&gt; . Replace PRODUCT-NAME and PRODUCT-PRICE with the actual name and price.", "WUSPSC"); ?><br>
 			<blockquote></blockquote>
 		</ol>
 
 		<ol>
-			<?php _e("To display the numbers of items in cart use &lt;?php echo wpusc_cart_item_qty(); ?&gt; . The string display are set in the plugin's settings.", "WUSPSC"); ?><br />
+			<?php _e("To display the numbers of items in cart use &lt;?php echo wpusc_cart_item_qty(); ?&gt; . The string display are set in the plugin's settings.", "WUSPSC"); ?><br>
 			<blockquote></blockquote>
 		</ol>
 
 		<ol>
-			<?php _e("To use variation of the price use the following trigger text:", "WUSPSC"); ?><br />
-			<strong>[wp_cart:<?php _e("PRODUCT-NAME", "WUSPSC"); ?>:price:[<?php _e("VARIATION-NAME", "WUSPSC"); ?>|<?php _e("VARIATION-LABEL1", "WUSPSC"); ?>,<?php _e("VARIATION-PRICE1", "WUSPSC"); ?>|<?php _e("VARIATION-LABEL2", "WUSPSC"); ?>,<?php _e("VARIATION-PRICE2", "WUSPSC"); ?>]:end]</strong><br />
+			<?php _e("To use variation of the price use the following trigger text:", "WUSPSC"); ?><br>
+			<strong>[wp_cart:<?php _e("PRODUCT-NAME", "WUSPSC"); ?>:price:[<?php _e("VARIATION-NAME", "WUSPSC"); ?>|<?php _e("VARIATION-LABEL1", "WUSPSC"); ?>,<?php _e("VARIATION-PRICE1", "WUSPSC"); ?>|<?php _e("VARIATION-LABEL2", "WUSPSC"); ?>,<?php _e("VARIATION-PRICE2", "WUSPSC"); ?>]:end]</strong><br>
 			<blockquote><?php _e("eg.", "WUSPSC"); ?> [wp_cart:<?php _e("Test Product", "WUSPSC"); ?>:price:[<?php _e("Size|Small,1.10|Medium,2.10|Large,3.10", "WUSPSC"); ?>]:end]</blockquote>
 		</ol>
 
 		<ol>
-			<?php _e("To use variation of the price and shipping use the following trigger text:", "WUSPSC"); ?><br />
-			<strong>[wp_cart:<?php _e("PRODUCT-NAME", "WUSPSC"); ?>:price:[<?php _e("VARIATION-NAME", "WUSPSC"); ?>|<?php _e("VARIATION-LABEL1", "WUSPSC"); ?>,<?php _e("VARIATION-PRICE1", "WUSPSC"); ?>|<?php _e("VARIATION-LABEL2", "WUSPSC"); ?>,<?php _e("VARIATION-PRICE2", "WUSPSC"); ?>]:shipping:[<?php _e("Shipping", "WUSPSC"); ?>|<?php _e("VARIATION-LABEL1", "WUSPSC"); ?>,<?php _e("VARIATION-PRICE1", "WUSPSC"); ?>]:end]</strong><br />
+			<?php _e("To use variation of the price and shipping use the following trigger text:", "WUSPSC"); ?><br>
+			<strong>[wp_cart:<?php _e("PRODUCT-NAME", "WUSPSC"); ?>:price:[<?php _e("VARIATION-NAME", "WUSPSC"); ?>|<?php _e("VARIATION-LABEL1", "WUSPSC"); ?>,<?php _e("VARIATION-PRICE1", "WUSPSC"); ?>|<?php _e("VARIATION-LABEL2", "WUSPSC"); ?>,<?php _e("VARIATION-PRICE2", "WUSPSC"); ?>]:shipping:[<?php _e("Shipping", "WUSPSC"); ?>|<?php _e("VARIATION-LABEL1", "WUSPSC"); ?>,<?php _e("VARIATION-PRICE1", "WUSPSC"); ?>]:end]</strong><br>
 			<blockquote><?php _e("eg.", "WUSPSC"); ?> [wp_cart:<?php _e("Test Product", "WUSPSC"); ?>:price:[<?php _e("Size|Small,1.10|Medium,2.10|Large,3.10", "WUSPSC"); ?>]:shipping:[<?php _e("Shipping|normal,6.50|fast,10.00", "WUSPSC"); ?>]:end]</blockquote>
 		</ol>
 
 		<ol>
-			<?php _e("To use variation control use the following trigger text:", "WUSPSC"); ?><br />
-			<strong>[wp_cart:<?php _e("PRODUCT-NAME", "WUSPSC"); ?>:price:<?php _e("PRODUCT-PRICE", "WUSPSC"); ?>:var1[<?php _e("VARIATION-NAME", "WUSPSC"); ?>|<?php _e("VARIATION1", "WUSPSC"); ?>|<?php _e("VARIATION2", "WUSPSC"); ?>|<?php _e("VARIATION3", "WUSPSC"); ?>]:end]</strong><br />
+			<?php _e("To use variation control use the following trigger text:", "WUSPSC"); ?><br>
+			<strong>[wp_cart:<?php _e("PRODUCT-NAME", "WUSPSC"); ?>:price:<?php _e("PRODUCT-PRICE", "WUSPSC"); ?>:var1[<?php _e("VARIATION-NAME", "WUSPSC"); ?>|<?php _e("VARIATION1", "WUSPSC"); ?>|<?php _e("VARIATION2", "WUSPSC"); ?>|<?php _e("VARIATION3", "WUSPSC"); ?>]:end]</strong><br>
 			<blockquote><?php _e("eg.", "WUSPSC"); ?> [wp_cart:<?php _e("Test Product", "WUSPSC"); ?>:price:15:var1[Size|Small|Medium|Large]:end]</blockquote>
 		</ol>
 
 		<ol>
-			<?php _e("To use variation control with simple shipping use the following trigger text:", "WUSPSC"); ?><br />
-			<strong>[wp_cart:<?php _e("PRODUCT-NAME", "WUSPSC"); ?>:price:<?php _e("PRODUCT-PRICE", "WUSPSC"); ?>:shipping:<?php _e("SHIPPING-COST", "WUSPSC"); ?>:var1[<?php _e("VARIATION-NAME", "WUSPSC"); ?>|<?php _e("VARIATION1", "WUSPSC"); ?>|<?php _e("VARIATION2", "WUSPSC"); ?>|<?php _e("VARIATION3", "WUSPSC"); ?>]:end]</strong><br />
+			<?php _e("To use variation control with simple shipping use the following trigger text:", "WUSPSC"); ?><br>
+			<strong>[wp_cart:<?php _e("PRODUCT-NAME", "WUSPSC"); ?>:price:<?php _e("PRODUCT-PRICE", "WUSPSC"); ?>:shipping:<?php _e("SHIPPING-COST", "WUSPSC"); ?>:var1[<?php _e("VARIATION-NAME", "WUSPSC"); ?>|<?php _e("VARIATION1", "WUSPSC"); ?>|<?php _e("VARIATION2", "WUSPSC"); ?>|<?php _e("VARIATION3", "WUSPSC"); ?>]:end]</strong><br>
 			<blockquote><?php _e("eg.", "WUSPSC"); ?> [wp_cart:<?php _e("Test Product", "WUSPSC"); ?>:price:15:shipping:2:var1[<?php _e("Size|Small|Medium|Large", "WUSPSC"); ?>]:end]</blockquote>
 		</ol>
 
 		<ol>
-			<?php _e("To use multiple variation (unlimited variation) option use the following trigger text:", "WUSPSC"); ?><br />
-			<strong>[wp_cart:<?php _e("PRODUCT-NAME", "WUSPSC"); ?>:price:<?php _e("PRODUCT-PRICE", "WUSPSC"); ?>:var1[<?php _e("VARIATION-NAME", "WUSPSC"); ?>|<?php _e("VARIATION1", "WUSPSC"); ?>|<?php _e("VARIATION2", "WUSPSC"); ?>|<?php _e("VARIATION3", "WUSPSC"); ?>]:var2[<?php _e("VARIATION-NAME", "WUSPSC"); ?>|<?php _e("VARIATION1", "WUSPSC"); ?>|<?php _e("VARIATION2", "WUSPSC"); ?>]:end]</strong><br />
+			<?php _e("To use multiple variation (unlimited variation) option use the following trigger text:", "WUSPSC"); ?><br>
+			<strong>[wp_cart:<?php _e("PRODUCT-NAME", "WUSPSC"); ?>:price:<?php _e("PRODUCT-PRICE", "WUSPSC"); ?>:var1[<?php _e("VARIATION-NAME", "WUSPSC"); ?>|<?php _e("VARIATION1", "WUSPSC"); ?>|<?php _e("VARIATION2", "WUSPSC"); ?>|<?php _e("VARIATION3", "WUSPSC"); ?>]:var2[<?php _e("VARIATION-NAME", "WUSPSC"); ?>|<?php _e("VARIATION1", "WUSPSC"); ?>|<?php _e("VARIATION2", "WUSPSC"); ?>]:end]</strong><br>
 			<blockquote><?php _e("eg.", "WUSPSC"); ?> [wp_cart:<?php _e("Test Product", "WUSPSC"); ?>:price:15:shipping:2:var1[<?php _e("Size|Small|Medium|Large", "WUSPSC"); ?>]:var2[<?php _e("Color|Red|Green", "WUSPSC"); ?>]:end]</blockquote>
 		</ol>
 
@@ -331,7 +331,7 @@ function show_wp_cart_options_page () {
 	</p>
 	<p><h4><?php _e("3.a To add the shopping cart to a post or page (eg. checkout page) simply add the shortcode", "WUSPSC"); ?></h4>
 		<blockquote><blockquote>
-			<?php _e("To display checkout to a post or page, simply add the shortcode", "WUSPSC"); ?> <strong>&#91;show_wp_shopping_cart&#93;</strong><br />
+			<?php _e("To display checkout to a post or page, simply add the shortcode", "WUSPSC"); ?> <strong>&#91;show_wp_shopping_cart&#93;</strong><br>
 			<?php _e("Or use the sidebar widget to add the shopping cart to the sidebar.", "WUSPSC"); ?>
 		</blockquote></blockquote>
 
@@ -360,7 +360,7 @@ function show_wp_cart_options_page () {
 		<h4><?php _e('4. Good selling ! If you need help, whether it’s a plugin that causing issues, a theme, or just needed help with styling your site or', "WUSPSC"); ?> <strong>WPUSPSC</strong> <?php _e('…We can help!', "WUSPSC"); ?></h4>
 
 		<blockquote><blockquote>
-			<em><strong><a title="Live Ultra Prod Support" href="http://www.ultra-prod.com/live-ultra-prod-staff-support/" target="_blank"><?php _e("Live Support", "WUSPSC"); ?></a></strong></em> <?php _e("for all your needs on ", "WUSPSC"); ?> <em><strong>WordPress</strong></em> <?php _e("or", "WUSPSC"); ?> <strong><em>Prestashop</em></strong>! <?php _e("Support provided by Ultra Prod Staff.", "WUSPSC"); ?>
+			<em><strong><a title="Live Ultra Prod Support" href="https://www.ultra-prod.com/live-ultra-prod-staff-support/" target="_blank"><?php _e("Live Support", "WUSPSC"); ?></a></strong></em> <?php _e("for all your needs on ", "WUSPSC"); ?> <em><strong>WordPress</strong></em> <?php _e("or", "WUSPSC"); ?> <strong><em>Prestashop</em></strong>! <?php _e("Support provided by Ultra Prod Staff.", "WUSPSC"); ?>
 		</blockquote></blockquote>
 
 	</p>
@@ -378,12 +378,12 @@ echo '<div id="tabs-3">
 <h2><div id="icon-users" class="icon32"></div>'.( __("Like sell on major marketplaces ?", "WUSPSC") ).'</h2>
 <div id="ecebiz">
 <p>'.( __("Have a look on $eceurl if you like sell on major marketplaces worldwide. We offer fix prices, and a huge expertise to help you to put your products UP to market.", "WUSPSC") ).'</p>
-<a href="http://www.e-ce.biz"><img src="'.WUSPSC_PLUGIN_IMAGES_URL.'ecebiz.jpg" /></a>
+<a href="http://www.e-ce.biz"><img src="'.WUSPSC_PLUGIN_IMAGES_URL.'ecebiz.jpg"></a>
 </div>
 <h2><div id="icon-users" class="icon32"></div>'.( __("Do you like WUSPSC ?", "WUSPSC") ).'</h2>
 <div id="helpme">
-<p><a href="http://wordpress.org/plugins/wp-ultra-simple-paypal-shopping-cart/" target="_blank">'.( __("Please, if you like WUSPSC, think to give it a good rating", "WUSPSC")).'</a>'.( __(" and please consider to donate 1$ only or more if you can, &#8364; or &pound; to help me to give time for user&#8217;s support, add new features and upgrades.", "WUSPSC")).'
-	'.( __('After more than 100,000 downloads, <a href="http://www.ultra-prod.com/products-modules-plugin/wp-ultra-simple-paypal-shopping-cart/">only less that 30 users donate</a>.', "WUSPSC") ).'
+<p><a href="http://wordpress.org/plugins/wp-ultra-simple-paypal-shopping-cart/" target="_blank">'. __("Please, if you like WUSPSC, think to give it a good rating", "WUSPSC").'</a>'. __(" and please consider to donate 1$ only or more if you can, &#8364; or &pound; to help me to give time for user&#8217;s support, add new features and upgrades.", "WUSPSC").'
+	'.( __('After more than 100,000 downloads, <a href="https://www.ultra-prod.com/products-modules-plugin/wp-ultra-simple-paypal-shopping-cart/">only less that 30 users donate</a>.', "WUSPSC") ).'
 	<div id="donate">
 		<form class="donate" action="https://www.paypal.com/cgi-bin/webscr" method="post">
 		<input type="hidden" name="cmd" value="_s-xclick">
@@ -394,7 +394,7 @@ echo '<div id="tabs-3">
 	</div>
 </p>
 </div>
-<p>'.( __("Or if you like down-tempo / ambiant / electronic music, you can buy a few tracks from one of my CD on Amazon.", "WUSPSC")).'</p>
+<p>'. __("Or if you like down-tempo / ambiant / electronic music, you can buy a few tracks from one of my CD on Amazon.", "WUSPSC").'</p>
 <p>
 <ul>
 	<li><a href="http://www.amazon.com/s/ref=ntt_srch_drd_B001L5OJSM?ie=UTF8&search-type=ss&index=digital-music&field-keywords=Mike%20Castro%20de%20Maria" target="_blank">Amazon US</a><li>
@@ -402,15 +402,15 @@ echo '<div id="tabs-3">
 	<li><a href="http://www.amazon.de/s/ref=ntt_srch_drd_B001L5OJSM?ie=UTF8&search-type=ss&index=digital-music&field-keywords=Mike%20Castro%20de%20Maria" target="_blank">Amazon DE</a><li>
 	<li><a href="http://www.amazon.fr/s/ref=ntt_srch_drd_B001L5OJSM?ie=UTF8&search-type=ss&index=digital-music&field-keywords=Mike%20Castro%20de%20Maria" target="_blank">Amazon FR</a><li>
 </ul>
-<img src="'.WUSPSC_PLUGIN_IMAGES_URL.'41dK4t7R6OL._SL500_SS110_.jpg" /><img src="'.WUSPSC_PLUGIN_IMAGES_URL.'41RTkTKGzRL._SL500_SS110_.jpg" /><img src="'.WUSPSC_PLUGIN_IMAGES_URL.'51oggSX6F0L._SL500_SS110_.jpg" /><img src="'.WUSPSC_PLUGIN_IMAGES_URL.'51xQJmJpwuL._SL500_SS110_.jpg" />
+<img src="'.WUSPSC_PLUGIN_IMAGES_URL.'41dK4t7R6OL._SL500_SS110_.jpg"><img src="'.WUSPSC_PLUGIN_IMAGES_URL.'41RTkTKGzRL._SL500_SS110_.jpg"><img src="'.WUSPSC_PLUGIN_IMAGES_URL.'51oggSX6F0L._SL500_SS110_.jpg"><img src="'.WUSPSC_PLUGIN_IMAGES_URL.'51xQJmJpwuL._SL500_SS110_.jpg">
 </p>
-<p>'.( __("Thanks a lot for your support !!!", "WUSPSC")).'<p>
+<p>'. __("Thanks a lot for your support !!!", "WUSPSC").'<p>
 </div>';
 
 echo '<div id="tabs-4">
-<h2><div id="icon-edit-comments" class="icon32"></div>'.( __("Coupon Code", "WUSPSC")).'</h2>
-<p>'.( __("Do you need discount Code feature?", "WUSPSC")).'<p>
-<p>'.( __("If the answer is yes, please ask it on ", "WUSPSC")).'<a target="_blank" href="http://www.ultra-prod.com/developpement-support/wp-ultra-simple-paypal-shopping-cart-group3/suggestions-features-forum9/discount-code-in-shopping-cart-thread17.0/">'.( __("this Forum thread", "WUSPSC")).'</a><p>
+<h2><div id="icon-edit-comments" class="icon32"></div>'. __("Coupon Code", "WUSPSC").'</h2>
+<p>'. __("Do you need discount Code feature?", "WUSPSC").'<p>
+<p>'. __("If the answer is yes, please ask it on ", "WUSPSC").'<a target="_blank" href="https://www.ultra-prod.com/developpement-support/">'. __("this Forum thread", "WUSPSC").'</a><p>
 </div>';
 
 ?>
@@ -428,247 +428,253 @@ echo '<div id="tabs-4">
 		<h2><div id="icon-edit-comments" class="icon32"></div><?php _e("WP Ultra Simple Shopping Cart Support", "WUSPSC"); ?></h2>
 		<div class="content">
 			<h4><?php _e("Do you need support or new features?", "WUSPSC") ?></h4>
-			<p><?php _e("Just ask on", "WUSPSC") ?> <a target="_blank" href="http://www.ultra-prod.com/developpement-support/wp-ultra-simple-paypal-shopping-cart-group3/"><?php _e("WUSPSC Forum", "WUSPSC") ?></a>.<p>
+			<p><?php _e("Just ask on", "WUSPSC") ?> <a target="_blank" href="https://www.ultra-prod.com/developpement-support/"><?php _e("WUSPSC Forum", "WUSPSC") ?></a>.<p>
 
 			<h4><?php _e("Do you need quick and direct support?", "WUSPSC") ?></h4>
-			<p><?php _e("We can provide you \"Live Support\" for all your WordPress or Prestashop needs!", "WUSPSC") ?> <a target="_blank" href="http://www.ultra-prod.com/live-ultra-prod-staff-support/"><?php _e("click on UP Live Support", "WUSPSC") ?></a>. <?php _e("Support provided by Ultra Prod Staff.", "WUSPSC") ?><p>
+			<p><?php _e("We can provide you \"Live Support\" for all your WordPress or Prestashop needs!", "WUSPSC") ?> <a target="_blank" href="https://www.ultra-prod.com/live-ultra-prod-staff-support/"><?php _e("click on UP Live Support", "WUSPSC") ?></a>. <?php _e("Support provided by Ultra Prod Staff.", "WUSPSC") ?><p>
 
 			<h4><?php _e("Do you like the WP Ultra Simple Paypal Shopping Cart Plugin?", "WUSPSC") ?></h4>
-			<p><?php _e("Please", "WUSPSC") ?> <a target="_blank" href="http://wordpress.org/extend/plugins/wp-ultra-simple-paypal-shopping-cart/"><?php _e("give it a good rating", "WUSPSC") ?></a> <?php _e("on Wordpress website", "WUSPSC") ?>.</p>
+			<p><?php _e("Please", "WUSPSC") ?> <a target="_blank" href="https://wordpress.org/plugins/wp-ultra-simple-paypal-shopping-cart/"><?php _e("give it a good rating", "WUSPSC") ?></a> <?php _e("on Wordpress website", "WUSPSC") ?>.</p>
 		</div>
 	</div>
 
 	<div id="tabs-2">
 	<h2><div id="icon-options-general" class="icon32"></div><?php _e("WP Ultra Simple Shopping Cart Settings", "WUSPSC"); ?> v <?php echo WUSPSC_VERSION; ?></h2>
 	<form method="post" action="<?php echo $_SERVER["REQUEST_URI"]; ?>">
-	<input type="hidden" name="info_update" id="info_update" value="true" />
+	<input type="hidden" name="info_update" id="info_update" value="true">
 
-<?php echo '
+<?php
+#qtranslate warning message
+if (function_exists('qtrans_getLanguage')) { $qtransup = '<div class="ui-widget"><div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;"><p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>'.__("<strong>You are using qTranslate or qTranslate-X</strong> if you like to customise the followings strings, please fill the following fields with the qTranslate syntax.", "WUSPSC")."<br>".__("Eg", "WUSPSC")." : [:en]Sub-total[:fr]Sous-total[:de]Zwischensumme[:es]Total parcial".'</p></div></div>'; $qtranstalex_msg = '<tr valign="top"><td colspan="2">'.$qtransup.'</td></tr>'; } else {$qtranstalex_msg = "";}
+
+echo '
 <div class="inside">
 <table class="form-table">
 <!-- Paypal -->
 <tr valign="top">
-<th scope="row">'.( __("Paypal Email Address", "WUSPSC")).'</th>
-<td><input type="text" name="cart_paypal_email" value="'.$defaultEmail.'" size="40" /></td>
+<th scope="row">'. __("Paypal Email Address", "WUSPSC").'</th>
+<td><input type="text" name="cart_paypal_email" value="'.$defaultEmail.'" size="40"></td>
 </tr>
 
 <tr valign="top">
-<th scope="row">'.( __("Paypal Sandbox (cart is in test)", "WUSPSC")).'</th>
-<td>Test: <input type="radio" name="is_sandbox" value="1" '.$defaultSandboxChecked1.'/>&nbsp;Production: <input type="radio" name="is_sandbox" value="0" '.$defaultSandboxChecked2.'/><br /> '.( __('You must open a free developer account to use sandbox for your tests before go live.<br /> Go to <a href="https://developer.paypal.com/">https://developer.paypal.com/</a>, register and connect.', "WUSPSC")).'</td>
+<th scope="row">'. __("Paypal Sandbox (cart is in test)", "WUSPSC").'</th>
+<td>Test: <input type="radio" name="is_sandbox" value="1" '.$defaultSandboxChecked1.'/>&nbsp;Production: <input type="radio" name="is_sandbox" value="0" '.$defaultSandboxChecked2.'/><br> '. __('You must open a free developer account to use sandbox for your tests before go live.<br> Go to <a href="https://developer.paypal.com/">https://developer.paypal.com/</a>, register and connect.', "WUSPSC").'</td>
 </tr>
 
 <tr valign="top">
-<th scope="row">'.( __("Use PayPal Profile Based Shipping", "WUSPSC")).'</th>
-<td><input type="checkbox" name="wpus_shopping_cart_use_profile_shipping" value="1" '.$wpus_shopping_cart_use_profile_shipping.' /><br />'.( __("Check this if you want to use", "WUSPSC")).' <a href="https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_html_ProfileAndTools#id08A9EF00IQY" target="_blank">'.( __("PayPal profile based shipping", "WUSPSC")).'</a>. '.( __("Using this will ignore any other shipping options that you have specified in this plugin.", "WUSPSC")).'</td>
+<th scope="row">'. __("Use PayPal Profile Based Shipping", "WUSPSC").'</th>
+<td><input type="checkbox" name="wpus_shopping_cart_use_profile_shipping" value="1" '.$wpus_shopping_cart_use_profile_shipping.'><br>'. __("Check this if you want to use", "WUSPSC").' <a href="https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_html_ProfileAndTools#id08A9EF00IQY" target="_blank">'. __("PayPal profile based shipping", "WUSPSC").'</a>. '. __("Using this will ignore any other shipping options that you have specified in this plugin.", "WUSPSC").'</td>
 </tr>
 
 <tr valign="top">
-<th scope="row">'.( __("Must Collect Shipping Address on PayPal", "WUSPSC")).'</th>
-<td><input type="checkbox" name="wpus_shopping_cart_collect_address" value="1" '.$wpus_shopping_cart_collect_address.' /><br />'.( __("If checked the customer will be forced to enter a shipping address on PayPal when checking out.", "WUSPSC")).'</td>
+<th scope="row">'. __("Must Collect Shipping Address on PayPal", "WUSPSC").'</th>
+<td><input type="checkbox" name="wpus_shopping_cart_collect_address" value="1" '.$wpus_shopping_cart_collect_address.'><br>'. __("If checked the customer will be forced to enter a shipping address on PayPal when checking out.", "WUSPSC").'</td>
 </tr>
 
 <!-- Settings -->
 
 <tr valign="top">
-<th scope="row">'.( __("Base Shipping Cost", "WUSPSC")).'</th>
-<td><input type="text" name="cart_base_shipping_cost" value="'.$baseShipping.'" size="5" /> <br />'.( __("This is the base shipping cost that will be added to the total of individual products shipping cost. Put 0 if you do not want to charge shipping cost or use base shipping cost.", "WUSPSC")).'</td>
+<th scope="row">'. __("Base Shipping Cost", "WUSPSC").'</th>
+<td><input type="text" name="cart_base_shipping_cost" value="'.$baseShipping.'" size="5"> <br>'. __("This is the base shipping cost that will be added to the total of individual products shipping cost. Put 0 if you do not want to charge shipping cost or use base shipping cost.", "WUSPSC").'</td>
 </tr>
 
 <tr valign="top">
-<th scope="row">'.( __("Free Shipping for Orders Over", "WUSPSC")).'</th>
-<td><input type="text" name="cart_free_shipping_threshold" value="'.$cart_free_shipping_threshold.'" size="5" /> <br />'.( __("When a customer orders more than this amount he/she will get free shipping. Leave empty if you do not want to use it.", "WUSPSC")).'</td>
+<th scope="row">'. __("Free Shipping for Orders Over", "WUSPSC").'</th>
+<td><input type="text" name="cart_free_shipping_threshold" value="'.$cart_free_shipping_threshold.'" size="5"> <br>'. __("When a customer orders more than this amount he/she will get free shipping. Leave empty if you do not want to use it.", "WUSPSC").'</td>
 </tr>
 
 <tr valign="top">
-<th scope="row">'.( __("Shipping fee per item", "WUSPSC")).'</th>
-<td><input type="checkbox" name="wpus_shopping_cart_shipping_per_items" value="1" '.$wpus_shopping_cart_shipping_per_items.' /><br />'.( __("By default, shipping fee is multiply by the item's quantity added. If ticked only 1 shipping fee is added per items group.", "WUSPSC")).'</td>
+<th scope="row">'. __("Shipping fee per item", "WUSPSC").'</th>
+<td><input type="checkbox" name="wpus_shopping_cart_shipping_per_items" value="1" '.$wpus_shopping_cart_shipping_per_items.'><br>'. __("By default, shipping fee is multiply by the item's quantity added. If ticked only 1 shipping fee is added per items group.", "WUSPSC").'</td>
 </tr>
 
 <tr valign="top">
-<th scope="row">'.( __("Free Shipping", "WUSPSC")).'</th>
-<td><input type="checkbox" name="display_free_shipping" value="1" '.$displayFreeShipping.' /><br />'.( __(" If ticked, display a shipping free message on cart.", "WUSPSC")).'</td>
+<th scope="row">'. __("Free Shipping", "WUSPSC").'</th>
+<td><input type="checkbox" name="display_free_shipping" value="1" '.$displayFreeShipping.'><br>'. __(" If ticked, display a shipping free message on cart.", "WUSPSC").'</td>
 </tr>
 
 <tr valign="top">
-<th scope="row">'.( __("Currency", "WUSPSC")).'</th>
-<td><input type="text" name="cart_payment_currency" value="'.$defaultCurrency.'" maxlength="3" size="4" /> ('.( __("e.g.", "WUSPSC")).' USD, EUR, GBP, AUD)'.( __('Full list on <a target="_blank" href="https://cms.paypal.com/us/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_api_nvp_currency_codes">PayPal website</a>', "WUSPSC")).'</td>
+<th scope="row">'. __("Currency", "WUSPSC").'</th>
+<td><input type="text" name="cart_payment_currency" value="'.$defaultCurrency.'" maxlength="3" size="4"> ('. __("e.g.", "WUSPSC").' USD, EUR, GBP, AUD)'. __('Full list on <a target="_blank" href="https://cms.paypal.com/us/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_api_nvp_currency_codes">PayPal website</a>', "WUSPSC").'</td>
 </tr>
 <tr valign="top">
-<th scope="row">'.( __("Currency Symbol", "WUSPSC")).'</th>
-<td><input type="text" name="cart_currency_symbol" value="'.$defaultSymbol.'" size="2" style="width: 1.5em;" /> ('.( __("e.g.", "WUSPSC")).' $, &#163;, &#8364;)
+<th scope="row">'. __("Currency Symbol", "WUSPSC").'</th>
+<td><input type="text" name="cart_currency_symbol" value="'.$defaultSymbol.'" size="2" style="width: 1.5em;"> ('. __("e.g.", "WUSPSC").' $, &#163;, &#8364;)
 </td>
 </tr>
 <tr valign="top">
-<th scope="row">'.( __("Currency display", "WUSPSC")).'</th>
+<th scope="row">'. __("Currency display", "WUSPSC").'</th>
 <td>Is the currency symbol is displayed befor or after the price ? <input type="radio" name="cart_currency_symbol_order" value="1" '.$defaultSymbolOrderChecked1.'/> Before or <input type="radio" name="cart_currency_symbol_order" value="2" '.$defaultSymbolOrderChecked2.'/> After
 </td>
 </tr>
 <tr valign="top">
-<th scope="row">'.( __("Item global VAT", "WUSPSC")).'</th>
-<td><input type="text" name="display_vat" value="'.$display_vat.'" size="5" />%<br />'.( __("Add VAT rate. The VAT must be a percentage eg. 19.60. Leave empty to disable it.", "WUSPSC")).'</td>
+<th scope="row">'. __("Item global VAT", "WUSPSC").'</th>
+<td><input type="text" name="display_vat" value="'.$display_vat.'" size="5">%<br>'. __("Add VAT rate. The VAT must be a percentage eg. 19.60. Leave empty to disable it.", "WUSPSC").'</td>
 </tr>
 
 <tr valign="top">
-<th scope="row">'.( __("Custom buttons", "WUSPSC")).'</th>
-<td><input type="checkbox" name="use_custom_button" value="1" '.$useCustomButton.' /><br />'.( __(" If ticked, use following custom id & class on button.", "WUSPSC")).'</td>
+<th scope="row">'. __("Custom buttons", "WUSPSC").'</th>
+<td><input type="checkbox" name="use_custom_button" value="1" '.$useCustomButton.'><br>'. __(" If ticked, use following custom id & class on button.", "WUSPSC").'</td>
 </tr>
 <tr valign="top">
-<th scope="row">'.( __("Add to Cart button text", "WUSPSC")).'</th>
-<td><input type="text" name="addToCartButtonName" value="'.$addcart_button_name.'" size="100" /><br />'.( __("To use a customized 'add to cart' button text, fill with a text or leave empty for using image as button background. Don't forget to add background-image to your theme's style.", "WUSPSC")).'</td>
+<th scope="row">'. __("Add to Cart button text", "WUSPSC").'</th>
+<td><input type="text" name="addToCartButtonName" value="'.$addcart_button_name.'" size="100"><br>'. __("To use a customized 'add to cart' button text, fill with a text or leave empty for using image as button background. Don't forget to add background-image to your theme's style.", "WUSPSC").'</td>
 </tr>
 <tr valign="top">
-<th scope="row">'.( __("Cart button id & class name (without the dash or dot)", "WUSPSC")).'</th>
-<td><input type="text" name="add_cartstyle" value="'.$add_cartstyle.'" size="40" /></td>
+<th scope="row">'. __("Cart button id & class name (without the dash or dot)", "WUSPSC").'</th>
+<td><input type="text" name="add_cartstyle" value="'.$add_cartstyle.'" size="40"></td>
 </tr>
 <tr valign="top">
-<th scope="row">'.( __("Checkout button text", "WUSPSC")).'</th>
-<td><input type="text" name="checkoutButtonName" value="'.$checkout_button_name.'" size="100" /><br />'.( __("To use a customized 'checkout' button text, fill with a text or leave empty for using image as button background. Don't forget to add background-image to your theme's style.", "WUSPSC")).'</td>
+<th scope="row">'. __("Checkout button text", "WUSPSC").'</th>
+<td><input type="text" name="checkoutButtonName" value="'.$checkout_button_name.'" size="100"><br>'. __("To use a customized 'checkout' button text, fill with a text or leave empty for using image as button background. Don't forget to add background-image to your theme's style.", "WUSPSC").'</td>
 </tr>
 <tr valign="top">
-<th scope="row">'.( __("Checkout button id & class name (without the dash or dot)", "WUSPSC")).'</th>
-<td><input type="text" name="checkout_style" value="'.$checkout_style.'" size="40" /></td>
-</tr>
-
-<tr valign="top">
-<th scope="row">'.( __("Display product name", "WUSPSC")).'</th>
-<td><input type="checkbox" name="display_product_name" value="1" '.$display_product_name.' />'.( __(" If ticked, display the product's name, otherwise hide it", "WUSPSC")).'</td>
+<th scope="row">'. __("Checkout button id & class name (without the dash or dot)", "WUSPSC").'</th>
+<td><input type="text" name="checkout_style" value="'.$checkout_style.'" size="40"></td>
 </tr>
 
 <tr valign="top">
-<th scope="row">'.( __("Display Product Options Inline", "WUSPSC")).'</th>
-<td><input type="checkbox" name="display_product_inline" value="1" '.$display_product_inline.' />'.( __(" If ticked, display the product input without line break, otherwise it display each input to a new line.", "WUSPSC")).'</td>
+<th scope="row">'. __("Display product name", "WUSPSC").'</th>
+<td><input type="checkbox" name="display_product_name" value="1" '.$display_product_name.'>'. __(" If ticked, display the product's name, otherwise hide it", "WUSPSC").'</td>
 </tr>
 
 <tr valign="top">
-<th scope="row">'.( __("Display quantity field", "WUSPSC")).'</th>
-<td><input type="checkbox" name="display_quantity" value="1" '.$display_quantity.' />'.( __(" If ticked, display the quantity field to choose quantity before add to cart, otherwise quantity is 1.", "WUSPSC")).'</td>
+<th scope="row">'. __("Display Product Options Inline", "WUSPSC").'</th>
+<td><input type="checkbox" name="display_product_inline" value="1" '.$display_product_inline.'>'. __(" If ticked, display the product input without line break, otherwise it display each input to a new line.", "WUSPSC").'</td>
 </tr>
 
 <tr valign="top">
-<th scope="row">'.( __("Products Page URL", "WUSPSC")).'</th>
-<td><input type="text" name="cart_products_page_url" value="'.$cart_products_page_url.'" size="100" /><br />'.( __("This is the URL of your products page if you have any. If used, the shopping cart widget will display a link to this page when cart is empty", "WUSPSC")).'</td>
+<th scope="row">'. __("Display quantity field", "WUSPSC").'</th>
+<td><input type="checkbox" name="display_quantity" value="1" '.$display_quantity.'>'. __(" If ticked, display the quantity field to choose quantity before add to cart, otherwise quantity is 1.", "WUSPSC").'</td>
 </tr>
 
 <tr valign="top">
-<th scope="row">'.( __('Display Products URL in cart', "WUSPSC")).'</th>
-<td><input type="checkbox" name="wpus_display_link_in_cart" value="1" '.$wpus_display_link_in_cart.' />'.( __("If ticked, the product's link will not be display in cart. Activate it if you are using a page or a post for each product.", "WUSPSC")).'</td>
+<th scope="row">'. __("Products Page URL", "WUSPSC").'</th>
+<td><input type="text" name="cart_products_page_url" value="'.$cart_products_page_url.'" size="100"><br>'. __("This is the URL of your products page if you have any. If used, the shopping cart widget will display a link to this page when cart is empty", "WUSPSC").'</td>
 </tr>
 
 <tr valign="top">
-<th scope="row">'.( __('Display thumbnail in cart', "WUSPSC")).'</th>
-<td><input type="checkbox" name="wpus_display_thumbnail_in_cart" value="1" '.$wpus_display_thumbnail_in_cart.' />'.( __("If ticked, the product's thumbnail will not be display in cart. Activate it if you are using a page or a post for each product.", "WUSPSC")).'</td>
+<th scope="row">'. __('Display Products URL in cart', "WUSPSC").'</th>
+<td><input type="checkbox" name="wpus_display_link_in_cart" value="1" '.$wpus_display_link_in_cart.'>'. __("If ticked, the product's link will not be display in cart. Activate it if you are using a page or a post for each product.", "WUSPSC").'</td>
 </tr>
 
 <tr valign="top">
-<th scope="row">'.( __('Thumbnail size', "WUSPSC")).'</th>
-<td><input type="text" size="4" name="wpus_thumbnail_in_cart_width" value="'.$wpus_thumbnail_in_cart_width.'" /> px / <input type="text" size="4" name="wpus_thumbnail_in_cart_height" value="'.$wpus_thumbnail_in_cart_height.'" /> px '.( __("Size in pixel of product's thumbnail display in cart. Displayed if product's thumbnail are activate and if you'r using a page or a post for each product.", "WUSPSC")).'</td>
+<th scope="row">'. __('Display thumbnail in cart', "WUSPSC").'</th>
+<td><input type="checkbox" name="wpus_display_thumbnail_in_cart" value="1" '.$wpus_display_thumbnail_in_cart.'>'. __("If ticked, the product's thumbnail will not be display in cart. Activate it if you are using a page or a post for each product.", "WUSPSC").'</td>
 </tr>
 
 <tr valign="top">
-<th scope="row">'.( __('Hide "Cart Empty" message', "WUSPSC")).'</th>
-<td><input type="checkbox" name="wpus_shopping_cart_empty_hide" value="1" '.$wp_cart_empty_hide.' /><br />'.( __("If ticked, the shopping cart empty message on page/post or widget will not be display.", "WUSPSC")).'</td>
+<th scope="row">'. __('Thumbnail size', "WUSPSC").'</th>
+<td><input type="text" size="4" name="wpus_thumbnail_in_cart_width" value="'.$wpus_thumbnail_in_cart_width.'"> px / <input type="text" size="4" name="wpus_thumbnail_in_cart_height" value="'.$wpus_thumbnail_in_cart_height.'"> px '. __("Size in pixel of product's thumbnail display in cart. Displayed if product's thumbnail are activate and if you'r using a page or a post for each product.", "WUSPSC").'</td>
 </tr>
 
 <tr valign="top">
-<th scope="row">'.( __('Hide items count display message', "WUSPSC")).'</th>
-<td><input type="checkbox" name="wpus_shopping_cart_items_in_cart_hide" value="1" '.$wpus_shopping_cart_items_in_cart_hide.' /><br />'.( __("If ticked, the items in cart count message on page/post or widget will not be display.", "WUSPSC")).'</td>
+<th scope="row">'. __('Hide "Cart Empty" message', "WUSPSC").'</th>
+<td><input type="checkbox" name="wpus_shopping_cart_empty_hide" value="1" '.$wp_cart_empty_hide.'><br>'. __("If ticked, the shopping cart empty message on page/post or widget will not be display.", "WUSPSC").'</td>
 </tr>
 
 <tr valign="top">
-<th scope="row">'.( __("Hide Shopping Cart Image", "WUSPSC")).'</th>
-<td><input type="checkbox" name="wpus_shopping_cart_image_hide" value="1" '.$wp_cart_image_hide.' /><br />'.( __("If ticked the shopping cart image will not be shown.", "WUSPSC")).'</td>
+<th scope="row">'. __('Hide items count display message', "WUSPSC").'</th>
+<td><input type="checkbox" name="wpus_shopping_cart_items_in_cart_hide" value="1" '.$wpus_shopping_cart_items_in_cart_hide.'><br>'. __("If ticked, the items in cart count message on page/post or widget will not be display.", "WUSPSC").'</td>
 </tr>
 
 <tr valign="top">
-<th scope="row">'.( __("Shopping Cart title", "WUSPSC")).'</th>
-<td><input type="text" name="wp_cart_title" value="'.$title.'" size="40" /></td>
+<th scope="row">'. __("Hide Shopping Cart Image", "WUSPSC").'</th>
+<td><input type="checkbox" name="wpus_shopping_cart_image_hide" value="1" '.$wp_cart_image_hide.'><br>'. __("If ticked the shopping cart image will not be shown.", "WUSPSC").'</td>
+</tr>
+
+'.$qtranstalex_msg.'
+
+<tr valign="top">
+<th scope="row">'. __("Shopping Cart title", "WUSPSC").'</th>
+<td><input type="text" name="wp_cart_title" value="'.$title.'" size="40"></td>
 </tr>
 
 <tr valign="top">
-<th scope="row">'.( __("Text/Image to Show When Cart Empty", "WUSPSC")).'</th>
-<td><input type="text" name="wp_cart_empty_text" value="'.$emptyCartText.'" size="60" /><br />'.( __("You can either enter plain text or the URL of an image that you want to show when the shopping cart is empty", "WUSPSC")).'</td>
+<th scope="row">'. __("Text/Image to Show When Cart Empty", "WUSPSC").'</th>
+<td><input type="text" name="wp_cart_empty_text" value="'.$emptyCartText.'" size="60"><br>'. __("You can either enter plain text or the URL of an image that you want to show when the shopping cart is empty", "WUSPSC").'</td>
 </tr>
 
 <tr valign="top">
-<th scope="row">'.( __('Singular "product in your cart" text', "WUSPSC")).'</th>
-<td><input type="text" name="singular_items_text" value="'.$singular_items_text.'" size="40" /></td>
+<th scope="row">'. __('Singular "product in your cart" text', "WUSPSC").'</th>
+<td><input type="text" name="singular_items_text" value="'.$singular_items_text.'" size="40"></td>
 </tr>
 <tr valign="top">
-<th scope="row">'.( __('Plural "products in your cart" text', "WUSPSC")).'</th>
-<td><input type="text" name="plural_items_text" value="'.$plural_items_text.'" size="40" /></td>
-</tr>
-
-<tr valign="top">
-<th scope="row">'.( __("Subtotal text", "WUSPSC")).'</th>
-<td><input type="text" name="subtotal_text" value="'.$subtotal_text.'" size="40" /></td>
-</tr>
-<tr valign="top">
-<th scope="row">'.( __("Shipping text", "WUSPSC")).'</th>
-<td><input type="text" name="shipping_text" value="'.$shipping_text.'" size="40" /></td>
-</tr>
-<tr valign="top">
-<th scope="row">'.( __("Total text", "WUSPSC")).'</th>
-<td><input type="text" name="total_text" value="'.$total_text.'" size="40" /></td>
-</tr>
-<tr valign="top">
-<th scope="row">'.( __("Item name text", "WUSPSC")).'</th>
-<td><input type="text" name="item_name_text" value="'.$item_name_text.'" size="40" /></td>
-</tr>
-<tr valign="top">
-<th scope="row">'.( __("Quantity text", "WUSPSC")).'</th>
-<td><input type="text" name="qualtity_text" value="'.$qualtity_text.'" size="40" /></td>
-</tr>
-<tr valign="top">
-<th scope="row">'.( __("Price text", "WUSPSC")).'</th>
-<td><input type="text" name="price_text" value="'.$price_text.'" size="40" /></td>
-</tr>
-<tr valign="top">
-<th scope="row">'.( __("Item count text", "WUSPSC")).'</th>
-<td><input type="text" name="item_qty_string" value="'.$itemQtyString.'" size="40" /></td>
-</tr>
-<tr valign="top">
-<th scope="row">'.( __("No item in cart text", "WUSPSC")).'</th>
-<td><input type="text" name="no_item_in_cart_string" value="'.$noItemInCartString.'" size="40" /></td>
-</tr>
-<tr valign="top">
-<th scope="row">'.( __("Remove text", "WUSPSC")).'</th>
-<td><input type="text" name="remove_text" value="'.$remove_text.'" size="40" /></td>
-</tr>
-<tr valign="top">
-<th scope="row">'.( __("Products page URL title", "WUSPSC")).'</th>
-<td><input type="text" name="wp_cart_visit_shop_text" value="'.$wp_cart_visit_shop_text.'" size="100" /></td>
+<th scope="row">'. __('Plural "products in your cart" text', "WUSPSC").'</th>
+<td><input type="text" name="plural_items_text" value="'.$plural_items_text.'" size="40"></td>
 </tr>
 
 <tr valign="top">
-<th scope="row">'.( __("Return URL", "WUSPSC")).'</th>
-<td><input type="text" name="cart_return_from_paypal_url" value="'.$return_url.'" size="100" /><br />'.( __("This is the URL the customer will be redirected to after a successful payment", "WUSPSC")).'</td>
+<th scope="row">'. __("Subtotal text", "WUSPSC").'</th>
+<td><input type="text" name="subtotal_text" value="'.$subtotal_text.'" size="40"></td>
+</tr>
+<tr valign="top">
+<th scope="row">'. __("Shipping text", "WUSPSC").'</th>
+<td><input type="text" name="shipping_text" value="'.$shipping_text.'" size="40"></td>
+</tr>
+<tr valign="top">
+<th scope="row">'. __("Total text", "WUSPSC").'</th>
+<td><input type="text" name="total_text" value="'.$total_text.'" size="40"></td>
+</tr>
+<tr valign="top">
+<th scope="row">'. __("Item name text", "WUSPSC").'</th>
+<td><input type="text" name="item_name_text" value="'.$item_name_text.'" size="40"></td>
+</tr>
+<tr valign="top">
+<th scope="row">'. __("Quantity text", "WUSPSC").'</th>
+<td><input type="text" name="qualtity_text" value="'.$qualtity_text.'" size="40"></td>
+</tr>
+<tr valign="top">
+<th scope="row">'. __("Price text", "WUSPSC").'</th>
+<td><input type="text" name="price_text" value="'.$price_text.'" size="40"></td>
+</tr>
+<tr valign="top">
+<th scope="row">'. __("Item count text", "WUSPSC").'</th>
+<td><input type="text" name="item_qty_string" value="'.$itemQtyString.'" size="40"></td>
+</tr>
+<tr valign="top">
+<th scope="row">'. __("No item in cart text", "WUSPSC").'</th>
+<td><input type="text" name="no_item_in_cart_string" value="'.$noItemInCartString.'" size="40"></td>
+</tr>
+<tr valign="top">
+<th scope="row">'. __("Remove text", "WUSPSC").'</th>
+<td><input type="text" name="remove_text" value="'.$remove_text.'" size="40"></td>
+</tr>
+<tr valign="top">
+<th scope="row">'. __("Products page URL title", "WUSPSC").'</th>
+<td><input type="text" name="wp_cart_visit_shop_text" value="'.$wp_cart_visit_shop_text.'" size="100"></td>
 </tr>
 
 <tr valign="top">
-<th scope="row">'.( __("Automatic redirection to checkout page", "WUSPSC")).'</th>
-<td><input type="checkbox" name="wpus_shopping_cart_auto_redirect_to_checkout_page" value="1" '.$wpus_shopping_cart_auto_redirect_to_checkout_page.' />
- '.( __("Checkout Page URL", "WUSPSC")).': <input type="text" name="cart_checkout_page_url" value="'.$cart_checkout_page_url.'" size="60" />
-<br />'.( __("If checked the visitor will be redirected to the Checkout page after a product is added to the cart. You must enter a URL in the Checkout Page URL field for this to work.", "WUSPSC")).'</td>
+<th scope="row">'. __("Return URL", "WUSPSC").'</th>
+<td><input type="text" name="cart_return_from_paypal_url" value="'.$return_url.'" size="100"><br>'. __("This is the URL the customer will be redirected to after a successful payment", "WUSPSC").'</td>
 </tr>
 
 <tr valign="top">
-<th scope="row">'.( __("Reset Cart After Redirection to Return Page", "WUSPSC")).'</th>
-<td><input type="checkbox" name="wpus_shopping_cart_reset_after_redirection_to_return_page" value="1" '.$wpus_shopping_cart_reset_after_redirection_to_return_page.' />
-<br />'.( __("If checked the shopping cart will be reset when the customer lands on the return URL (Thank You) page.", "WUSPSC")).'</td>
+<th scope="row">'. __("Automatic redirection to checkout page", "WUSPSC").'</th>
+<td><input type="checkbox" name="wpus_shopping_cart_auto_redirect_to_checkout_page" value="1" '.$wpus_shopping_cart_auto_redirect_to_checkout_page.'>
+ '. __("Checkout Page URL", "WUSPSC").': <input type="text" name="cart_checkout_page_url" value="'.$cart_checkout_page_url.'" size="60">
+<br>'. __("If checked the visitor will be redirected to the Checkout page after a product is added to the cart. You must enter a URL in the Checkout Page URL field for this to work.", "WUSPSC").'</td>
 </tr>
 
 <tr valign="top">
-<th scope="row">'.( __("3 steps cart form URL", "WUSPSC")).'</th>
-<td><input type="text" name="cart_validate_url" value="'.$cart_validate_url.'" size="100" /><p>'.( __("Configure this URL if you like to have a form as step 2, before the final paypal cart (use [validate_wp_shopping_cart] shortcod on th first step cart page). Leave empty if you not need this.", "WUSPSC")).'<br/>
-	'.( __('You can install and use <a href="https://wordpress.org/plugins/contact-form-7/" target="_blank">Contact form 7</a> for example and set your form with the following informations.', "WUSPSC")).':
+<th scope="row">'. __("Reset Cart After Redirection to Return Page", "WUSPSC").'</th>
+<td><input type="checkbox" name="wpus_shopping_cart_reset_after_redirection_to_return_page" value="1" '.$wpus_shopping_cart_reset_after_redirection_to_return_page.'>
+<br>'. __("If checked the shopping cart will be reset when the customer lands on the return URL (Thank You) page.", "WUSPSC").'</td>
+</tr>
+
+<tr valign="top">
+<th scope="row">'. __("3 steps cart form URL", "WUSPSC").'</th>
+<td><input type="text" name="cart_validate_url" value="'.$cart_validate_url.'" size="100"><p>'. __("Configure this URL if you like to have a form as step 2, before the final paypal cart (use [validate_wp_shopping_cart] shortcod on th first step cart page). Leave empty if you not need this.", "WUSPSC").'<br/>
+	'. __('You can install and use <a href="https://wordpress.org/plugins/contact-form-7/" target="_blank">Contact form 7</a> for example and set your form with the following informations.', "WUSPSC").':
 	<ol>
-		<li>'.( __('Go to edit your form', "WUSPSC")).',</li>
-		<li>'.( __('Scroll down and go to "Additional Settings" text area', "WUSPSC")).',</li>
-		<li>'.( __("Paste => on_sent_ok: \"location = 'http://example.com/mycart';\" (replace http://example.com/mycart by your own URL) ", "WUSPSC")).',</li>
-		<li>'.( __("And create http://example.com/mycart page if not existing, plus past [show_wp_shopping_cart] shortcode", "WUSPSC")).'</li>
+		<li>'. __('Go to edit your form', "WUSPSC").',</li>
+		<li>'. __('Scroll down and go to "Additional Settings" text area', "WUSPSC").',</li>
+		<li>'. __("Paste => on_sent_ok: \"location = 'http://example.com/mycart';\" (replace http://example.com/mycart by your own URL) ", "WUSPSC").',</li>
+		<li>'. __("And create http://example.com/mycart page if not existing, plus past [show_wp_shopping_cart] shortcode", "WUSPSC").'</li>
 	</ol>
-	'.( __("This will permit to receive user's input before go on paypal final's validation.", "WUSPSC")).'<br/>
-	'.( __("The customer will be redirected to cart with paypal button after successful form submit", "WUSPSC")).'</p>
+	'. __("This will permit to receive user's input before go on paypal final's validation.", "WUSPSC").'<br/>
+	'. __("The customer will be redirected to cart with paypal button after successful form submit", "WUSPSC").'</p>
 	</td>
 </tr>
 
@@ -676,17 +682,17 @@ echo '<div id="tabs-4">
 
 </div>
 	<div class="submit">
-		<input type="submit" class="button-primary" name="info_update" value="'.( __("Update Options &raquo;", "WUSPSC")).'" />
+		<input type="submit" class="button-primary" name="info_update" value="'. __("Update Options &raquo;", "WUSPSC").'">
 	</div>
  </form>
  </div>
 </div>';
 
-  echo ( __("Like the WP Ultra Simple Paypal Shopping Cart Plugin?", "WUSPSC")).' <a href="http://wordpress.org/extend/plugins/wp-ultra-simple-paypal-shopping-cart/" target="_blank">'.( __("Give it a good rating", "WUSPSC")).'</a>';
+  echo  __("Like the WP Ultra Simple Paypal Shopping Cart Plugin?", "WUSPSC").' <a href="https://wordpress.org/plugins/wp-ultra-simple-paypal-shopping-cart/" target="_blank">'. __("Give it a good rating", "WUSPSC").'</a>';
 }
 
 function wp_cart_options() {
-	 echo '<div class="wrap"><h2>'.( __("WP Ultra simple Paypal Cart Options", "WUSPSC")).'</h2>';
+	 echo '<div class="wrap"><h2>'. __("WP Ultra simple Paypal Cart Options", "WUSPSC").'</h2>';
 	 echo '<div id="poststuff"><div id="post-body">';
 	 show_wp_cart_options_page();
 	 echo '</div></div>';
