@@ -445,7 +445,7 @@ echo '<div id="tabs-4">
 
 <?php
 #qtranslate warning message
-if (function_exists('qtrans_getLanguage')) { $qtransup = '<div class="ui-widget"><div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;"><p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>'.__("<strong>You are using qTranslate or qTranslate-X</strong> if you like to customise the followings strings, please fill the following fields with the qTranslate syntax.", "WUSPSC")."<br>".__("Eg", "WUSPSC")." : [:en]Sub-total[:fr]Sous-total[:de]Zwischensumme[:es]Total parcial".'</p></div></div>'; $qtranstalex_msg = '<tr valign="top"><td colspan="2">'.$qtransup.'</td></tr>'; } else {$qtranstalex_msg = "";}
+if ( function_exists('qtrans_getLanguage') || function_exists('qtranxf_getLanguage') ) { $qtransup = '<div class="ui-widget"><div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;"><p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>'.__("<strong>You are using qTranslate or qTranslate-X</strong> if you like to customise the followings strings, please fill the following fields with the qTranslate syntax.", "WUSPSC")."<br>".__("Eg", "WUSPSC")." : [:en]Sub-total[:fr]Sous-total[:de]Zwischensumme[:es]Total parcial".'</p></div></div>'; $qtranstalex_msg = '<tr valign="top"><td colspan="2">'.$qtransup.'</td></tr>'; } else {$qtranstalex_msg = "";}
 
 echo '
 <div class="inside">
