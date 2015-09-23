@@ -1,7 +1,7 @@
 <?php
 /*
 Ultra Prod WPUSSC Admin Options
-Version: v1.4.2
+Version: v1.4.3
 */
 /*
 	This program is free software; you can redistribute it
@@ -43,6 +43,7 @@ add_option('total_text',					__('Total', "WUSPSC"));
 add_option('item_name_text',				__('Item Name', "WUSPSC"));
 add_option('qualtity_text',					__('Quantity', "WUSPSC"));
 add_option('price_text',					__('Price', "WUSPSC"));
+add_option('vat_text',						__('VAT', "WUSPSC"));
 add_option('remove_text',					__("Remove", "WUSPSC"));
 add_option('add_cartstyle',					'');
 add_option('cart_currency_symbol_order',	'1');
@@ -107,9 +108,10 @@ function show_wp_cart_options_page () {
 		update_option('item_name_text', (string)$_POST["item_name_text"]);
 		update_option('qualtity_text', (string)$_POST["qualtity_text"]);
 		update_option('price_text', (string)$_POST["price_text"]);
+		update_option('vat_text', (string)$_POST["vat_text"]);
 		update_option('item_name_text', (string)$_POST["item_name_text"]);
 		update_option('qualtity_text', (string)$_POST["qualtity_text"]);
-		update_option('price_text', (string)$_POST["price_text"]);
+		update_option('vat_text', (string)$_POST["vat_text"]);
 		update_option('remove_text', (string)$_POST["remove_text"]);
 
 		// wpusc_cart_item_qty() string
@@ -230,6 +232,7 @@ function show_wp_cart_options_page () {
 	$item_name_text = get_option('item_name_text');
 	$qualtity_text = get_option('qualtity_text');
 	$price_text = get_option('price_text');
+	$vat_text = get_option('vat_text');
 	$remove_text = get_option('remove_text');
 
 	$wpus_shopping_cart_reset_after_redirection_to_return_page = (get_option('wpus_shopping_cart_reset_after_redirection_to_return_page'))? 'checked="checked"': '';
@@ -627,6 +630,10 @@ echo '
 <tr valign="top">
 <th scope="row">'. __("Price text", "WUSPSC").'</th>
 <td><input type="text" name="price_text" value="'.$price_text.'" size="40"></td>
+</tr>
+<tr valign="top">
+<th scope="row">'. __("VAT text", "WUSPSC").'</th>
+<td><input type="text" name="vat_text" value="'.$vat_text.'" size="40"></td>
 </tr>
 <tr valign="top">
 <th scope="row">'. __("Item count text", "WUSPSC").'</th>

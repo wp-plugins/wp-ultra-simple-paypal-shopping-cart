@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Ultra simple Paypal Cart
-Version: v4.3.8.8
+Version: v4.3.8.9
 Plugin URI: https://www.ultra-prod.com/?p=86
 Author: Mike Castro Demaria, Franck Maussand
 Author URI: https://www.ultra-prod.com
@@ -428,10 +428,11 @@ function print_wpus_shopping_cart( $step="paypal", $type="page") {
 		if( !empty($display_vat) && is_numeric($display_vat) ) {
 
 			$vat = ( ( $total - $postage_cost ) * $display_vat) / 100;
+			$vat_text = get_option('vat_text');
 
 			$output .= "
 			<tr id=\"vatrow\" class=\"vatrow\">
-				<td colspan=\"2\" class=\"vatcell vatlabel\">".__("VAT", "WUSPSC")." (".$display_vat."%): </td>
+				<td colspan=\"2\" class=\"vatcell vatlabel\">".$vat_text." (".$display_vat."%): </td>
 				<td colspan=\"2\" class=\"vatcell left vatamount\">".print_payment_currency($total_vat, $paypal_symbol, $decimal, get_option('cart_currency_symbol_order'))."</td></tr>";
 
 			$total = $total+$total_vat;

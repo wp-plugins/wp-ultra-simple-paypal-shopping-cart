@@ -3,7 +3,7 @@ Contributors: mikecastrodemaria , franckmaussand
 Donate link: http://www.ultra-prod.com/?p=86
 Tags: WordPress shopping cart, Paypal shopping cart, online shop, shopping cart, wordpress ecommerce, sell products, e-commerce, PayPal cart widget
 Requires at least: 2.6
-Tested up to: 4.2.4
+Tested up to: 4.3.1
 Stable tag: trunk
 License: GPLv2 or later
 
@@ -202,3 +202,5 @@ Keyword list :
 * Add feature : Shipping fee is added only once, or per quantities.
 = V4.3.8.8 =
 * I18n correction and links update
+= V4.3.8.9 =
+* add VAT/tax display custom string
